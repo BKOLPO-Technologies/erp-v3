@@ -22,14 +22,25 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+    public function store(LoginRequest $request): RedirectResponse{
+        try {
+            // Try authenticating the user
+            $request->authenticate();
 
-        $request->session()->regenerate();
+            // Regenerate session to prevent session fixation attacks
+            $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            // Redirect to the admin dashboard with a success message
+            return redirect()->intended(route('accounts.dashboard', absolute: false))
+                ->with('success', 'Admin Login Successfully');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // If authentication fails, return back with an error message
+            return redirect()->back()
+                ->withInput($request->only('email', 'remember'))
+                ->with(['error' => 'These credentials do not match our records.']);
+        }
     }
+
 
     /**
      * Destroy an authenticated session.
@@ -42,6 +53,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login')->with('success','Admin Logout Successfully');;
     }
 }
