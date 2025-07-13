@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\LedgerGroup;
-use App\Models\LedgerSubGroup;
+use App\Models\Accounts\LedgerGroup;
+use App\Models\Accounts\LedgerSubGroup;
 use Carbon\Carbon;
 
 class LedgerSubGroupSeeder extends Seeder

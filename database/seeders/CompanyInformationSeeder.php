@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Auth;
-use App\Models\CompanyInformation;
+use App\Models\Accounts\CompanyInformation;
 
 class CompanyInformationSeeder extends Seeder
 {

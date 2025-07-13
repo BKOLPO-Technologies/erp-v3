@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Unit;
-use App\Models\Project; // Ensure you import the Project model
-use App\Models\ProjectItem; // Ensure you import the ProjectItem model
+use App\Models\Accounts\Unit;
+use App\Models\Accounts\Project; // Ensure you import the Project model
+use App\Models\Accounts\ProjectItem; // Ensure you import the ProjectItem model
 use Illuminate\Database\Seeder;
 
 class ProjectsSeeder extends Seeder

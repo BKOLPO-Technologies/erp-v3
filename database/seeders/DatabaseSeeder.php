@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             CompanySeeder::class,
             ProjectsSeeder::class,
+            LeaveTypeSeeder::class,
+            ShiftSeeder::class,
+            TadaTypeSeeder::class,
             // Add other seeders here 
         ]);
 

@@ -143,7 +143,7 @@
 
         </li>
         <!-- =================== End Accounts Main Menu =================== -->
-
+        
         <!-- accounts -->
        <li class="nav-item {{ $isProjectActive ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ $isProjectActive ? 'active' : '' }}">

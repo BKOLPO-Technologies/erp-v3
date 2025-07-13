@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Branch;
+use App\Models\Accounts\Branch;
 
 class BranchSeeder extends Seeder
 {

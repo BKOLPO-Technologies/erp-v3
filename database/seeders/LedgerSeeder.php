@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\LedgerGroup;
-use App\Models\LedgerSubGroup;
-use App\Models\Ledger;
-use App\Models\LedgerGroupSubgroupLedger;
+use App\Models\Accounts\LedgerGroup;
+use App\Models\Accounts\LedgerSubGroup;
+use App\Models\Accounts\Ledger;
+use App\Models\Accounts\LedgerGroupSubgroupLedger;
 use Illuminate\Support\Facades\Auth;
 
 class LedgerSeeder extends Seeder
