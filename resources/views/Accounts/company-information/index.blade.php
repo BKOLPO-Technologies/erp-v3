@@ -26,7 +26,7 @@
                                 <h3 class="card-title">Configuration</h3>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('company-information.update', $company->id) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('accounts.company-information.update', $company->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-6">

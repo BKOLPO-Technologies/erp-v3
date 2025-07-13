@@ -40,7 +40,7 @@
                                                     <!-- <a data-toggle="modal" data-target="#importModal" class="btn btn-info">
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a> -->
-                                                    <a href="{{ route('company-information.ledgerGroupExport') }}" class="btn btn-info">
+                                                    <a href="{{ route('accounts.company-information.ledgerGroupExport') }}" class="btn btn-info">
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a>
                                                 </div>
@@ -55,7 +55,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form method="POST" action="{{ route('ledger.group.import') }}" enctype="multipart/form-data">
+                                                                <form method="POST" action="{{ route('accounts.ledger.group.import') }}" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <label for="file-upload">Choose File</label>
@@ -98,7 +98,7 @@
                                                     <!-- <a data-toggle="modal" data-target="#importModal1" class="btn btn-info">
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a> -->
-                                                    <a href="{{ route('company-information.ledgerExport') }}" class="btn btn-info">
+                                                    <a href="{{ route('accounts.company-information.ledgerExport') }}" class="btn btn-info">
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a>
                                                 </div>
@@ -109,7 +109,7 @@
                                                             <div class="modal-header bg-success d-flex justify-content-between align-items-center w-100">
                                                                 <h5 class="modal-title" id="importModalLabel">Export Ledger</h5>
                                                                 <div class="d-flex align-items-center">
-                                                                    <a href="{{ route('ledger.import.format') }}" class="btn btn-warning btn-sm mx-3">
+                                                                    <a href="{{ route('accounts.ledger.import.format') }}" class="btn btn-warning btn-sm mx-3">
                                                                         <i class="fas fa-download"></i> Download Format
                                                                     </a>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff;">
@@ -118,7 +118,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form method="POST" action="{{ route('ledger.import') }}" enctype="multipart/form-data">
+                                                                <form method="POST" action="{{ route('accounts.ledger.import') }}" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <label for="file-upload">Choose File</label>
@@ -161,7 +161,7 @@
                                                     <!-- <a data-toggle="modal" data-target="#importModal2" class="btn btn-info"> 
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a> -->
-                                                    <a href="{{ route('company-information.journalExport') }}" class="btn btn-info">
+                                                    <a href="{{ route('accounts.company-information.journalExport') }}" class="btn btn-info">
                                                         <i class="fas fa-upload mr-1"></i> Export Now
                                                     </a>
                                                 </div>

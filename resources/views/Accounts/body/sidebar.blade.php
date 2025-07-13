@@ -537,8 +537,8 @@
           </ul>
         </li>
 
-        <li class="nav-item {{ Route::is('company-information.index','company-information.import','company-information.export', 'accounts.category*', 'accounts.unit*') ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ Route::is('company-information.index','company-information.import','company-information.export', 'accounts.category*', 'accounts.unit*') ? 'active' : '' }}">
+        <li class="nav-item {{ Route::is('accounts.company-information.index','accounts.company-information.import','accounts.company-information.export', 'accounts.category*', 'accounts.unit*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Route::is('accounts.company-information.index','accounts.company-information.import','accounts.company-information.export', 'accounts.category*', 'accounts.unit*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Settings
@@ -572,7 +572,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('accounts.company-information.index') }}" class="nav-link {{ Route::is('company-information.index') ? 'active' : '' }}">
+              <a href="{{ route('accounts.company-information.index') }}" class="nav-link {{ Route::is('accounts.company-information.index') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Configuration</p> 
               </a>

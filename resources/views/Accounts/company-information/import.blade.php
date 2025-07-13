@@ -48,7 +48,7 @@
                                                             <div class="modal-header bg-success">
                                                                 <h5 class="modal-title" id="importModalLabel">Import Ledger Group</h5>
                                                                 <div class="d-flex align-items-center">
-                                                                    <a href="{{ route('ledger.group.import.format') }}" class="btn btn-warning btn-sm mx-3">
+                                                                    <a href="{{ route('accounts.ledger.group.import.format') }}" class="btn btn-warning btn-sm mx-3">
                                                                         <i class="fas fa-download"></i> Download Format
                                                                     </a>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff;">
@@ -57,7 +57,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form method="POST" action="{{ route('ledger.group.import') }}" enctype="multipart/form-data">
+                                                                <form method="POST" action="{{ route('accounts.ledger.group.import') }}" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <label for="file-upload">Choose File</label>
@@ -106,7 +106,7 @@
                                                             <div class="modal-header bg-success d-flex justify-content-between align-items-center w-100">
                                                                 <h5 class="modal-title" id="importModalLabel">Import Ledger</h5>
                                                                 <div class="d-flex align-items-center">
-                                                                    <a href="{{ route('ledger.import.format') }}" class="btn btn-warning btn-sm mx-3">
+                                                                    <a href="{{ route('accounts.ledger.import.format') }}" class="btn btn-warning btn-sm mx-3">
                                                                         <i class="fas fa-download"></i> Download Format
                                                                     </a>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#fff;">
@@ -115,7 +115,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form method="POST" action="{{ route('ledger.import') }}" enctype="multipart/form-data">
+                                                                <form method="POST" action="{{ route('accounts.ledger.import') }}" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <label for="file-upload">Choose File</label>
