@@ -114,7 +114,7 @@
                                                     @endcan
                                                     <!-- Edit Button -->
                                                     @can('ledger-edit')
-                                                    <a href="{{ route('ledger.edit', $ledger->id) }}" class="btn btn-primary btn-sm">
+                                                    <a href="{{ route('accounts.ledger.edit', $ledger->id) }}" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     @endcan

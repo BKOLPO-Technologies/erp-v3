@@ -35,7 +35,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
- 
+      @can('dashboard-menu')  
         <li class="nav-item menu-open">
           <a href="{{ route('accounts.dashboard') }}" class="nav-link {{ Route::is('accounts.dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -44,6 +44,7 @@
             </p>
           </a>
         </li>
+        @endcan
         <!-- =================== Start Accounts Main Menu =================== -->
         <li class="nav-item {{ $isAccountMasterActive ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ $isAccountMasterActive ? 'active' : '' }}">
@@ -55,8 +56,9 @@
           </a>
 
           <!-- === Chart of Accounts Submenu === -->
+          @can('ledger-menu')  
           <ul class="nav nav-treeview shadow-lg">
-            <li class="nav-item {{ Route::is('ledger.*', 'accounts.ledger.group.*', 'accounts.ledger.sub.group.*') ? 'menu-open' : '' }}">
+            <li class="nav-item {{ Route::is('accountsledger.*', 'accounts.ledger.group.*', 'accounts.ledger.sub.group.*') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ Route::is('ledger.*', 'accounts.ledger.group.*', 'accounts.ledger.sub.group.*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>
@@ -65,27 +67,32 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+                @can('ledger-group-menu')  
                 <li class="nav-item">
-                  <a href="{{ route('accounts.ledger.group.index') }}" class="nav-link {{ Route::is('ledger.group.*') ? 'active' : '' }}">
+                  <a href="{{ route('accounts.ledger.group.index') }}" class="nav-link {{ Route::is('accounts.ledger.group.*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Group List</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('accounts.ledger.sub.group.index') }}" class="nav-link {{ Route::is('ledger.sub.group.*') ? 'active' : '' }}">
+                  <a href="{{ route('accounts.ledger.sub.group.index') }}" class="nav-link {{ Route::is('accounts.ledger.sub.group.*') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Sub Group List</p>
                   </a>
                 </li>
+                @endcan
+                @can('ledger-menu')  
                 <li class="nav-item">
-                  <a href="{{ route('accounts.ledger.index') }}" class="nav-link {{ Route::is('ledger.index', 'ledger.create', 'ledger.edit', 'ledger.show') ? 'active' : '' }}">
+                  <a href="{{ route('accounts.ledger.index') }}" class="nav-link {{ Route::is('accounts.ledger.index', 'accounts.ledger.create', 'accounts.ledger.edit', 'accounts.ledger.show') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ledger List</p>
                   </a>
                 </li>
+                @endcan
               </ul>
             </li>
           </ul>
+          @endcan
           <!-- === End Chart of Accounts Submenu === -->
 
           <!-- === Customers === -->
@@ -386,6 +393,7 @@
 
 
         <!-- Report Menu -->
+        @can('report-menu')  
         <li class="nav-item {{ $isReportActive ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ $isReportActive ? 'active' : '' }}">
             <i class="nav-icon fas fa-chart-line"></i>
@@ -396,6 +404,7 @@
           </a>
           <ul class="nav nav-treeview">
             <!-- Accounts Submenu -->
+            @can('report-menu')  
             <li class="nav-item">
               <a href="{{ route('accounts.report.trial.balance') }}" class="nav-link {{ Route::is('accounts.report.trial.balance') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
@@ -462,12 +471,15 @@
                   <p>Purchase Report</p>
               </a>
             </li>
+            @endcan
           </ul>
         </li>
+        @endcan
 
         <!-- ---Company--- -->
-        <li class="nav-item {{ Route::is('company.index','company.create','company.edit','company.show','users.index','users.create','users.edit','users.show','roles.index','roles.create','roles.edit','roles.show') ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ Route::is('company.index','company.create','company.edit','company.show','users.index','users.create','users.edit','users.show','roles.index','roles.create','roles.edit','roles.show') ? 'active' : '' }}">
+        @can('company-menu')  
+        <li class="nav-item {{ Route::is('accounts.company.index','accounts.company.create','accounts.company.edit','accounts.company.show','accounts.users.index','accounts.users.create','accounts.users.edit','accounts.users.show','accounts.roles.index','accounts.roles.create','accounts.roles.edit','accounts.roles.show') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Route::is('accounts.company.index','accounts.company.create','accounts.company.edit','accounts.company.show','accounts.users.index','accounts.users.create','accounts.users.edit','accounts.users.show','accounts.roles.index','accounts.roles.create','accounts.roles.edit','accounts.roles.show') ? 'active' : '' }}">
             <i class="nav-icon fas fa-building"></i>
             <p>
               Company
@@ -475,29 +487,37 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            @can('company-list') 
             <li class="nav-item">
-              <a href="{{ route('accounts.company.index') }}" class="nav-link {{ Route::is('company.index','company.create','company.edit','company.show') ? 'active' : '' }}">
+              <a href="{{ route('accounts.company.index') }}" class="nav-link {{ Route::is('accounts.company.index','accounts.company.create','accounts.company.edit','accounts.company.show') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Company List</p>
               </a>
             </li> 
+            @endcan
+                 @can('user-menu')  
               <li class="nav-item">
-                <a href="{{ route('accounts.users.index') }}" class="nav-link {{ Route::is('users.index','users.create','users.edit','users.show') ? 'active' : '' }}">
+                <a href="{{ route('accounts.users.index') }}" class="nav-link {{ Route::is('accounts.users.index','accounts.users.create','accounts.users.edit','accounts.users.show') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>User List</p>
                 </a>
               </li>
+              @endcan
+              @can('role-list')
               <li class="nav-item">
-                <a href="{{ route('accounts.roles.index') }}" class="nav-link {{ Route::is('roles.index','roles.create','roles.edit','roles.show') ? 'active' : '' }}">
+                <a href="{{ route('accounts.roles.index') }}" class="nav-link {{ Route::is('accounts.roles.index','accounts.roles.create','accounts.roles.edit','accounts.roles.show') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Role List</p>
                 </a>
               </li>
+              @endcan
           </ul>
         </li>
+        @endcan
         <!-- End---Company -->
 
         <!-- ---Branch--- -->
+        @can('branch-menu')  
         <li class="nav-item {{ Route::is('accounts.branch.index', 'accounts.branch.create', 'accounts.branch.edit','accounts.branch.show') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Route::is('accounts.branch.index', 'accounts.branch.create', 'accounts.branch.edit','accounts.branch.show') ? 'active' : '' }}">
             <i class="nav-icon fas fa-project-diagram"></i>
@@ -507,14 +527,17 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            @can('branch-list')  
             <li class="nav-item">
               <a href="{{ route('accounts.branch.index') }}" class="nav-link {{ Route::is('accounts.branch.index') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Branch List</p>
               </a>
             </li>
+            @endcan
           </ul>
         </li>
+        @endcan
         <!-- End---Branch -->
 
         <!-- Product -->
@@ -537,6 +560,7 @@
           </ul>
         </li>
 
+        @can('setting-menu')  
         <li class="nav-item {{ Route::is('accounts.company-information.index','accounts.company-information.import','accounts.company-information.export', 'accounts.category*', 'accounts.unit*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Route::is('accounts.company-information.index','accounts.company-information.import','accounts.company-information.export', 'accounts.category*', 'accounts.unit*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
@@ -579,6 +603,7 @@
             </li>
           </ul>
         </li>
+        @endcan
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
