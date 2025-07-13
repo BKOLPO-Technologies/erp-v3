@@ -19,7 +19,7 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="container-fluid">
+    <div class="container">
         <section class="content p-4">
             <!-- Dashboard Card -->
             <div class="card card-outline card-primary shadow-lg">

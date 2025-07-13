@@ -1,6 +1,6 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Payment Method List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">

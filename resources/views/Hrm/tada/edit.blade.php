@@ -1,4 +1,4 @@
-@extends('layouts.admin', [$pageTitle => 'Edit TA/DA'])
+@extends('Hrm.layouts.admin', [$pageTitle => 'Edit TA/DA'])
 @section('admin')
 <div class="content-wrapper">
     <div class="content-header">
@@ -9,7 +9,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle }}</li>
               </ol>
             </div><!-- /.col -->
@@ -24,12 +24,12 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                                <a href="{{ route('ta-da.index') }}" class="btn btn-sm btn-danger rounded-0">
+                                <a href="{{ route('hrm.ta-da.index') }}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back to List TA/DA
                                 </a>
                             </div>
                         </div>
-                        <form action="{{ route('ta-da.update', $taDa->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('hrm.ta-da.update', $taDa->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="subtotal" id="hiddenSubtotal">
                             <input type="hidden" name="total" id="hiddenTotal">

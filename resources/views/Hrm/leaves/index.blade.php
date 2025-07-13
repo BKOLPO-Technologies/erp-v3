@@ -1,7 +1,7 @@
-@extends('layouts.admin', ['pageTitle' => 'Staff List'])
+@extends('Hrm.layouts.admin', ['pageTitle' => 'Staff List'])
 
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
       <div class="content-header">
         <div class="container-fluid">
@@ -11,7 +11,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
               </ol>
             </div><!-- /.col -->
@@ -26,7 +26,7 @@
                     <div class="card-header py-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                            <a href="{{ route('leaves.create') }}" class="btn btn-sm btn-success rounded-0">
+                            <a href="{{ route('hrm.leaves.create') }}" class="btn btn-sm btn-success rounded-0">
                                 <i class="fas fa-plus fa-sm"></i> Add Leave Application
                             </a>
                         </div>
@@ -63,17 +63,17 @@
                                         </td>
                                         <td>
                                             <!-- View Button -->
-                                            <a href="{{ route('leaves.show', $leaveApplication->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('hrm.leaves.show', $leaveApplication->id) }}" class="btn btn-success btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                             <!-- Edit Button -->
-                                            <a href="{{ route('leaves.edit', $leaveApplication->id) }}" class="btn btn-primary btn-sm">
+                                            <a href="{{ route('hrm.leaves.edit', $leaveApplication->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
                                             <!-- Delete Button -->
-                                            <a href="{{ route('leaves.delete', $leaveApplication->id) }}" id="delete" class="btn btn-danger btn-sm">
+                                            <a href="{{ route('hrm.leaves.delete', $leaveApplication->id) }}" id="delete" class="btn btn-danger btn-sm">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

@@ -1,7 +1,7 @@
-@extends('layouts.admin', ['pageTitle' => 'Salary List'])
+@extends('Hrm.layouts.admin', ['pageTitle' => 'Salary List'])
 
 @section('admin')
-<link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -11,7 +11,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
             <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
           </ol>
         </div><!-- /.col -->
@@ -26,14 +26,14 @@
             <div class="card-header py-2">
               <div class="d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                <a href="{{ route('salary.create') }}" class="btn btn-sm btn-success rounded-0">
+                <a href="{{ route('hrm.salary.create') }}" class="btn btn-sm btn-success rounded-0">
                   <i class="fas fa-plus fa-sm"></i> Add Salary
                 </a>
               </div>
             </div>
             <div class="card-body">
               <!-- Search Form -->
-              <form action="{{ route('salary.index') }}" method="GET">
+              <form action="{{ route('hrm.salary.index') }}" method="GET">
                 <div class="row mb-3 justify-content-center">
                   <div class="col-md-3">
                     <select name="month" class="form-control" required>
@@ -97,13 +97,13 @@
                         @endif
                       </td>
                       <td>
-                        <a href="{{ route('salary.show',$salary->id) }}" class="btn btn-success btn-sm">
+                        <a href="{{ route('hrm.salary.show',$salary->id) }}" class="btn btn-success btn-sm">
                           <i class="fas fa-eye"></i>
                         </a>
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#paymentModal{{$salary->id }}">
                           <i class="fas fa-dollar-sign"></i> Pay
                         </button>
-                        <a href="{{ route('salary.delete',$salary->id) }}" id="delete" class="btn btn-danger btn-sm">
+                        <a href="{{ route('hrm.salary.delete',$salary->id) }}" id="delete" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </a>
                       </td>
@@ -113,7 +113,7 @@
                     <div class="modal fade" id="paymentModal{{$salary->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                          <form action="{{ route('salary.updatePaymentStatus',$salary->id) }}" method="POST" id="paymentForm">
+                          <form action="{{ route('hrm.salary.updatePaymentStatus',$salary->id) }}" method="POST" id="paymentForm">
                             @csrf
                             <div class="modal-header">
                               <h5 class="modal-title" id="exampleModalLabel">Salary Payment</h5>

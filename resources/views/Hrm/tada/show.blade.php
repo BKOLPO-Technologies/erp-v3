@@ -1,4 +1,4 @@
-@extends('layouts.admin', [$pageTitle => 'TA/DA Details'])
+@extends('Hrm.layouts.admin', [$pageTitle => 'TA/DA Details'])
 
 @section('admin')
 <div class="content-wrapper">
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle }}</li>
               </ol>
             </div><!-- /.col -->
@@ -25,7 +25,7 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">Details of TA/DA: {{ $tada->user->name ?? 'N/A' }}</h4>
-                                <a href="{{ route('ta-da.index') }}" class="btn btn-sm btn-danger rounded-0">
+                                <a href="{{ route('hrm.ta-da.index') }}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
                             </div>

@@ -1,4 +1,4 @@
-@extends('layouts.admin', [$pageTitle => 'Edit Leave Application'])
+@extends('Hrm.layouts.admin', [$pageTitle => 'Edit Leave Application'])
 
 @section('admin')
 <div class="content-wrapper">
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle ?? 'N/A' }}</li>
               </ol>
             </div><!-- /.col -->
@@ -25,13 +25,13 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">{{ $pageTitle }}</h4>
-                                <a href="{{ route('leaves.index') }}" class="btn btn-sm btn-danger rounded-0">
+                                <a href="{{ route('hrm.leaves.index') }}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('leaves.update', $leaveApplication->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('hrm.leaves.update', $leaveApplication->id) }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">

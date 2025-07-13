@@ -1,4 +1,4 @@
-@extends('layouts.admin', [$pageTitle => 'TA/DA List'])
+@extends('Hrm.layouts.admin', [$pageTitle => 'TA/DA List'])
 
 @section('admin')
 <div class="content-wrapper">
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle }}</li>
               </ol>
             </div><!-- /.col -->
@@ -25,7 +25,7 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">{{ $pageTitle }}</h4>
-                                <a href="{{ route('ta-da.create') }}" class="btn btn-sm btn-success">
+                                <a href="{{ route('hrm.ta-da.create') }}" class="btn btn-sm btn-success">
                                     <i class="fa-solid fa-plus"></i> Add TA/DA
                                 </a>
                             </div>
@@ -51,17 +51,17 @@
                                                 <td>{{ number_format($ta->total, 2) }}</td>
                                                 <td>
                                                     <!-- View Button -->
-                                                    <a href="{{ route('ta-da.show',$ta->id)}}" class="btn btn-success btn-sm">
+                                                    <a href="{{ route('hrm.ta-da.show',$ta->id)}}" class="btn btn-success btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
 
                                                     <!-- Edit Button -->
-                                                    <a href="{{ route('ta-da.edit',$ta->id) }}" class="btn btn-primary btn-sm">
+                                                    <a href="{{ route('hrm.ta-da.edit',$ta->id) }}" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
                                                     <!-- Delete Button -->
-                                                    <a href="{{ route('ta-da.delete',$ta->id)}}" id="delete" class="btn btn-danger btn-sm">
+                                                    <a href="{{ route('hrm.ta-da.delete',$ta->id)}}" id="delete" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>

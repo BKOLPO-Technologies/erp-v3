@@ -1,7 +1,7 @@
-@extends('layouts.admin', ['pageTitle' => 'Activity List'])
+@extends('Hrm.layouts.admin', ['pageTitle' => 'Activity List'])
 
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
       <div class="content-header">
         <div class="container-fluid">
@@ -11,7 +11,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('hrm.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
               </ol>
             </div><!-- /.col -->
@@ -26,7 +26,7 @@
                     <div class="card-header py-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                            <a href="{{ route('activity.create') }}" class="btn btn-sm btn-success rounded-0">
+                            <a href="{{ route('hrm.activity.create') }}" class="btn btn-sm btn-success rounded-0">
                                 <i class="fas fa-plus fa-sm"></i> Add Activity
                             </a>
                         </div>
@@ -53,12 +53,12 @@
                                         <td>{{ $activity->location }}</td>
                                         <td>
                                             <!-- View Button -->
-                                            <a href="{{ route('activity.show', $activity->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('hrm.activity.show', $activity->id) }}" class="btn btn-success btn-sm">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                             <!-- Delete Button -->
-                                            <a href="{{ route('activity.delete', $activity->id) }}" id="delete" class="btn btn-danger btn-sm">
+                                            <a href="{{ route('hrm.activity.delete', $activity->id) }}" id="delete" class="btn btn-danger btn-sm">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

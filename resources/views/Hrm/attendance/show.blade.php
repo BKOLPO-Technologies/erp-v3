@@ -1,4 +1,4 @@
-@extends('layouts.admin', [$pageTitle => 'Leave Application Show'])
+@extends('Hrm.layouts.admin', [$pageTitle => 'Leave Application Show'])
 
 @section('admin')
 <div class="content-wrapper">
@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('accounts.dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
                     </ol>
                 </div><!-- /.col -->
@@ -26,7 +26,7 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                                <a href="{{ route('attendance.index') }}" class="btn btn-sm btn-danger rounded-0">
+                                <a href="{{ route('hrm.attendance.index') }}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
                             </div>

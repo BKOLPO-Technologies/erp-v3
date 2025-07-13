@@ -98,13 +98,14 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        //dd($request->company);
+        // dd($request->all());
 
         // Find the supplier by ID
         $category = Category::findOrFail($id);
 
         // Update the supplier data
         $category->update([
+            'status' => $request->input('status') ? 1 : 0,
             'name' => $request->input('name'),
             'vat' => $request->input('vat'),
             'tax' => $request->input('tax'),

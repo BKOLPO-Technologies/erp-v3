@@ -40,27 +40,27 @@
                                 <tbody>
                                     <tr>
                                         <th>Name</th>
-                                        <td>{{ $product->name ?? 'N/A' }}</td>
+                                        <td>{{ $product->name ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Product Code</th>
-                                        <td>{{ $product->product_code ?? 'N/A' }}</td>
+                                        <td>{{ $product->product_code ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Category Name</th>
-                                        <td>{{ $product->category->name ?? 'N/A' }}</td>
+                                        <td>{{ $product->category->name ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Unit Name</th>
-                                        <td>{{ $product->unit->name ?? 'N/A' }}</td>
+                                        <td>{{ $product->unit->name ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Price</th>
-                                        <td>{{ $product->price ?? 'N/A' }}</td>
+                                        <td>{{ $product->price ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td>{{ $product->description ?? 'N/A' }}</td>
+                                        <td>{{ $product->description ?? '' }}</td>
                                     </tr>
                                     
                                     <tr>
@@ -69,7 +69,7 @@
                                             <div class="col-md-1">
                                             <img
                                                 id="logoPreview"
-                                                src="{{ !empty($product->image) ? url('upload/inventory/products/' . $product->image) : url(asset('backend/logo.jpg')) }}" 
+                                                src="{{ !empty($product->image) ? url('upload/inventory/products/' . $product->image) : url(asset('Accounts/logo.jpg')) }}" 
                                                 alt="Logo"
                                                 style="width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 5px;">
                                                 {{-- <img id="imagePreview" src="{{ asset('upload/inventory/products/' . $product->image) }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;"> --}}
