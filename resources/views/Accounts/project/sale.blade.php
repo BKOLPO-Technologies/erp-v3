@@ -533,7 +533,7 @@
 </div>
 
 <!-- Modal for creating a new supplier -->
-@include('Accounts.inventory.project.saleDetails')
+@include('Accounts.project.saleDetails')
 
 @endsection
 

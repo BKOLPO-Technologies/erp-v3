@@ -88,10 +88,10 @@ class CompanyController extends Controller
             ]);
 
             if ($request->hasFile('logo')) {
-                @unlink(public_path('upload/company/' . $company->logo)); // Delete old logo
+                @unlink(public_path('upload/Accounts/company/' . $company->logo)); // Delete old logo
                 $file = $request->file('logo');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                $file->move(public_path('upload/company'), $filename);
+                $file->move(public_path('upload/Accounts/company'), $filename);
                 $company->logo = $filename;
             }
 
@@ -286,7 +286,7 @@ class CompanyController extends Controller
 
             DB::commit(); // 🔹 Transaction Commit (সব ঠিক থাকলে)
 
-            return redirect()->route('company.index')->with('success', 'Company created successfully.');
+            return redirect()->route('accounts.company.index')->with('success', 'Company created successfully.');
         } catch (\Exception $e) {
             DB::rollBack(); // 🔹 কোনো সমস্যা হলে রোলব্যাক
             
@@ -350,16 +350,16 @@ class CompanyController extends Controller
         $company->fiscal_year = $request->input('fiscal_year', '');
 
         if ($request->hasFile('logo')) {
-            @unlink(public_path('upload/company/' . $company->logo)); // Delete old logo
+            @unlink(public_path('upload/Accounts/company/' . $company->logo)); // Delete old logo
             $file = $request->file('logo');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('upload/company'), $filename);
+            $file->move(public_path('upload/Accounts/company'), $filename);
             $company->logo = $filename;
         }
 
         $company->save();
 
-        return redirect()->route('company.index')->with('success', 'Company updated successfully.');
+        return redirect()->route('accounts.company.index')->with('success', 'Company updated successfully.');
     }
 
     /**
@@ -370,6 +370,6 @@ class CompanyController extends Controller
         $company = Company::find($id);
         $company->delete();
         
-        return redirect()->route('company.index')->with('success', 'Company deleted successfully.');
+        return redirect()->route('accounts.company.index')->with('success', 'Company deleted successfully.');
     }
 }

@@ -31,7 +31,7 @@ class SalesController extends Controller
         $pageTitle = 'Invoice';
 
         $sales = Sale::with('products')->OrderBy('id','desc')->get(); 
-        return view('Accounts.inventory.sales.index',compact('pageTitle','sales'));
+        return view('Accounts.sales.index',compact('pageTitle','sales'));
     }
 
     /**
@@ -98,7 +98,7 @@ class SalesController extends Controller
         $vat = $companyInfo->vat;
         $tax = $companyInfo->tax;
         
-        return view('Accounts.inventory.sales.create', compact(
+        return view('Accounts.sales.create', compact(
             'pageTitle', 
             'clients', 
             'products',
@@ -246,7 +246,7 @@ class SalesController extends Controller
             ->with(['saleProducts.item.unit', 'client']) // Include supplier details
             ->first();
 
-        return view('Accounts.inventory.sales.view',compact('pageTitle', 'sale'));
+        return view('Accounts.sales.view',compact('pageTitle', 'sale'));
     }
 
     /**
@@ -312,7 +312,7 @@ class SalesController extends Controller
 
         $units = Unit::where('status',1)->latest()->get();
 
-        return view('Accounts.inventory.sales.edit', [
+        return view('Accounts.sales.edit', [
             'pageTitle' => $pageTitle, 
             'purchase' => $purchase, 
             'suppliers' => $suppliers, 

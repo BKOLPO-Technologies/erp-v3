@@ -34,7 +34,7 @@ class PurchaseInvoiceController extends Controller
 
         $purchases = PurchaseInvoice::OrderBy('id','desc')->get(); 
         //dd($purchases);
-        return view('Accounts.inventory.purchase.index',compact('pageTitle','purchases'));
+        return view('Accounts.purchase.index',compact('pageTitle','purchases'));
 
     }
 
@@ -102,7 +102,7 @@ class PurchaseInvoiceController extends Controller
         
         $purchases = Purchase::latest()->get();
 
-        return view('Accounts.inventory.purchase.create', compact(
+        return view('Accounts.purchase.create', compact(
             'pageTitle', 
             'suppliers', 
             'products',
@@ -326,7 +326,7 @@ class PurchaseInvoiceController extends Controller
             ->first();
             
         $payments = Payment::where('invoice_no', $purchase->invoice_no)->get();
-        return view('Accounts.inventory.purchase.view',compact('pageTitle', 'purchase'));
+        return view('Accounts.purchase.view',compact('pageTitle', 'purchase'));
     }
 
     public function AdminPurchaseInvoiceView2(Request $request)
@@ -337,7 +337,7 @@ class PurchaseInvoiceController extends Controller
 
         $payments = Payment::where('invoice_no', $purchase->invoice_no)->get();
 
-        return view('Accounts.inventory.purchase.view_modal_part', compact('purchase', 'payments'));
+        return view('Accounts.purchase.view_modal_part', compact('purchase', 'payments'));
     }
 
     /**
@@ -361,7 +361,7 @@ class PurchaseInvoiceController extends Controller
         $projects = Project::all();
         $products = Product::with(['category', 'unit'])->get();
 
-        return view('Accounts.inventory.purchase.edit', compact(
+        return view('Accounts.purchase.edit', compact(
             'invoice',
             'suppliers',
             'projects',

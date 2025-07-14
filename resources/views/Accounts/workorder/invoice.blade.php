@@ -14,7 +14,7 @@
                 <div class="card-header py-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <img src="{{ !empty($workorder->logo) ? url('upload/company/' . $workorder->logo) : url(asset('backend/logo.jpg')) }}" alt="Company Logo" height="50">
+                            <img src="{{ !empty($workorder->logo) ? url('upload/Accounts/company/' . $workorder->logo) : url(asset('Accounts/logo.jpg')) }}" alt="Company Logo" height="50">
                             <h3 class="ml-3 mb-0">Bkolpo Technology</h3>
                         </div>
                         <a href="{{ route('workorders.index') }}" class="btn btn-danger">

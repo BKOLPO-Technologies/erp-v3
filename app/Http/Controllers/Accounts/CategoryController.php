@@ -13,13 +13,13 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         $pageTitle = 'Admin Category';
-        return view('Accounts.inventory.category.index',compact('pageTitle', 'categories'));
+        return view('Accounts.category.index',compact('pageTitle', 'categories'));
     }
 
     public function AdminCategoryCreate() 
     {
         $pageTitle = 'Admin Category Create';
-        return view('Accounts.inventory.category.create',compact('pageTitle'));
+        return view('Accounts.category.create',compact('pageTitle'));
     }
 
 
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $pageTitle = 'Admin Category Edit';
-        return view('Accounts.inventory.category.edit',compact('pageTitle', 'category'));
+        return view('Accounts.category.edit',compact('pageTitle', 'category'));
     }
 
     public function AdminCategoryUpdate(Request $request, $id)

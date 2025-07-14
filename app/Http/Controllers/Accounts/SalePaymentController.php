@@ -39,7 +39,7 @@ class SalePaymentController extends Controller
 
         //dd($payments->toArray());
     
-        return view('Accounts.inventory.sales.payment.index', compact('pageTitle', 'payments'));
+        return view('Accounts.sales.payment.index', compact('pageTitle', 'payments'));
     }
 
     /**
@@ -65,7 +65,7 @@ class SalePaymentController extends Controller
         // Retrieve Ledgers where the type is either 'Bank' or 'Cash'
         $ledgers = Ledger::whereIn('type', ['Bank', 'Cash'])->get();
 
-        return view('Accounts.inventory.sales.payment.create',compact('pageTitle','incomingChalans','suppliers','ledgerGroups','ledgers')); 
+        return view('Accounts.sales.payment.create',compact('pageTitle','incomingChalans','suppliers','ledgerGroups','ledgers')); 
     }
 
     public function getLedgersByGroup(Request $request)
@@ -392,9 +392,13 @@ class SalePaymentController extends Controller
             ->with(['products', 'supplier'])
             ->first();
 
+        // dd($purchase);
+
         $project = Project::where('id', $purchase->project_id)
             ->with(['items']) 
             ->first();
+
+        // dd($project);
 
         if (!$project) {
             return redirect()->back()->with('error', 'Receipt not found.');
@@ -402,8 +406,8 @@ class SalePaymentController extends Controller
 
         $project_receipts = Payment::where('invoice_no', $invoice_no)->get();
 
-        //dd($project_receipts);
+        // dd($project_receipts);
 
-        return view('Accounts.inventory.sales.payment.view', compact('pageTitle', 'project', 'project_receipts', 'purchase'));
+        return view('Accounts.sales.payment.view', compact('pageTitle', 'project', 'project_receipts', 'purchase'));
     }
 }

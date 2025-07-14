@@ -15,13 +15,13 @@ class ClientController extends Controller
         $clients = Client::orderBy('id', 'desc')->get();
 
         $pageTitle = 'Client List';
-        return view('Accounts.inventory.client.index',compact('pageTitle', 'clients'));
+        return view('Accounts.client.index',compact('pageTitle', 'clients'));
     }
 
     public function AdminClientCreate()
     {
         $pageTitle = 'Client Create';
-        return view('Accounts.inventory.client.create',compact('pageTitle'));
+        return view('Accounts.client.create',compact('pageTitle'));
     }
 
     public function AdminClientView($id)
@@ -33,7 +33,7 @@ class ClientController extends Controller
         $totalPaidAmount = $client->totalPaidAmount();
         $totalDueAmount = $client->totalDueAmount();
 
-        return view('Accounts.inventory.client.view',compact('pageTitle', 'client','totalPurchaseAmount','totalPaidAmount','totalDueAmount'));
+        return view('Accounts.client.view',compact('pageTitle', 'client','totalPurchaseAmount','totalPaidAmount','totalDueAmount'));
 
     }
 
@@ -41,7 +41,7 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
         $pageTitle = 'Client Edit';
-        return view('Accounts.inventory.client.edit',compact('pageTitle', 'client'));
+        return view('Accounts.client.edit',compact('pageTitle', 'client'));
     }
 
     public function AdminClientStore(Request $request)
@@ -233,7 +233,7 @@ class ClientController extends Controller
         //dd($totalDiscounta);
 
         // Return the view for purchased products
-        return view('Accounts.inventory.client.products', compact('pageTitle','client', 'purchasedProducts','totalPurchaseAmount','totalDiscounta','totalPaidAmount','totalDueAmount'));
+        return view('Accounts.client.products', compact('pageTitle','client', 'purchasedProducts','totalPurchaseAmount','totalDiscounta','totalPaidAmount','totalDueAmount'));
     }
 
     public function viewTransactions($clientId)
@@ -249,6 +249,6 @@ class ClientController extends Controller
         $pageTitle = 'Client Transactions';
 
         // Return the view for transactions
-        return view('Accounts.inventory.client.transactions', compact('pageTitle','client', 'transactions'));
+        return view('Accounts.client.transactions', compact('pageTitle','client', 'transactions'));
     }
 }

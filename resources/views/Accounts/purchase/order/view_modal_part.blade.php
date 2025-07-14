@@ -11,7 +11,7 @@
         <div class="col-12">
             <h4>
                 <img 
-                    src="{{ !empty(get_company()->logo) ? url('upload/company/' . get_company()->logo) : asset('backend/logo.jpg') }}" 
+                    src="{{ !empty(get_company()->logo) ? url('upload/Accounts/company/' . get_company()->logo) : asset('Accounts/logo.jpg') }}" 
                     alt="Company Logo" 
                     style="height: 40px; vertical-align: middle; margin-right: 10px;"
                 >

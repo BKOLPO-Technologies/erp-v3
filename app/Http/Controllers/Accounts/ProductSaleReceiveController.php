@@ -23,12 +23,13 @@ class ProductSaleReceiveController extends Controller
     public function index()
     {
         $pageTitle = 'Payment Receive List';
+        // dd($pageTitle);
     
         $receipts = ProjectReceipt::with(['client'])
             ->orderBy('id', 'desc')
             ->get();
         
-        return view('Accounts.inventory.project.payment.receipt.index', compact('pageTitle', 'receipts'));
+        return view('Accounts.project.payment.receipt.index', compact('pageTitle', 'receipts'));
     }
 
     /**
@@ -71,7 +72,7 @@ class ProductSaleReceiveController extends Controller
         $ledgers = Ledger::whereIn('type', ['Bank', 'Cash'])->get();
 
 
-        return view('Accounts.inventory.project.payment.receipt.create',compact('pageTitle', 'customers', 'ledgerGroups', 'projects','ledgers'));
+        return view('Accounts.project.payment.receipt.create',compact('pageTitle', 'customers', 'ledgerGroups', 'projects','ledgers'));
     }
 
     public function store(Request $request)
@@ -258,7 +259,7 @@ class ProductSaleReceiveController extends Controller
 
         //dd($project_receipts);
 
-        return view('Accounts.inventory.project.payment.receipt.view', compact('pageTitle', 'project', 'project_receipts', 'sale'));
+        return view('Accounts.project.payment.receipt.view', compact('pageTitle', 'project', 'project_receipts', 'sale'));
     }
 
     public function destroy($id)

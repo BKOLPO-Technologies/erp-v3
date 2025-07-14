@@ -178,9 +178,9 @@
                             <div class="form-group">
                                 
                                 @if($product->image)
-                                    <img id="imagePreview" src="{{ asset('upload/inventory/products/' . $product->image) }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;">
+                                    <img id="imagePreview" src="{{ asset('upload/Accounts/products/' . $product->image) }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;">
                                 @else
-                                    <img id="imagePreview" src="{{ asset('backend/logo.jpg') }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;">
+                                    <img id="imagePreview" src="{{ asset('Accounts/logo.jpg') }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;">
                                 @endif
                             </div>
                         </div>

@@ -35,7 +35,7 @@ class ProjectController extends Controller
     
         $projects = Project::latest() ->with('client')->get();
 
-        return view('Accounts.inventory.project.index', compact('pageTitle', 'projects'));
+        return view('Accounts.project.index', compact('pageTitle', 'projects'));
     }
 
     /**
@@ -100,7 +100,7 @@ class ProjectController extends Controller
         $tax = $companyInfo->tax;
         $productCode = 'PRD' . strtoupper(Str::random(5));
 
-        return view('Accounts.inventory.project.create',compact('pageTitle','clients','referance_no','units','products','vat','tax', 'categories', 'productCode')); 
+        return view('Accounts.project.create',compact('pageTitle','clients','referance_no','units','products','vat','tax', 'categories', 'productCode')); 
     }
 
     /**
@@ -292,7 +292,7 @@ class ProjectController extends Controller
         $vat = $companyInfo->vat;
         $tax = $companyInfo->tax;
 
-        return view('Accounts.inventory.project.view',compact('pageTitle', 'project','vat','tax'));
+        return view('Accounts.project.view',compact('pageTitle', 'project','vat','tax'));
     }
 
     /**
@@ -335,7 +335,7 @@ class ProjectController extends Controller
         //return view('Accounts.inventory.project.sale',compact('pageTitle', 'project', 'fromDate', 'toDate', 'totalAmount', 'paidAmount','dueAmount'));
 
         // Pass data to the view
-        return view('Accounts.inventory.project.sale', array_merge($data, compact('pageTitle', 'fromDate', 'toDate')));
+        return view('Accounts.project.sale', array_merge($data, compact('pageTitle', 'fromDate', 'toDate')));
     }
 
     /**
@@ -349,7 +349,7 @@ class ProjectController extends Controller
 
             //Log::info($purchase);
 
-            $html = view('Accounts.inventory.project.purchaseDetails', compact('purchase'))->render();
+            $html = view('Accounts.project.purchaseDetails', compact('purchase'))->render();
 
             return response()->json(['html' => $html]);
         } catch (\Exception $e) {
@@ -381,7 +381,7 @@ class ProjectController extends Controller
         $vat = $companyInfo->vat;
         $tax = $companyInfo->tax;
 
-        return view('Accounts.inventory.project.edit',compact('pageTitle', 'clients', 'project','units','products','vat','tax', 'categories'));
+        return view('Accounts.project.edit',compact('pageTitle', 'clients', 'project','units','products','vat','tax', 'categories'));
     }
 
     public function AdminProductModal()
@@ -391,7 +391,7 @@ class ProjectController extends Controller
         $units = Unit::where('status', 1)->latest()->get();
         $productCode = 'PRD' . strtoupper(Str::random(5));
 
-        return view('Accounts.inventory.project.product_modal', compact('categories', 'units', 'productCode'));
+        return view('Accounts.project.product_modal', compact('categories', 'units', 'productCode'));
     }
 
     /**

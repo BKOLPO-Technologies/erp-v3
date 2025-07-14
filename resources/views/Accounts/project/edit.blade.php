@@ -452,10 +452,10 @@
 </div>
 
 <!-- Modal for creating a new client -->
-@include('Accounts.inventory.client.client_modal')
+@include('Accounts.client.client_modal')
 
 <!-- Modal for creating a new product -->
-@include('Accounts.inventory.project.product_modal')
+@include('Accounts.project.product_modal')
 
 @endsection
 @push('js')

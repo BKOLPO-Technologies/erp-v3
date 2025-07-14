@@ -1,6 +1,6 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Company List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -27,7 +27,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                     @can('company-create')
-                                    <a href="{{ route('company.create') }}" class="btn btn-sm btn-success rounded-0">
+                                    <a href="{{ route('accounts.company.create') }}" class="btn btn-sm btn-success rounded-0">
                                         <i class="fas fa-plus fa-sm"></i> Add New Company 
                                     </a>
                                     @endcan
@@ -64,19 +64,19 @@
                                                 <td class="col-2">
                                                     <!-- View Button -->
                                                     @can('company-view')
-                                                    <a href="{{ route('company.show',$company->id) }}" class="btn btn-success btn-sm">
+                                                    <a href="{{ route('accounts.company.show',$company->id) }}" class="btn btn-success btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     @endcan
                                                     <!-- Edit Button -->
                                                     @can('company-edit')
-                                                    <a href="{{ route('company.edit',$company->id) }}" class="btn btn-primary btn-sm">
+                                                    <a href="{{ route('accounts.company.edit',$company->id) }}" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     @endcan
                                                     <!-- Delete Button -->
                                                     @can('company-delete')
-                                                    <a href="{{ route('company.delete',$company->id)}}" id="delete" class="btn btn-danger btn-sm">
+                                                    <a href="{{ route('accounts.company.delete',$company->id)}}" id="delete" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                     @endcan

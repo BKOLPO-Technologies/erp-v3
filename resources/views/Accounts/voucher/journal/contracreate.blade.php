@@ -183,7 +183,7 @@
 
             if (companyId) {
                 $.ajax({
-                    url: '/admin/contra-voucher/get-branches/' + companyId,
+                    url: '/accounts/contra-voucher/get-branches/' + companyId,
                     type: 'GET',
                     success: function (response) {
                         branchSelect.empty();

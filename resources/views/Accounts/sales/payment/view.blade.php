@@ -1,6 +1,6 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Receive Payment List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -196,39 +196,7 @@
                             </div>
 
                             <hr>
-                            
-                            {{-- <div class="row">
-                                <div class="col-6">
-                                </div> 
-                                <div class="col-6">
-                            
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <th style="width:50%">Subtotal:</th>
-                                                <td>{{ bdt() }} {{ number_format($subtotal, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total Discount:</th>
-                                                <td>{{ bdt() }} {{ number_format($project->total_discount, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>VAT:</th>
-                                                <td>{{ bdt() }} {{ number_format($project->vat, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>TAX:</th>
-                                                <td>{{ bdt() }} {{ number_format($project->tax, 2) }}</td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <th>Total:</th>
-                                                <td>{{ bdt() }} {{ number_format($grandTotal, 2) }}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div> --}}
+
 
                             <div class="mt-4">
                                 <div class="card-header">

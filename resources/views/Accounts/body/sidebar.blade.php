@@ -178,7 +178,7 @@
           
           <ul class="nav nav-treeview">
             <li class="nav-item">
-                <a href="{{ route('accounts.project.receipt.payment.index') }}" class="nav-link {{ Route::is('accounts.project.receipt.payment.index','accounts.project.receipt.payment.create') ? 'active' : '' }}">
+                <a href="{{ route('accounts.project.receipt.payment.index') }}" class="nav-link {{ Route::is('accounts.project.receipt.payment.index','accounts.project.receipt.payment.create','accounts.project.receipt.payment.show') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Receipt</p>
                 </a>

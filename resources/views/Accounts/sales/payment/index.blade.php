@@ -74,12 +74,12 @@
                                                     </a>
                                                 </td> --}}
                                                 <td>
+                                                    <a href="{{ route('accounts.sale.payment.show', ['invoice_no' => $payment->invoice_no]) }}" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
                                                     <!-- Delete Button -->
                                                     <a href="{{ route('accounts.sale.payment.destroy', $payment->id) }}" id="delete" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
-                                                    </a>
-                                                    <a href="{{ route('accounts.sale.payment.show', ['invoice_no' => $payment->invoice_no]) }}" class="btn btn-success btn-sm">
-                                                        <i class="fas fa-eye"></i>
                                                     </a>
                                                 </td>
                                             </tr>

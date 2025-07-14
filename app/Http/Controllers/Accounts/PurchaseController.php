@@ -28,7 +28,7 @@ class PurchaseController extends Controller
 
         $purchases = Purchase::with('products')->OrderBy('id','desc')->get(); 
         //dd($purchases);
-        return view('Accounts.inventory.purchase.index',compact('pageTitle','purchases'));
+        return view('Accounts.purchase.index',compact('pageTitle','purchases'));
 
     }
 
@@ -93,7 +93,7 @@ class PurchaseController extends Controller
         
         $purchases = Purchase::latest()->get();
 
-        return view('Accounts.inventory.purchase.create', compact(
+        return view('Accounts.purchase.create', compact(
             'pageTitle', 
             'suppliers', 
             'products',
@@ -305,7 +305,7 @@ class PurchaseController extends Controller
             ->with(['products', 'supplier']) // Include supplier details
             ->first();
 
-        return view('Accounts.inventory.purchase.view',compact('pageTitle', 'purchase'));
+        return view('Accounts.purchase.view',compact('pageTitle', 'purchase'));
     }
 
     public function AdminPurchaseView2(Request $request)
@@ -316,7 +316,7 @@ class PurchaseController extends Controller
 
         $payments = Payment::where('invoice_no', $purchase->invoice_no)->get();
 
-        return view('Accounts.inventory.purchase.view_modal_part', compact('purchase', 'payments'));
+        return view('Accounts.purchase.view_modal_part', compact('purchase', 'payments'));
     }
 
     public function Print()
@@ -327,7 +327,7 @@ class PurchaseController extends Controller
         //     ->with(['products', 'supplier']) // Include supplier details
         //     ->first();
 
-        return view('Accounts.inventory.purchase.print',compact('pageTitle'));
+        return view('Accounts.purchase.print',compact('pageTitle'));
     }
 
     public function AdminPurchaseEdit($id)
@@ -362,7 +362,7 @@ class PurchaseController extends Controller
         $prices = $purchase->products->pluck('pivot.price')->implode(',');
         $discounts = $purchase->products->pluck('pivot.discount')->implode(',');
 
-        return view('Accounts.inventory.purchase.edit', [
+        return view('Accounts.purchase.edit', [
             'pageTitle' => $pageTitle, 
             'purchase' => $purchase, 
             'suppliers' => $suppliers, 

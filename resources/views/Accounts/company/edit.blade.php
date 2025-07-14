@@ -1,7 +1,7 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Company Edit'])
 
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -27,13 +27,13 @@
                             <div class="card-header py-2">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                                    <a href="{{ route('company.index')}}" class="btn btn-sm btn-danger rounded-0">
+                                    <a href="{{ route('accounts.company.index')}}" class="btn btn-sm btn-danger rounded-0">
                                         <i class="fa-solid fa-arrow-left"></i> Back To List
                                     </a>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('company.update',$company->id) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('accounts.company.update',$company->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <!-- Company Name -->

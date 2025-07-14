@@ -34,7 +34,7 @@ class SaleReceiptController extends Controller
             ->get();
             
         
-        return view('Accounts.inventory.sales.receipt.index', compact('pageTitle', 'receipts'));
+        return view('Accounts.sales.receipt.index', compact('pageTitle', 'receipts'));
     }
 
     /**
@@ -49,7 +49,7 @@ class SaleReceiptController extends Controller
         $customers = Client::latest()->get();
         $ledgerGroups = LedgerGroup::with('ledgers')->latest()->get();
 
-        return view('Accounts.inventory.sales.receipt.create',compact('pageTitle','outcomingChalans','customers','ledgerGroups')); 
+        return view('Accounts.sales.receipt.create',compact('pageTitle','outcomingChalans','customers','ledgerGroups')); 
     }
 
     // public function getChalansByClient(Request $request)
@@ -246,7 +246,7 @@ class SaleReceiptController extends Controller
             DB::commit();
     
             // Redirect after storing the payment
-            return redirect()->route('receipt.payment.index')->with('success', 'Payment has been successfully recorded!');
+            return redirect()->route('accounts.receipt.payment.index')->with('success', 'Payment has been successfully recorded!');
     
         } catch (\Exception $e) {
             // If an error occurs, roll back the transaction

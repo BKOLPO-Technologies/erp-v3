@@ -69,7 +69,7 @@
                                             <div class="col-md-1">
                                             <img
                                                 id="logoPreview"
-                                                src="{{ !empty($product->image) ? url('upload/inventory/products/' . $product->image) : url(asset('Accounts/logo.jpg')) }}" 
+                                                src="{{ !empty($product->image) ? url('upload/Accounts/products/' . $product->image) : url(asset('Accounts/logo.jpg')) }}" 
                                                 alt="Logo"
                                                 style="width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 5px;">
                                                 {{-- <img id="imagePreview" src="{{ asset('upload/inventory/products/' . $product->image) }}" alt="Image Preview" style="display:block; margin-top: 10px; height:80px; width: 80px;"> --}}

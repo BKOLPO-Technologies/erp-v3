@@ -26,7 +26,7 @@
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
-                                <a href="{{ route('company.index')}}" class="btn btn-sm btn-danger rounded-0">
+                                <a href="{{ route('accounts.company.index')}}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
                             </div>
@@ -96,7 +96,7 @@
                                             <div class="col-md-1">
                                             <img
                                                 id="logoPreview"
-                                                src="{{ !empty($company->logo) ? url('upload/company/' . $company->logo) : url(asset('backend/logo.jpg')) }}" 
+                                                src="{{ !empty($company->logo) ? url('upload/Accounts/company/' . $company->logo) : url(asset('Accounts/logo.jpg')) }}" 
                                                 alt="Logo"
                                                 style="width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 5px;">
                                             </div>

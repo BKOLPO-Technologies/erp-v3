@@ -238,8 +238,8 @@
 </div>
 
 <!-- Modal for creating a new branch -->
-@include('Accounts.inventory.unit.unit_modal')
-@include('Accounts.inventory.category.category_modal')
+@include('Accounts.unit.unit_modal')
+@include('Accounts.category.category_modal')
 @endsection
 
 @push('js')

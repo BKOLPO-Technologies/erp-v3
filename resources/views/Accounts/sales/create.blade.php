@@ -266,7 +266,7 @@
 </div>
 
 <!-- Modal for creating a new client -->
-@include('Accounts.inventory.client.client_modal')
+@include('Accounts.client.client_modal')
 
 @endsection
 @push('js')

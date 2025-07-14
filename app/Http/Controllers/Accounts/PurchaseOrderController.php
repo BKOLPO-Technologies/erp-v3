@@ -29,7 +29,7 @@ class PurchaseOrderController extends Controller
 
         $purchases = Purchase::where('status','Pending')->with('products')->OrderBy('id','desc')->get(); 
         //dd($purchases);
-        return view('Accounts.inventory.purchase.order.index',compact('pageTitle','purchases'));
+        return view('Accounts.purchase.order.index',compact('pageTitle','purchases'));
     }
 
     /**
@@ -91,7 +91,7 @@ class PurchaseOrderController extends Controller
 
         // $invoice_no = 'BKOLPO-'. $randomNumber;
 
-        return view('Accounts.inventory.purchase.order.create', compact(
+        return view('Accounts.purchase.order.create', compact(
             'pageTitle', 
             'suppliers', 
             'products',
@@ -230,7 +230,7 @@ class PurchaseOrderController extends Controller
 
         $payments = Payment::where('invoice_no', $purchase->invoice_no)->get();
 
-        return view('Accounts.inventory.purchase.order.view_modal_part', compact('purchase', 'payments'));
+        return view('Accounts.purchase.order.view_modal_part', compact('purchase', 'payments'));
     }
 
     /**
@@ -268,7 +268,7 @@ class PurchaseOrderController extends Controller
         $prices = $purchase->products->pluck('pivot.price')->implode(',');
         $discounts = $purchase->products->pluck('pivot.discount')->implode(',');
 
-        return view('Accounts.inventory.purchase.order.edit', [
+        return view('Accounts.purchase.order.edit', [
             'pageTitle' => $pageTitle, 
             'purchase' => $purchase, 
             'suppliers' => $suppliers, 

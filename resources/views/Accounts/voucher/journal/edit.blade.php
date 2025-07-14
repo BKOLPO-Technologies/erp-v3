@@ -225,7 +225,7 @@
 
             if (companyId) {
                 $.ajax({
-                    url: '/admin/journal-voucher/get-branches/' + companyId, // Backend route
+                    url: '/accounts/journal-voucher/get-branches/' + companyId, // Backend route
                     type: 'GET',
                     success: function (response) {
                         //console.log(response); // Debug: Check the response in the console

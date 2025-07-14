@@ -523,7 +523,7 @@
         $(document).on('change', '.product-select', function () {
             let selectedOption = $(this).find(':selected');
             let productId = selectedOption.val();
-            let productSpeciphiction = selectedOption.data('speciphiction') || "N";
+            let productSpeciphiction = selectedOption.data('speciphiction') || "";
             let productPrice = selectedOption.data('price') || 0;
             let productUnit = selectedOption.data('unit') || '';
 

@@ -32,7 +32,7 @@ class IncomingChalanController extends Controller
         // Fetch all incoming chalans with related sale details
         $incomingchalans = IncomingChalan::with('purchase')->latest()->get();
     
-        return view('Accounts.inventory.purchase.chalan.index', compact('pageTitle', 'incomingchalans'));
+        return view('Accounts.purchase.chalan.index', compact('pageTitle', 'incomingchalans'));
     }
     
     /**
@@ -44,7 +44,7 @@ class IncomingChalanController extends Controller
 
         $purchases = Purchase::latest()->get();
 
-        return view('Accounts.inventory.purchase.chalan.create',compact('pageTitle','purchases')); 
+        return view('Accounts.purchase.chalan.create',compact('pageTitle','purchases')); 
     }
 
     /**
@@ -180,7 +180,7 @@ class IncomingChalanController extends Controller
             //Log::info('Transaction committed successfully.');
 
             // Success message after processing everything correctly
-            return redirect()->route('incoming.chalan.index')->with('success', 'Incoming Chalan created successfully!');
+            return redirect()->route('accounts.incoming.chalan.index')->with('success', 'Incoming Chalan created successfully!');
             
         } catch (\Exception $e) {
             // Handle any exception that occurs
@@ -200,7 +200,7 @@ class IncomingChalanController extends Controller
         $chalan = IncomingChalan::with('purchase', 'products')->findOrFail($id);
         $sales = Sale::latest()->get();
 
-        return view('Accounts.inventory.purchase.chalan.view',compact('pageTitle','chalan', 'sales'));
+        return view('Accounts.purchase.chalan.view',compact('pageTitle','chalan', 'sales'));
     }
 
     /**
@@ -216,7 +216,7 @@ class IncomingChalanController extends Controller
         $sales = Sale::latest()->get();
 
         // Pass the IncomingChalan and its products to the view
-        return view('Accounts.inventory.purchase.chalan.edit', compact('pageTitle', 'chalan', 'sales'));
+        return view('Accounts.purchase.chalan.edit', compact('pageTitle', 'chalan', 'sales'));
     }
 
     /**
@@ -245,7 +245,7 @@ class IncomingChalanController extends Controller
             ]);
         }
 
-        return redirect()->route('incoming.chalan.index')->with('success', 'Updated successfully!');
+        return redirect()->route('accounts.incoming.chalan.index')->with('success', 'Updated successfully!');
     }
 
     /**

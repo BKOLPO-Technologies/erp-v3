@@ -1,6 +1,6 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Purchase Order List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -97,7 +97,7 @@
     </div>
     
 <!-- Modal for creating a new supplier -->
-@include('Accounts.inventory.purchase.order.view_modal')
+@include('Accounts.purchase.order.view_modal')
 
 @endsection
 

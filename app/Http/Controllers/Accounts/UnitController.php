@@ -12,13 +12,13 @@ class UnitController extends Controller
     {
         $units = Unit::all();
         $pageTitle = 'Product Unit';
-        return view('Accounts.inventory.unit.index',compact('pageTitle', 'units'));
+        return view('Accounts.unit.index',compact('pageTitle', 'units'));
     }
 
     public function AdminUnitCreate() 
     {
         $pageTitle = 'Product Unit Create';
-        return view('Accounts.inventory.unit.create',compact('pageTitle'));
+        return view('Accounts.unit.create',compact('pageTitle'));
     }
 
 
@@ -62,7 +62,7 @@ class UnitController extends Controller
     {
         $unit = Unit::findOrFail($id);
         $pageTitle = 'Product Unit Edit';
-        return view('Accounts.inventory.unit.edit',compact('pageTitle', 'unit'));
+        return view('Accounts.unit.edit',compact('pageTitle', 'unit'));
     }
 
     public function AdminUnitUpdate(Request $request, $id)

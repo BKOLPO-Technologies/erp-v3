@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('id', 'desc')->get();
         $pageTitle = 'Admin Product';
-        return view('Accounts.inventory.product.index',compact('pageTitle', 'products'));
+        return view('Accounts.product.index',compact('pageTitle', 'products'));
     }
 
     public function AdminProductCreate() 
@@ -26,7 +26,7 @@ class ProductController extends Controller
         $units = Unit::where('status',1)->latest()->get();
         $productCode = 'PRD' . strtoupper(Str::random(5));
         //dd($categories);
-        return view('Accounts.inventory.product.create',compact('pageTitle','categories', 'units', 'productCode'));
+        return view('Accounts.product.create',compact('pageTitle','categories', 'units', 'productCode'));
     }
 
     public function AdminProductStore(Request $request)
@@ -58,10 +58,10 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            @unlink(public_path('upload/inventory/products' . $product->image)); // Delete old logo
+            @unlink(public_path('upload/Accounts/products' . $product->image)); // Delete old logo
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('upload/inventory/products'), $filename);
+            $file->move(public_path('upload/Accounts/products'), $filename);
             $product->image = $filename;
         }
         
@@ -78,7 +78,7 @@ class ProductController extends Controller
         $categories = Category::where('status',1)->latest()->get();
         $units = Unit::where('status',1)->latest()->get();
         //dd($categories);
-        return view('Accounts.inventory.product.edit',compact('pageTitle', 'product','categories', 'units'));
+        return view('Accounts.product.edit',compact('pageTitle', 'product','categories', 'units'));
     }
 
     public function AdminProductUpdate(Request $request, $id)
@@ -101,14 +101,14 @@ class ProductController extends Controller
         // Check if a new image is uploaded
         if ($request->hasFile('image')) {
             // Delete old image if it exists
-            if ($product->image && file_exists(public_path('upload/inventory/products/' . $product->image))) {
-                @unlink(public_path('upload/inventory/products/' . $product->image)); // Delete the old image
+            if ($product->image && file_exists(public_path('upload/Accounts/products/' . $product->image))) {
+                @unlink(public_path('upload/Accounts/products/' . $product->image)); // Delete the old image
             }
 
             // Store new image
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('upload/inventory/products'), $filename);
+            $file->move(public_path('upload/Accounts/products'), $filename);
 
             // Update the product image with the new filename
             $product->image = $filename;
@@ -138,7 +138,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $pageTitle = 'Product View';
-        return view('Accounts.inventory.product.view',compact('pageTitle', 'product'));
+        return view('Accounts.product.view',compact('pageTitle', 'product'));
     }
 
     public function AdminProductDestroy($id)
