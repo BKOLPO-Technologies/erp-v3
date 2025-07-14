@@ -59,7 +59,14 @@
                         <div id="printable-area">
                             <div class="card-body">
                                 <div class="card-header text-center mb-3">
-                                    <h2 class="mb-1">{{ get_company()->name ?? '' }}</h2>
+                                    <h2 class="mb-1">
+                                        <img 
+                                            src="{{ !empty(get_company()->logo) ? url('upload/Accounts/company/' . get_company()->logo) : asset('Accounts/logo.jpg') }}" 
+                                            alt="Company Logo" 
+                                            style="height: 40px; vertical-align: middle; margin-right: 10px;"
+                                        >
+                                        {{ get_company()->name ?? '' }}
+                                    </h2>
                                     <p class="mb-0"><strong>Profit & Loss Report</strong></p>
                                     <p class="mb-0">Date: {{ now()->format('d M, Y') }}</p>
                                 </div>
