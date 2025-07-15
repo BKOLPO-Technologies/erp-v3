@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bkolpo Accounting | Home Page</title>
+    <title>Bkolpo ERP | Home Page</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('Accounts/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
@@ -101,12 +101,20 @@
                 </div>
                 <div class="card-footer bg-light px-3 py-3">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-muted" style="font-size: 16px;">
-                        <div class="mb-2 mb-md-0 text-center text-md-left">
+                      <div class="mb-2 mb-md-0 text-center text-md-left">
                             <i class="far fa-copyright"></i>
-                            {{ date('Y') }} <strong>Bkolpo Technologies</strong>. All rights reserved.
+                            {{ date('Y') }} 
+                            <a href="https://www.bkolpo.com.bd/" target="_blank" class="text-muted font-weight-bold text-decoration-none">
+                                Bkolpo Technologies
+                            </a>. All rights reserved.
                         </div>
+
                         <div class="text-center text-md-right">
-                            Developed by <strong>Bkolpo Technologies</strong>
+                            Developed by <strong>
+                                <a href="https://www.bkolpo.com.bd/" target="_blank" class="text-muted font-weight-bold text-decoration-none">
+                                    Bkolpo Technologies
+                                </a>
+                            </strong>
                         </div>
                     </div>
                 </div>
