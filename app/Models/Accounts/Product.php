@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Accounts;
+use App\Models\Inventory\ProductImage;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -75,6 +76,17 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
 
 
     

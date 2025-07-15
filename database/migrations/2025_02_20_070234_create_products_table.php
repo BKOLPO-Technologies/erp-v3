@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('slug');
             $table->string('product_code')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            // $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
+            $table->foreignId('tag_id')->nullable()->constrained('tags')->nullOnDelete();
+            $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
             $table->foreignId('unit_id')->nullable()->constrained('units')->nullOnDelete();
             
             $table->decimal('price', 8, 2)->nullable();

@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Inventory;
 use App\Models\Accounts\Category;
 use App\Models\Accounts\Product;
 use App\Models\Inventory\ProductImage;
+use App\Models\Inventory\Tag;
+use App\Models\Inventory\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Accounts\Unit;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use DB;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -24,15 +28,17 @@ class ProductController extends Controller
     {
         $pageTitle = 'Product Create';
         $categories = Category::where('status',1)->latest()->get();
+        $brands = Brand::where('status',1)->latest()->get();
+        $tags = Tag::where('status',1)->latest()->get();
         $units = Unit::where('status',1)->latest()->get();
         $productCode = 'PRD' . strtoupper(Str::random(5));
-        //dd($categories);
-        return view('Inventory.product.create',compact('pageTitle','categories', 'units', 'productCode'));
+
+        return view('Inventory.product.create',compact('pageTitle','categories','tags','brands', 'units', 'productCode'));
     }
 
    public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // Validate the incoming request
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -66,11 +72,11 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name),
                 'product_code' => $request->product_code,
                 'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id,
-                'supplier_id' => $request->supplier_id,
+                // 'brand_id' => $request->brand_id,
                 'unit_id' => $request->unit_id,
-                'purchase_price' => $request->purchase_price,
-                'selling_price' => $request->selling_price,
+                'price' => $request->price,
+                // 'purchase_price' => $request->purchase_price,
+                // 'selling_price' => $request->selling_price,
                 'quantity' => $request->quantity,
                 'alert_quantity' => $request->alert_quantity,
                 'stock_status' => $stockStatus,
@@ -125,8 +131,7 @@ class ProductController extends Controller
             // Create product image record
             ProductImage::create([
                 'product_id' => $product->id,
-                'image_path' => $filename,
-                'is_main' => false,
+                'image' => $filename,
             ]);
         }
     }
@@ -136,17 +141,18 @@ class ProductController extends Controller
      */
 
 
-    public function AdminProductEdit($id)
+    public function edit($id)
     {
         $product = Product::findOrFail($id);
         $pageTitle = 'Admin Product Edit';
         $categories = Category::where('status',1)->latest()->get();
+        $brands = Brand::where('status',1)->latest()->get();
+        $tags = Tag::where('status',1)->latest()->get();
         $units = Unit::where('status',1)->latest()->get();
-        //dd($categories);
         return view('Accounts.product.edit',compact('pageTitle', 'product','categories', 'units'));
     }
 
-    public function AdminProductUpdate(Request $request, $id)
+    public function update(Request $request, $id)
     {
         // Validate the incoming data
         $request->validate([
@@ -199,11 +205,11 @@ class ProductController extends Controller
         return redirect()->route('accounts.product.index')->with('success', 'Product updated successfully!');
     }
 
-    public function AdminProductView($id)
+    public function show($id)
     {
         $product = Product::findOrFail($id);
         $pageTitle = 'Product View';
-        return view('Accounts.product.view',compact('pageTitle', 'product'));
+        return view('Inventory.product.show',compact('pageTitle', 'product'));
     }
 
     public function AdminProductDestroy($id)

@@ -58,9 +58,14 @@
                                     <td>{{ $product->category->name ?? 'N/A' }}</td>
                                     <td>{{ $product->price }}</td>
                                     {{-- <td>{{ $product->quantity }}</td> --}}
-                                    <td>
+                                    <td>  
                                         @if($product->image)
-                                            <img src="{{ (!empty($product->image)) ? url('upload/inventory/products/'.$product->image):url('https://via.placeholder.com/70x60') }}" width="50">
+                                            <a href="{{ asset('upload/Inventory/products/' . $product->image) }}" target="_blank">
+                                                <img
+                                                    src="{{ !empty($product->image) ? asset('upload/Inventory/products/' . $product->image) : asset('Accounts/logo.jpg') }}"
+                                                    alt="Main Image"
+                                                    style="width: 100%; height: 40px; border: 1px solid #ddd; border-radius: 5px;">
+                                            </a>
                                         @else
                                             No Image
                                         @endif

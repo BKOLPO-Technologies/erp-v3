@@ -1,6 +1,31 @@
 @extends('Inventory.layouts.admin')
 @section('admin')
+@push('css')
+<link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+<style>
+    .thumbnail-container {
+        position: relative;
+        margin: 5px;
+    }
+    .custom-file-input ~ .custom-file-label::after {
+        content: "Browse";
+    }
+    #multipleImagePreview img {
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    #multipleImagePreview img:hover {
+        opacity: 0.8;
+    }
+       .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #ff1190 !important
+    }
 
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: #ffffff !important;
+    }
+</style>
+@endpush
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -18,7 +43,6 @@
             </div>
         </div>
     </section>
-
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -32,10 +56,8 @@
                     </a>
                 </div>
               </div>
-            
               <form role="form" action="{{ route('inventory.product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -73,6 +95,50 @@
                                 </div>
                             </div>
                             @error('category_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        {{-- tags select --}}
+                        <div class="col-md-6 mb-2">
+                            <label for="tag_id" class="form-label">Tag Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-tags"></i></span>
+                                <select name="tag_id[]" id="tag_id" class="form-control select2"  multiple="multiple">
+                                    @foreach($tags as $tag)
+                                        <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tag_id', [])) ? 'selected' : '' }}>
+                                            {{ $tag->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" type="button" id="addTagBtn" data-toggle="modal" data-target="#createTagModal">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- brands select --}}
+                        <div class="col-md-6 mb-2">
+                            <label for="brand_id" class="form-label">Brand Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
+                                <select name="brand_id" id="brand_id" class="form-control select2">
+                                    <option value="">Select Brand</option>
+                                    @foreach($brands as $brand)
+                                        <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" type="button" id="addBrandBtn" data-toggle="modal" data-target="#createBrandModal">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            @error('brand_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -169,7 +235,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-cogs"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="code" value="{{ old('code', $productCode) }}">
+                                    <input type="text" class="form-control" name="product_code" value="{{ old('code', $productCode) }}">
                                 </div>
                             </div>
                         </div>
@@ -298,10 +364,18 @@
 <!-- Modal for creating a new branch -->
 @include('Accounts.unit.unit_modal')
 @include('Accounts.category.category_modal')
+@include('Inventory.tag.tag_modal')
 @endsection
 
 @push('js')
 <script>
+    // select 2
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select Tags",
+            allowClear: true
+        });
+    });
     // Main image preview
     document.getElementById('imageInput').addEventListener('change', function(event) {
         var reader = new FileReader();
@@ -431,6 +505,7 @@
 </script>
 
 <script> 
+    // category modal
     $('#createCategoryForm').on('submit', function(e) {
         e.preventDefault();
         let formData = $(this).serialize();
@@ -458,25 +533,35 @@
             }
         });
     });
+
+    // tags modal
+    $('#createTagForm').on('submit', function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        $.ajax({
+            url: '{{ route('inventory.tag.store2') }}',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $('#createTagModal').modal('hide');
+                    $('#createTagForm')[0].reset();
+                    $('#tag_id').append(new Option(response.tag.name, response.tag.id));
+                    $('#tag_id').trigger('change');
+                    toastr.success('Tag added successfully!');
+                } else {
+                    toastr.error('Something went wrong. Please try again.');
+                }
+            },
+            error: function(response) {
+                let errors = response.responseJSON.errors;
+                for (let field in errors) {
+                    $(`#new_tag_${field}`).addClass('is-invalid');
+                    $(`#new_tag_${field}`).after(`<div class="invalid-feedback">${errors[field][0]}</div>`);
+                }
+            }
+        });
+    });
 </script>
 
-@endpush
-
-@push('css')
-<style>
-    .thumbnail-container {
-        position: relative;
-        margin: 5px;
-    }
-    .custom-file-input ~ .custom-file-label::after {
-        content: "Browse";
-    }
-    #multipleImagePreview img {
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-    #multipleImagePreview img:hover {
-        opacity: 0.8;
-    }
-</style>
 @endpush
