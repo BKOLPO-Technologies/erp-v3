@@ -16,132 +16,101 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        .small-box>.inner {
+            padding: 30px 10px;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
     <div class="container">
-        <section class="content p-4">
-            <!-- Dashboard Card -->
+        <section class="content p-4 mt-5">
             <div class="card card-outline card-primary shadow-lg">
                 <div class="card-header text-center">
-                    <a href="#" class="h1"><b>Accounting</b> Management</a>
+                    <a href="#" class="h1"><b>ERP</b></a>
                 </div>
                 <div class="card-body">
                     <div class="row text-center">
-                        <!-- Box 1 -->
-                        <div class="col-md-2 col-6 mb-3">
+                        <!-- Accounts -->
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
                             <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-info">
                                     <div class="inner">
-                                        <p>Accounts</p>
+                                        <p class="m-0">Accounts</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <!-- Box 2 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-success">
+                        <!-- HR Management -->
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ url('/hrm/dashboard') }}" class="text-white">
+                                <div class="small-box bg-primary">
                                     <div class="inner">
-                                        <p>HR Management</p>
+                                        <p class="m-0">HR Management</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        {{-- <!-- Box 3 -->
-                        <div class="col-md-2 col-6 mb-3">
+                        <!-- Attendanced & Payroll -->
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
                             <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-warning">
                                     <div class="inner">
-                                        <p>Inventory</p>
+                                        <p class="m-0">Attendanced & Payroll</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <!-- Box 4 -->
-                        <div class="col-md-2 col-6 mb-3">
+                        <!-- Inventory -->
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <a href="{{ url('/inventory/dashboard') }}" class="text-white">
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <p class="m-0">Inventory</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Ecommerce -->
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
                             <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-danger">
                                     <div class="inner">
-                                        <p>Sales</p>
+                                        <p class="m-0">Ecommerce</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <!-- Box 5 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-primary">
-                                    <div class="inner">
-                                        <p>Purchases</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Box 6 -->
-                        <div class="col-md-2 col-6 mb-3">
+                        <!-- Process -->
+                        <div class="col-xl-4 col-md-4 col-md-6 col-sm-12 mb-3">
                             <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-secondary">
                                     <div class="inner">
-                                        <p>Expenses</p>
+                                        <p class="m-0">Process</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
-
-                        <!-- Box 7 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-info">
-                                    <div class="inner">
-                                        <p>Reports</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Box 8 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-success">
-                                    <div class="inner">
-                                        <p>Settings</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Box 9 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-warning">
-                                    <div class="inner">
-                                        <p>Banking</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Box 10 -->
-                        <div class="col-md-2 col-6 mb-3">
-                            <a href="{{ route('login') }}" class="text-white">
-                                <div class="small-box bg-danger">
-                                    <div class="inner">
-                                        <p>Audit</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div> --}}
                     </div>
-
+                </div>
+                <div class="card-footer bg-light px-3 py-3">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-muted" style="font-size: 16px;">
+                        <div class="mb-2 mb-md-0 text-center text-md-left">
+                            <i class="far fa-copyright"></i>
+                            {{ date('Y') }} <strong>Bkolpo Technologies</strong>. All rights reserved.
+                        </div>
+                        <div class="text-center text-md-right">
+                            Developed by <strong>Bkolpo Technologies</strong>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </section>
     </div>
 
