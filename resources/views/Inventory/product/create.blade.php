@@ -80,7 +80,7 @@
                             <label for="category_id" class="form-label">Category Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
-                                <select name="category_id" id="category_id" class="form-control select2">
+                                <select name="category_id" id="category_id" class="form-control select2" data-placeholder="Select Category">
                                     <option value="">Select Category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
@@ -104,7 +104,7 @@
                             <label for="tag_id" class="form-label">Tag Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-tags"></i></span>
-                                <select name="tag_id[]" id="tag_id" class="form-control select2"  multiple="multiple">
+                                <select name="tag_id[]" id="tag_id" class="form-control select2"  multiple="multiple" data-placeholder="Select Tag">
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tag_id', [])) ? 'selected' : '' }}>
                                             {{ $tag->name }}
@@ -124,7 +124,7 @@
                             <label for="brand_id" class="form-label">Brand Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
-                                <select name="brand_id" id="brand_id" class="form-control select2">
+                                <select name="brand_id" id="brand_id" class="form-control select2" data-placeholder="Select Brand">
                                     <option value="">Select Brand</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
@@ -246,7 +246,7 @@
                             <label for="unit_id" class="form-label">Unit Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
-                                <select name="unit_id" id="unit_id" class="form-control select2">
+                                <select name="unit_id" id="unit_id" class="form-control select2" data-placeholder="Select Unit">
                                     <option value="">Select unit</option>
                                     @foreach($units as $unit)
                                         <option value="{{ $unit->id }}" {{ old('unit_id') == $unit->id ? 'selected' : '' }}>
@@ -269,7 +269,7 @@
                             <label for="group_name" class="form-label">Group Name</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-users"></i></span>
-                                <select name="group_name" id="group_name" class="form-control select2">
+                                <select name="group_name" id="group_name" class="form-control select2" data-placeholder="Select Group">
                                     <option value="">Select Group</option>
                                     <option value="sales" {{ old('group_name') == 'sales' ? 'selected' : '' }}>Sales</option>
                                     <option value="purchases" {{ old('group_name') == 'purchases' ? 'selected' : '' }}>Purchases</option>
@@ -345,6 +345,38 @@
                         </div>
                     </div>
 
+                    <!-- Product Specification Section -->
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label>Product Specifications</label>
+
+                            <div id="specificationContainer">
+                                <div class="row specification-row mb-2">
+                                    <div class="col-md-3">
+                                        <input type="text" name="specifications[0][title]" class="form-control" placeholder="Enter Title">
+                                    </div>
+                                   <div class="col-md-5">
+                                        <textarea name="specifications[0][description]" class="form-control" rows="1" placeholder="Enter Description"></textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="specifications[0][status]" class="form-control">
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 d-flex align-items-center">
+                                        <button type="button" class="btn btn-success btn-sm add-specification me-1">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <!-- First row has no remove button -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <small class="form-text text-muted">You can add multiple specifications for this product.</small>
+                        </div>
+                    </div>
+
                     <div class="row mt-2">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary bg-success text-light" style="float: right;">
@@ -365,17 +397,21 @@
 @include('Accounts.unit.unit_modal')
 @include('Accounts.category.category_modal')
 @include('Inventory.tag.tag_modal')
+@include('Inventory.brand.brand_modal')
 @endsection
 
 @push('js')
 <script>
     // select 2
     $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: "Select Tags",
-            allowClear: true
+        $('.select2').each(function () {
+            $(this).select2({
+                placeholder: $(this).data('placeholder'),
+                allowClear: true
+            });
         });
     });
+
     // Main image preview
     document.getElementById('imageInput').addEventListener('change', function(event) {
         var reader = new FileReader();
@@ -546,12 +582,26 @@
                 if (response.success) {
                     $('#createTagModal').modal('hide');
                     $('#createTagForm')[0].reset();
-                    $('#tag_id').append(new Option(response.tag.name, response.tag.id));
-                    $('#tag_id').trigger('change');
+
+                    // ✅ Clear existing options to prevent duplicates
+                    $('#tag_id').empty();
+
+                    // ✅ Add "Select Tag" placeholder (optional)
+                    $('#tag_id').append(new Option("Select Tag", ""));
+
+                    // ✅ Append the latest tag list
+                    response.all_tags.forEach(tag => {
+                        $('#tag_id').append(new Option(tag.name, tag.id));
+                    });
+
+                    // ✅ Preselect the newly added tag
+                    $('#tag_id').val(response.tag.id).trigger('change');
+
                     toastr.success('Tag added successfully!');
                 } else {
                     toastr.error('Something went wrong. Please try again.');
                 }
+
             },
             error: function(response) {
                 let errors = response.responseJSON.errors;
@@ -562,6 +612,83 @@
             }
         });
     });
-</script>
 
+    // brands modal
+    $('#createBrandForm').on('submit', function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        $.ajax({
+            url: '{{ route('inventory.brand.store2') }}',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $('#createBrandModal').modal('hide');
+                    $('#createBrandForm')[0].reset();
+
+                    // ✅ Clear existing options to prevent duplicates
+                    $('#brand_id').empty();
+
+                    // ✅ Add "Select brand" placeholder (optional)
+                    $('#brand_id').append(new Option("Select Brand", ""));
+
+                    // ✅ Append the latest brand list
+                    response.all_brands.forEach(brand => {
+                        $('#brand_id').append(new Option(brand.name, brand.id));
+                    });
+
+                    // ✅ Preselect the newly added brand
+                    $('#brand_id').val(response.brand.id).trigger('change');
+
+                    toastr.success('Brand added successfully!');
+                } else {
+                    toastr.error('Something went wrong. Please try again.');
+                }
+
+            },
+            error: function(response) {
+                let errors = response.responseJSON.errors;
+                for (let field in errors) {
+                    $(`#new_brand_${field}`).addClass('is-invalid');
+                    $(`#new_brand_${field}`).after(`<div class="invalid-feedback">${errors[field][0]}</div>`);
+                }
+            }
+        });
+    });
+</script>
+<script>
+    let specIndex = 1;
+
+    $(document).on('click', '.add-specification', function () {
+        let row = `
+        <div class="row specification-row mb-2">
+            <div class="col-md-3">
+                <input type="text" name="specifications[${specIndex}][title]" class="form-control" placeholder="Enter Title">
+            </div>
+            <div class="col-md-5">
+                <textarea name="specifications[${specIndex}][description]" class="form-control" rows="1" placeholder="Enter Description"></textarea>
+            </div>
+            <div class="col-md-3">
+                <select name="specifications[${specIndex}][status]" class="form-control">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-1 d-flex align-items-center">
+                <button type="button" class="btn btn-success btn-sm add-specification mr-1">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm remove-specification">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>`;
+        $('#specificationContainer').append(row);
+        specIndex++;
+    });
+
+    $(document).on('click', '.remove-specification', function () {
+        $(this).closest('.specification-row').remove();
+    });
+</script>
 @endpush

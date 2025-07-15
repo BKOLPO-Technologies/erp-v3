@@ -2,7 +2,9 @@
 
 namespace App\Models\Accounts;
 use App\Models\Inventory\ProductImage;
-
+use App\Models\Inventory\ProductSpecification;
+use App\Models\Inventory\Tag;
+use App\Models\Inventory\Brand;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -85,6 +87,16 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function specifications()
+    {
+        return $this->hasMany(ProductSpecification::class);
     }
 
 

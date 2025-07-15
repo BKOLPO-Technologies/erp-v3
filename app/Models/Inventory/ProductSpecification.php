@@ -4,7 +4,7 @@ namespace App\Models\Inventory;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class ProductSpecification extends Model
 {
     protected $guarded = [];
 
@@ -12,5 +12,4 @@ class Tag extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
 }
