@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label for="category_id" class="form-label">Category Name</label>
+                            <label for="category_id" class="form-label">Category</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
                                 <select name="category_id" id="category_id" class="form-control select2" data-placeholder="Select Category">
@@ -101,7 +101,7 @@
 
                         {{-- tags select --}}
                         <div class="col-md-6 mb-2">
-                            <label for="tag_id" class="form-label">Tag Name</label>
+                            <label for="tag_id" class="form-label">Tag</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-tags"></i></span>
                                 <select name="tag_id[]" id="tag_id" class="form-control select2"  multiple="multiple" data-placeholder="Select Tag">
@@ -121,7 +121,7 @@
 
                         {{-- brands select --}}
                         <div class="col-md-6 mb-2">
-                            <label for="brand_id" class="form-label">Brand Name</label>
+                            <label for="brand_id" class="form-label">Brand</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
                                 <select name="brand_id" id="brand_id" class="form-control select2" data-placeholder="Select Brand">
@@ -243,7 +243,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="unit_id" class="form-label">Unit Name</label>
+                            <label for="unit_id" class="form-label">Unit</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-network-wired"></i></span>
                                 <select name="unit_id" id="unit_id" class="form-control select2" data-placeholder="Select Unit">
@@ -266,11 +266,11 @@
                         </div>
                     
                         <div class="col-md-6">
-                            <label for="group_name" class="form-label">Group Name</label>
+                            <label for="group_name" class="form-label">Group</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-users"></i></span>
                                 <select name="group_name" id="group_name" class="form-control select2" data-placeholder="Select Group">
-                                    <option value="">Select Group</option>
+                                    <option value="">Select</option>
                                     <option value="sales" {{ old('group_name') == 'sales' ? 'selected' : '' }}>Sales</option>
                                     <option value="purchases" {{ old('group_name') == 'purchases' ? 'selected' : '' }}>Purchases</option>
                                 </select>
