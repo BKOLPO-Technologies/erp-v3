@@ -64,6 +64,37 @@ class BrandController extends Controller
         }
     }
 
+    public function store2(Request $request)
+    {
+        //dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Generate slug from name
+        $slug = Str::slug($request->name);
+
+        // Check if slug already exists and append a number if necessary
+        $existingBrand = Brand::where('slug', $slug)->first();
+        if ($existingBrand) {
+            $slug = $slug . '-' . (Brand::count() + 1);
+        }
+
+        // Store the brand with the unique slug
+        $brand = Brand::create([
+            'name' => $request->name,
+            'slug' => $slug,
+            'status' => $request->status ?? 1, // Default to active if not provided
+        ]);
+
+        return response()->json([
+            'success'  => true,
+            'message'  => 'Brand added successfully.',
+            'brand' => $brand,
+            'all_brands' => Brand::where('status',1)->latest()->get()
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
@@ -103,7 +134,7 @@ class BrandController extends Controller
             $brand->slug = Str::slug($validated['name']);
             $brand->description = $validated['description'] ?? null;
             $brand->status = $validated['status'] ?? 1;
-            
+
             if ($request->file('logo')) {
                 // Delete old logo if it exists
                 if ($brand->logo && file_exists(public_path('upload/Inventory/brands/' . $brand->logo))) {

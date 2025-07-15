@@ -44,6 +44,7 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/', [BrandController::class, 'index'])->name('brand.index');
             Route::get('/create', [BrandController::class, 'create'])->name('brand.create');
             Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
+            Route::post('/store2', [BrandController::class, 'store2'])->name('brand.store2');
             Route::get('/show/{id}', [BrandController::class, 'show'])->name('brand.show');
             Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
             Route::put('/update/{id}', [BrandController::class, 'update'])->name('brand.update');

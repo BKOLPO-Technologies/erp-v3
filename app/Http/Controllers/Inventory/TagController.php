@@ -81,7 +81,8 @@ class TagController extends Controller
         return response()->json([
             'success'  => true,
             'message'  => 'Tag added successfully.',
-            'tag' => $tag, 
+            'tag' => $tag,
+            'all_tags' => Tag::where('status',1)->latest()->get()
         ]);
     }
 
