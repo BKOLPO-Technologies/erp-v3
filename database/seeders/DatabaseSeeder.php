@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             LedgerSeeder::class,
             CategorySeeder::class,
             UnitSeeder::class,
-            ProductSeeder::class,
+            // ProductSeeder::class,
             ClientSeeder::class,
             SupplierSeeder::class,
             BranchSeeder::class,

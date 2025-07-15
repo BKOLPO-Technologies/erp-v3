@@ -71,5 +71,11 @@ class Product extends Model
             ->whereBetween('invoice_date', [$fromDate, $toDate]);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+
     
 }

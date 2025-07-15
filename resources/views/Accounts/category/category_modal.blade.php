@@ -21,7 +21,7 @@
                             </label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter Unit Name">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required placeholder="Enter Unit Name">
                             </div>
                         </div>
                     </div>  
