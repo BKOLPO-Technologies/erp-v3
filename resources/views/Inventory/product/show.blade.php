@@ -36,102 +36,152 @@
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <tbody>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ $product->name ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Product Code</th>
+                                            <td>{{ $product->product_code ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Category Name</th>
+                                            <td>{{ $product->category->name ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tag Name</th>
+                                            <td>
+                                                @if($product->tags->count())
+                                                    @foreach($product->tags as $tag)
+                                                        <span class="badge badge-info">{{ $tag->name }}</span>
+                                                    @endforeach
+                                                @else
+                                                    <span class="text-muted">No tags assigned</span>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     <tr>
-                                        <th>Name</th>
-                                        <td>{{ $product->name ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Product Code</th>
-                                        <td>{{ $product->product_code ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Category Name</th>
-                                        <td>{{ $product->category->name ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Unit Name</th>
-                                        <td>{{ $product->unit->name ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Price</th>
-                                        <td>{{ $product->price ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Quantity</th>
-                                        <td>{{ $product->quantity ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Alert Quantity</th>
-                                        <td>{{ $product->alert_quantity ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Stock Status</th>
-                                        <td>
-                                            @if($product->stock_status === 'in_stock')
-                                                <span class="badge bg-success">In Stock</span>
-                                            @elseif($product->stock_status === 'low_stock')
-                                                <span class="badge bg-warning text-dark">Low Stock</span>
-                                            @elseif($product->stock_status === 'out_of_stock')
-                                                <span class="badge bg-danger">Out of Stock</span>
-                                            @else
-                                                <span class="badge bg-secondary">Unknown</span>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            <th>Product Specification</th>
+                                            <td>
+                                                @if($product->specifications->count())
+                                                    <table class="table table-bordered table-sm mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width: 30%;">Title</th>
+                                                                <th style="width: 50%;">Description</th>
+                                                                <th style="width: 20%;">Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($product->specifications as $spec)
+                                                                <tr>
+                                                                    <td>{{ $spec->title }}</td>
+                                                                    <td>{{ $spec->description }}</td>
+                                                                    <td>
+                                                                        @if($spec->status == 1)
+                                                                            <span class="badge badge-success">Active</span>
+                                                                        @else
+                                                                            <span class="badge badge-secondary">Inactive</span>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                @else
+                                                    <span class="text-muted">No specifications added</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Brand Name</th>
+                                            <td>{{ $product->brand->name ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Unit Name</th>
+                                            <td>{{ $product->unit->name ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Price</th>
+                                            <td>{{ $product->price ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Quantity</th>
+                                            <td>{{ $product->quantity ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Alert Quantity</th>
+                                            <td>{{ $product->alert_quantity ?? '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Stock Status</th>
+                                            <td>
+                                                @if($product->stock_status === 'in_stock')
+                                                    <span class="badge bg-success">In Stock</span>
+                                                @elseif($product->stock_status === 'low_stock')
+                                                    <span class="badge bg-warning text-dark">Low Stock</span>
+                                                @elseif($product->stock_status === 'out_of_stock')
+                                                    <span class="badge bg-danger">Out of Stock</span>
+                                                @else
+                                                    <span class="badge bg-secondary">Unknown</span>
+                                                @endif
+                                            </td>
+                                        </tr>
 
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>{{ $product->description ?? '' }}</td>
+                                        </tr>
+                                        
                                     <tr>
-                                        <th>Description</th>
-                                        <td>{{ $product->description ?? '' }}</td>
-                                    </tr>
-                                    
-                                  <tr>
-                                        <th>Main Image</th>
-                                        <td>
-                                            <div class="col-md-1">
-                                                <a href="{{ asset('upload/Inventory/products/' . $product->image) }}" target="_blank">
-                                                    <img
-                                                        src="{{ !empty($product->image) ? asset('upload/Inventory/products/' . $product->image) : asset('Accounts/logo.jpg') }}"
-                                                        alt="Main Image"
-                                                        style="width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 5px;">
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            <th>Main Image</th>
+                                            <td>
+                                                <div class="col-md-1">
+                                                    <a href="{{ asset('upload/Inventory/products/' . $product->image) }}" target="_blank">
+                                                        <img
+                                                            src="{{ !empty($product->image) ? asset('upload/Inventory/products/' . $product->image) : asset('Accounts/logo.jpg') }}"
+                                                            alt="Main Image"
+                                                            style="width: 100%; height: 60px; border: 1px solid #ddd; border-radius: 5px;">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th>Additional Images</th>
-                                        <td>
-                                            <div class="d-flex flex-wrap">
-                                                @foreach($product->images as $image)
-                                                    <div class="mr-2 mb-2" style="width: 80px;">
-                                                        <a href="{{ asset('upload/Inventory/products/' . $image->image) }}" target="_blank">
-                                                            <img
-                                                                src="{{ asset('upload/Inventory/products/' . $image->image) }}"
-                                                                alt="Additional Image"
-                                                                style="width: 100%; height: 60px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th>Additional Images</th>
+                                            <td>
+                                                <div class="d-flex flex-wrap">
+                                                    @foreach($product->images as $image)
+                                                        <div class="mr-2 mb-2" style="width: 80px;">
+                                                            <a href="{{ asset('upload/Inventory/products/' . $image->image) }}" target="_blank">
+                                                                <img
+                                                                    src="{{ asset('upload/Inventory/products/' . $image->image) }}"
+                                                                    alt="Additional Image"
+                                                                    style="width: 100%; height: 60px; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th>Status</th>
-                                        <td>
-                                            @if($product->status)
-                                                <span class="badge bg-success">Active</span>
-                                            @else
-                                                <span class="badge bg-danger">Inactive</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <th>Status</th>
+                                            <td>
+                                                @if($product->status)
+                                                    <span class="badge bg-success">Active</span>
+                                                @else
+                                                    <span class="badge bg-danger">Inactive</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>     
                         </div>     
-
                     </div>
                 </div>
             </div>

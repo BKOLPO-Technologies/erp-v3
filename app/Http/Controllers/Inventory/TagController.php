@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Inventory\Tag;
+use App\Models\Inventory\ProductTag;
 use Illuminate\Support\Str;
 
 class TagController extends Controller
@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::orderBy('id', 'desc')->get();
+        $tags = ProductTag::orderBy('id', 'desc')->get();
         $pageTitle = 'Tag List';
         return view('Inventory.tag.index', compact('pageTitle', 'tags'));
     }
@@ -41,7 +41,7 @@ class TagController extends Controller
         ]);
 
         try {
-            $tag = new Tag();
+            $tag = new ProductTag();
             $tag->name = $validated['name'];
             $tag->slug = Str::slug($validated['name']);
             $tag->description = $validated['description'] ?? null;
@@ -66,13 +66,13 @@ class TagController extends Controller
         $slug = Str::slug($request->name);
 
         // Check if slug already exists and append a number if necessary
-        $existingTag = Tag::where('slug', $slug)->first();
+        $existingTag = ProductTag::where('slug', $slug)->first();
         if ($existingTag) {
-            $slug = $slug . '-' . (Tag::count() + 1);
+            $slug = $slug . '-' . (ProductTag::count() + 1);
         }
 
         // Store the tag with the unique slug
-        $tag = Tag::create([
+        $tag = ProductTag::create([
             'name' => $request->name,
             'slug' => $slug,
             'status' => $request->status ?? 1, // Default to active if not provided
@@ -82,7 +82,7 @@ class TagController extends Controller
             'success'  => true,
             'message'  => 'Tag added successfully.',
             'tag' => $tag,
-            'all_tags' => Tag::where('status',1)->latest()->get()
+            'all_tags' => ProductTag::where('status',1)->latest()->get()
         ]);
     }
 
@@ -91,7 +91,7 @@ class TagController extends Controller
      */
     public function show(string $id)
     {
-        $tag = Tag::findOrFail($id);
+        $tag = ProductTag::findOrFail($id);
         $pageTitle = 'Tag Details';
         return view('Inventory.tag.show', compact('pageTitle', 'tag'));
     }
@@ -101,7 +101,7 @@ class TagController extends Controller
      */
     public function edit(string $id)
     {
-        $tag = Tag::findOrFail($id);
+        $tag = ProductTag::findOrFail($id);
         $pageTitle = 'Tag Edit';
         return view('Inventory.tag.edit', compact('pageTitle', 'tag'));
     }
@@ -119,7 +119,7 @@ class TagController extends Controller
         ]);
 
         try {
-            $tag = Tag::findOrFail($id);
+            $tag = ProductTag::findOrFail($id);
             $tag->name = $validated['name'];
             $tag->slug = Str::slug($validated['name']);
             $tag->description = $validated['description'] ?? null;
@@ -139,7 +139,7 @@ class TagController extends Controller
     public function destroy(string $id)
     {
         try {
-            $tag = Tag::findOrFail($id);
+            $tag = ProductTag::findOrFail($id);
             $tag->delete();
 
             return redirect()->route('inventory.tag.index')->with('success', 'Tag deleted successfully.');

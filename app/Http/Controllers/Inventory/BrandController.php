@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Inventory\Brand;
+use App\Models\Inventory\ProductBrand;
 use Illuminate\Support\Str;
 
 class BrandController extends Controller
@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
      public function index() 
     {
-        $brands = Brand::orderBy('id', 'desc')->get();
+        $brands = ProductBrand::orderBy('id', 'desc')->get();
         $pageTitle = 'Brand List';
         return view('Inventory.brand.index',compact('pageTitle', 'brands'));
     }
@@ -42,7 +42,7 @@ class BrandController extends Controller
         ]);
 
         try {
-            $brand = new Brand();
+            $brand = new ProductBrand();
             $brand->name = $validated['name'];
             $brand->slug = Str::slug($validated['name']);
             $brand->description = $validated['description'] ?? null;
@@ -75,13 +75,13 @@ class BrandController extends Controller
         $slug = Str::slug($request->name);
 
         // Check if slug already exists and append a number if necessary
-        $existingBrand = Brand::where('slug', $slug)->first();
+        $existingBrand = ProductBrand::where('slug', $slug)->first();
         if ($existingBrand) {
-            $slug = $slug . '-' . (Brand::count() + 1);
+            $slug = $slug . '-' . (ProductBrand::count() + 1);
         }
 
         // Store the brand with the unique slug
-        $brand = Brand::create([
+        $brand = ProductBrand::create([
             'name' => $request->name,
             'slug' => $slug,
             'status' => $request->status ?? 1, // Default to active if not provided
@@ -91,7 +91,7 @@ class BrandController extends Controller
             'success'  => true,
             'message'  => 'Brand added successfully.',
             'brand' => $brand,
-            'all_brands' => Brand::where('status',1)->latest()->get()
+            'all_brands' => ProductBrand::where('status',1)->latest()->get()
         ]);
     }
 
@@ -100,7 +100,7 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        $brand = Brand::findOrFail($id);
+        $brand = ProductBrand::findOrFail($id);
         $pageTitle = 'Brand Details';
         return view('Inventory.brand.show', compact('pageTitle', 'brand'));
     }
@@ -110,7 +110,7 @@ class BrandController extends Controller
      */
     public function edit(string $id)
     {
-        $brand = Brand::findOrFail($id);
+        $brand = ProductBrand::findOrFail($id);
         $pageTitle = 'Brand Edit';
         return view('Inventory.brand.edit', compact('pageTitle', 'brand'));
     }
@@ -129,7 +129,7 @@ class BrandController extends Controller
         ]);
 
         try {
-            $brand = Brand::findOrFail($id);
+            $brand = ProductBrand::findOrFail($id);
             $brand->name = $validated['name'];
             $brand->slug = Str::slug($validated['name']);
             $brand->description = $validated['description'] ?? null;
@@ -161,7 +161,7 @@ class BrandController extends Controller
     public function destroy(string $id)
     {
         try {
-            $brand = Brand::findOrFail($id);
+            $brand = ProductBrand::findOrFail($id);
             if ($brand->logo && file_exists(public_path('storage/' . $brand->logo))) {
                 @unlink(public_path('storage/' . $brand->logo)); // Delete logo
             }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Models\Accounts\Category;
-use App\Models\Accounts\Product;
+use App\Models\Inventory\ProductCategory;
+use App\Models\Inventory\InventoryProduct;
 use App\Models\Inventory\ProductImage;
-use App\Models\Inventory\Tag;
-use App\Models\Inventory\Brand;
+use App\Models\Inventory\ProductTag;
+use App\Models\Inventory\ProductBrand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Accounts\Unit;
+use App\Models\Inventory\ProductUnit;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use DB;
@@ -19,7 +19,7 @@ class ProductController extends Controller
 {
     public function index() 
     {
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = InventoryProduct::orderBy('id', 'desc')->get();
         $pageTitle = 'Product List';
         return view('Inventory.product.index',compact('pageTitle', 'products'));
     }
@@ -27,24 +27,27 @@ class ProductController extends Controller
     public function create() 
     {
         $pageTitle = 'Product Create';
-        $categories = Category::where('status',1)->latest()->get();
-        $brands = Brand::where('status',1)->latest()->get();
-        $tags = Tag::where('status',1)->latest()->get();
-        $units = Unit::where('status',1)->latest()->get();
+        $categories = ProductCategory::where('status',1)->latest()->get();
+        $brands = ProductBrand::where('status',1)->latest()->get();
+        $tags = ProductTag::where('status',1)->latest()->get();
+        $units = ProductUnit::where('status',1)->latest()->get();
         $productCode = 'PRD' . strtoupper(Str::random(5));
 
         return view('Inventory.product.create',compact('pageTitle','categories','tags','brands', 'units', 'productCode'));
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
         // dd($request->all());
         // Validate the incoming request
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'unit_id' => 'required|exists:units,id',
+            'category_id' => 'required|exists:product_categories,id',
+            'brand_id' => 'required|exists:product_brands,id',
+            'tag_id' => 'required|array',
+            'tag_id.*' => 'exists:product_tags,id',
+            'unit_id' => 'required|exists:product_units,id',
             'price' => 'nullable|numeric|min:0',
             'quantity' => 'nullable|integer|min:0',
             'alert_quantity' => 'required|integer|min:0',
@@ -67,12 +70,12 @@ class ProductController extends Controller
             }
 
             // Store the product with the validated data
-            $product = Product::create([
+            $product = InventoryProduct::create([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
                 'product_code' => $request->product_code,
                 'category_id' => $request->category_id,
-                // 'brand_id' => $request->brand_id,
+                'brand_id' => $request->brand_id,
                 'unit_id' => $request->unit_id,
                 'price' => $request->price,
                 // 'purchase_price' => $request->purchase_price,
@@ -98,6 +101,22 @@ class ProductController extends Controller
                 }
             }
 
+            // Sync tags
+            if ($request->has('tag_id')) {
+                $product->tags()->sync($request->tag_id);
+            }
+
+            // Save specifications
+            if ($request->has('specifications')) {
+                foreach ($request->specifications as $spec) {
+                    $product->specifications()->create([
+                        'title' => $spec['title'],
+                        'description' => $spec['description'],
+                        'status' => $spec['status'],
+                    ]);
+                }
+            }
+
             DB::commit();
 
             return redirect()->route('inventory.product.index')->with('success', 'Product created successfully!');
@@ -107,7 +126,7 @@ class ProductController extends Controller
         }
     }
 
-    protected function uploadImage(Product $product, $file, $type = 'main')
+    protected function uploadImage(InventoryProduct $product, $file, $type = 'main')
     {
         $uploadPath = 'upload/Inventory/products';
         $filename = 'product_' . $product->id . '_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -143,12 +162,12 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product = InventoryProduct::findOrFail($id);
         $pageTitle = 'Admin Product Edit';
-        $categories = Category::where('status',1)->latest()->get();
-        $brands = Brand::where('status',1)->latest()->get();
-        $tags = Tag::where('status',1)->latest()->get();
-        $units = Unit::where('status',1)->latest()->get();
+        $categories = ProductCategory::where('status',1)->latest()->get();
+        $brands = ProductBrand::where('status',1)->latest()->get();
+        $tags = ProductTag::where('status',1)->latest()->get();
+        $units = ProductUnit::where('status',1)->latest()->get();
         return view('Accounts.product.edit',compact('pageTitle', 'product','categories', 'units'));
     }
 
@@ -167,7 +186,7 @@ class ProductController extends Controller
         ]);
 
         // Find the product by ID
-        $product = Product::findOrFail($id);
+        $product = InventoryProduct::findOrFail($id);
 
         // Check if a new image is uploaded
         if ($request->hasFile('image')) {
@@ -207,7 +226,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = InventoryProduct::findOrFail($id);
         $pageTitle = 'Product View';
         return view('Inventory.product.show',compact('pageTitle', 'product'));
     }
@@ -215,7 +234,7 @@ class ProductController extends Controller
     public function AdminProductDestroy($id)
     {
         // Find the supplier by ID
-        $product = Product::findOrFail($id);
+        $product = InventoryProduct::findOrFail($id);
 
         // Delete the product image if it exists
         if ($product->image && Storage::disk('public')->exists($product->image)) {
@@ -234,13 +253,13 @@ class ProductController extends Controller
     {
         if ($categoryId == 'all') {
             // Return all products if "all" is selected
-            $products = Product::all();
+            $products = InventoryProduct::all();
         } else {
             // Filter products by selected category
-            $products = Product::where('category_id', $categoryId)->where('group_name', 'purchases')->with('unit')->get();
+            $products = InventoryProduct::where('category_id', $categoryId)->where('group_name', 'purchases')->with('unit')->get();
         }
 
-        $category = Category::find($categoryId);
+        $category = ProductCategory::find($categoryId);
         // return response()->json($products);
 
         return response()->json([

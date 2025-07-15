@@ -4,13 +4,12 @@ namespace App\Models\Inventory;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class ProductUnit extends Model
 {
     protected $guarded = [];
-    
+
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(InventoryProduct::class);
     }
-
 }

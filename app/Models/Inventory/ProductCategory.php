@@ -4,13 +4,12 @@ namespace App\Models\Inventory;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class ProductCategory extends Model
 {
     protected $guarded = [];
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(InventoryProduct::class);
     }
-
 }

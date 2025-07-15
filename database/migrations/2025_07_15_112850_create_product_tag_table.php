@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_specifications', function (Blueprint $table) {
+        Schema::create('product_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->boolean('status')->default(1); // 1 = Active, 0 = Inactive
+            $table->foreignId('product_id')->constrained('inventory_products')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('product_tags')->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['product_id', 'tag_id']);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_specifications');
+        Schema::dropIfExists('product_tag');
     }
 };

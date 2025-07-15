@@ -53,7 +53,7 @@
                     
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('inventory.product.index') }}" class="nav-link {{ Route::is('inventory.product.index', 'inventory.product.create', 'inventory.product.show', 'inventory.product.edit') ? 'active' : '' }}">
+                            <a href="{{ route('inventory.product.index') }}" class="nav-link {{ Route::is('inventory.product.index', 'inventory.product.create', 'inventory.product.view', 'inventory.product.edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Manage Products</p>
                             </a>

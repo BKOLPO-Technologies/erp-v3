@@ -8,8 +8,11 @@ class ProductSpecification extends Model
 {
     protected $guarded = [];
 
-    public function product()
+    public function specifications()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(ProductSpecification::class, 'product_id');
     }
+
+
+    
 }

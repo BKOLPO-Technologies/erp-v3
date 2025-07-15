@@ -219,7 +219,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-bell"></i></span>
                                     </div>
-                                    <input type="number" class="form-control" placeholder="Enter Alert Quantity" name="alert_quantity" value="{{ old('alert_quantity', 5) }}">
+                                    <input type="number" class="form-control" placeholder="Enter Alert Quantity" name="alert_quantity" value="{{ old('alert_quantity', 10) }}">
                                 </div>
                             </div>
                         </div>
