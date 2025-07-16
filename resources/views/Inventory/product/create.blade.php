@@ -353,10 +353,16 @@
                             <div id="specificationContainer">
                                 <div class="row specification-row mb-2">
                                     <div class="col-md-3">
-                                        <input type="text" name="specifications[0][title]" class="form-control" placeholder="Enter Title">
+                                        <select name="specifications[0][id]" class="form-control select2" data-placeholder="Select Specification">
+                                            <option value="">Select Specification</option>
+                                            @foreach($specifications as $specification)
+                                                <option value="{{ $specification->id }}">{{ $specification->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+
                                    <div class="col-md-5">
-                                        <textarea name="specifications[0][description]" class="form-control" rows="1" placeholder="Enter Description"></textarea>
+                                        <textarea name="specifications[0][content]" class="form-control" rows="1" placeholder="Enter Content"></textarea>
                                     </div>
                                     <div class="col-md-3">
                                         <select name="specifications[0][status]" class="form-control">
@@ -657,16 +663,21 @@
     });
 </script>
 <script>
-    let specIndex = 1;
+   let specIndex = 1;
 
     $(document).on('click', '.add-specification', function () {
         let row = `
         <div class="row specification-row mb-2">
             <div class="col-md-3">
-                <input type="text" name="specifications[${specIndex}][title]" class="form-control" placeholder="Enter Title">
+                <select name="specifications[${specIndex}][id]" class="form-control select2" data-placeholder="Select Specification">
+                    <option value="">Select Specification</option>
+                    @foreach($specifications as $specification)
+                        <option value="{{ $specification->id }}">{{ $specification->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-5">
-                <textarea name="specifications[${specIndex}][description]" class="form-control" rows="1" placeholder="Enter Description"></textarea>
+                <textarea name="specifications[${specIndex}][content]" class="form-control" rows="1" placeholder="Enter Content"></textarea>
             </div>
             <div class="col-md-3">
                 <select name="specifications[${specIndex}][status]" class="form-control">
@@ -684,6 +695,12 @@
             </div>
         </div>`;
         $('#specificationContainer').append(row);
+        
+        // Initialize select2 for the new dropdown if you're using it
+        if ($.fn.select2) {
+            $('.select2').select2();
+        }
+        
         specIndex++;
     });
 

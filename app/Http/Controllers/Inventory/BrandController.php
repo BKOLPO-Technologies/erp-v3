@@ -161,13 +161,19 @@ class BrandController extends Controller
     public function destroy(string $id)
     {
         try {
-            $brand = ProductBrand::findOrFail($id);
+            $brand = ProductBrand::withCount('products')->findOrFail($id);
 
             // Correct path to uploaded logo
             $logoPath = public_path('upload/Inventory/brands/' . $brand->logo);
 
             if ($brand->logo && file_exists($logoPath)) {
                 @unlink($logoPath); // Delete logo
+            }
+            
+            // Check if brand has any associated products
+            if ($brand->products_count > 0) {
+                return redirect()->route('inventory.brand.index')
+                    ->with('warning', 'Cannot delete brand - it is associated with '.$brand->products_count.' product(s).');
             }
 
             $brand->delete();

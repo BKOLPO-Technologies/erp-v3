@@ -157,12 +157,18 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         try {
-            $category = ProductCategory::findOrFail($id);
+            $category = ProductCategory::with(['products'])->findOrFail($id);
 
             // Match the upload path here
             $imagePath = public_path('upload/Inventory/categories/' . $category->image);
             if ($category->image && file_exists($imagePath)) {
                 @unlink($imagePath);
+            }
+
+            // Check if category has any products
+            if ($category->products()->exists()) {
+                return redirect()->route('inventory.category.index')
+                    ->with('warning', 'Cannot delete category - it contains products. Move or delete products first.');
             }
 
             $category->delete();

@@ -13,6 +13,9 @@ class ProductSpecification extends Model
         return $this->hasMany(ProductSpecification::class, 'product_id');
     }
 
-
+    public function specification()
+    {
+        return $this->belongsTo(Specification::class);
+    }
     
 }

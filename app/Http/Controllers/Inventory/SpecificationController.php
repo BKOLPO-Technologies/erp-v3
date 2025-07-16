@@ -92,7 +92,14 @@ class SpecificationController extends Controller
      */
     public function destroy(string $id)
     {
-        $specification = Specification::findOrFail($id);
+        $specification = Specification::with(['products'])->findOrFail($id);
+
+        // Check if specification is used by any products
+        if ($specification->products()->exists()) {
+            return redirect()->route('inventory.specification.index')
+                ->with('warning', 'Cannot delete specification - it is currently in use by products.');
+        }
+
         $specification->delete();
 
         return redirect()->route('inventory.specification.index')->with('success', 'Specification deleted successfully.');

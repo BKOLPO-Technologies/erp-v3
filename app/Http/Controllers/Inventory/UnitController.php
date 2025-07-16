@@ -122,7 +122,15 @@ class UnitController extends Controller
     public function destroy(string $id)
     {
         try {
-            $unit = ProductUnit::findOrFail($id);
+            $unit = ProductUnit::withCount('products')->findOrFail($id);
+
+            // Check if unit is used by any products
+            if ($unit->products_count > 0) {
+                return redirect()->route('inventory.unit.index')
+                    ->with('warning', 'Cannot delete unit - it is associated with '.$unit->products_count.' product(s).');
+            }
+
+            // Delete the unit
             $unit->delete();
 
             return redirect()->route('inventory.unit.index')->with('success', 'Unit deleted successfully.');

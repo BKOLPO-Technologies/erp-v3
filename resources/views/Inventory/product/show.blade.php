@@ -70,16 +70,16 @@
                                                     <table class="table table-bordered table-sm mb-0">
                                                         <thead>
                                                             <tr>
-                                                                <th style="width: 30%;">Title</th>
-                                                                <th style="width: 50%;">Description</th>
+                                                                <th style="width: 30%;">Specification</th>
+                                                                <th style="width: 50%;">Content</th>
                                                                 <th style="width: 20%;">Status</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach($product->specifications as $spec)
                                                                 <tr>
-                                                                    <td>{{ $spec->title }}</td>
-                                                                    <td>{{ $spec->description }}</td>
+                                                                    <td>{{ $spec->specification->name ?? '' }}</td>
+                                                                    <td>{{ $spec->content }}</td>
                                                                     <td>
                                                                         @if($spec->status == 1)
                                                                             <span class="badge badge-success">Active</span>

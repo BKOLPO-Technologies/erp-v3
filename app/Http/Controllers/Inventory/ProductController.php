@@ -10,6 +10,7 @@ use App\Models\Inventory\ProductBrand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Inventory\ProductUnit;
+use App\Models\Inventory\Specification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use DB;
@@ -31,9 +32,10 @@ class ProductController extends Controller
         $brands = ProductBrand::where('status',1)->latest()->get();
         $tags = ProductTag::where('status',1)->latest()->get();
         $units = ProductUnit::where('status',1)->latest()->get();
+        $specifications = Specification::latest()->get();
         $productCode = 'PRD' . strtoupper(Str::random(5));
 
-        return view('Inventory.product.create',compact('pageTitle','categories','tags','brands', 'units', 'productCode'));
+        return view('Inventory.product.create',compact('pageTitle','categories','tags','brands', 'units', 'productCode','specifications'));
     }
 
     public function store(Request $request)
@@ -110,8 +112,8 @@ class ProductController extends Controller
             if ($request->has('specifications')) {
                 foreach ($request->specifications as $spec) {
                     $product->specifications()->create([
-                        'title' => $spec['title'],
-                        'description' => $spec['description'],
+                        'specification_id' => $spec['id'],  
+                        'content' => $spec['content'],
                         'status' => $spec['status'],
                     ]);
                 }
@@ -168,14 +170,16 @@ class ProductController extends Controller
         $brands = ProductBrand::where('status', 1)->latest()->get();
         $tags = ProductTag::where('status', 1)->latest()->get();
         $units = ProductUnit::where('status', 1)->latest()->get();
-        
+        $specifications = Specification::latest()->get();
+
         return view('Inventory.product.edit', compact(
             'pageTitle', 
             'product',
             'categories',
             'brands',
             'tags',
-            'units'
+            'units',
+            'specifications'
         ));
     }
 
@@ -255,8 +259,8 @@ class ProductController extends Controller
                 // Then create new ones
                 foreach ($request->specifications as $spec) {
                     $product->specifications()->create([
-                        'title' => $spec['title'],
-                        'description' => $spec['description'],
+                        'specification_id' => $spec['id'],  
+                        'content' => $spec['content'],
                         'status' => $spec['status'],
                     ]);
                 }

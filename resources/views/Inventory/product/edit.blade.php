@@ -358,15 +358,22 @@
                         <div class="col-md-12">
                             <label>Product Specifications</label>
 
-                            <div id="specificationContainer">
+                           <div id="specificationContainer">
                                 @if($product->specifications->count() > 0)
                                     @foreach($product->specifications as $index => $spec)
                                     <div class="row specification-row mb-2">
                                         <div class="col-md-3">
-                                            <input type="text" name="specifications[{{ $index }}][title]" class="form-control" placeholder="Enter Title" value="{{ old('specifications.'.$index.'.title', $spec->title) }}">
+                                            <select name="specifications[{{ $index }}][id]" class="form-control select2" data-placeholder="Select Specification">
+                                                <option value="">Select Specification</option>
+                                                @foreach($specifications as $specification)
+                                                    <option value="{{ $specification->id }}" {{ $specification->id == $spec->specification_id ? 'selected' : '' }}>
+                                                        {{ $specification->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                       <div class="col-md-5">
-                                            <textarea name="specifications[{{ $index }}][description]" class="form-control" rows="1" placeholder="Enter Description">{{ old('specifications.'.$index.'.description', $spec->description) }}</textarea>
+                                        <div class="col-md-5">
+                                            <textarea name="specifications[{{ $index }}][content]" class="form-control" rows="1" placeholder="Enter Content">{{ old('specifications.'.$index.'.content', $spec->content) }}</textarea>
                                         </div>
                                         <div class="col-md-3">
                                             <select name="specifications[{{ $index }}][status]" class="form-control">
@@ -393,10 +400,17 @@
                                 @else
                                     <div class="row specification-row mb-2">
                                         <div class="col-md-3">
-                                            <input type="text" name="specifications[0][title]" class="form-control" placeholder="Enter Title" value="{{ old('specifications.0.title') }}">
+                                            <select name="specifications[0][id]" class="form-control select2" data-placeholder="Select Specification">
+                                                <option value="">Select Specification</option>
+                                                @foreach($specifications as $specification)
+                                                    <option value="{{ $specification->id }}" {{ old('specifications.0.id') == $specification->id ? 'selected' : '' }}>
+                                                        {{ $specification->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                       <div class="col-md-5">
-                                            <textarea name="specifications[0][description]" class="form-control" rows="1" placeholder="Enter Description">{{ old('specifications.0.description') }}</textarea>
+                                        <div class="col-md-5">
+                                            <textarea name="specifications[0][content]" class="form-control" rows="1" placeholder="Enter Content">{{ old('specifications.0.content') }}</textarea>
                                         </div>
                                         <div class="col-md-3">
                                             <select name="specifications[0][status]" class="form-control">
@@ -412,6 +426,7 @@
                                     </div>
                                 @endif
                             </div>
+
 
                             <small class="form-text text-muted">You can add multiple specifications for this product.</small>
                         </div>
@@ -731,10 +746,15 @@
         let row = `
         <div class="row specification-row mb-2">
             <div class="col-md-3">
-                <input type="text" name="specifications[${specIndex}][title]" class="form-control" placeholder="Enter Title">
+                <select name="specifications[${specIndex}][id]" class="form-control select2" data-placeholder="Select Specification">
+                    <option value="">Select Specification</option>
+                    @foreach($specifications as $specification)
+                        <option value="{{ $specification->id }}">{{ $specification->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-5">
-                <textarea name="specifications[${specIndex}][description]" class="form-control" rows="1" placeholder="Enter Description"></textarea>
+                <textarea name="specifications[${specIndex}][content]" class="form-control" rows="1" placeholder="Enter Content"></textarea>
             </div>
             <div class="col-md-3">
                 <select name="specifications[${specIndex}][status]" class="form-control">
@@ -752,6 +772,12 @@
             </div>
         </div>`;
         $('#specificationContainer').append(row);
+        
+        // Initialize select2 if you're using it
+        if (typeof $().select2 !== 'undefined') {
+            $('select.select2').select2();
+        }
+        
         specIndex++;
     });
 

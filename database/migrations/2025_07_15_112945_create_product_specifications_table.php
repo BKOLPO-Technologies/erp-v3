@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('product_specifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('inventory_products')->onDelete('cascade'); 
-            $table->string('title');
-            $table->text('description')->nullable();
+            $table->foreignId('specification_id')->constrained('specifications')->onDelete('cascade');
+            $table->text('content')->nullable();
             $table->boolean('status')->default(1); // 1 = Active, 0 = Inactive
             $table->timestamps();
         });

@@ -139,7 +139,15 @@ class TagController extends Controller
     public function destroy(string $id)
     {
         try {
-            $tag = ProductTag::findOrFail($id);
+            $tag = ProductTag::withCount('products')->findOrFail($id);
+            
+            // Check if tag is used by any products
+            if ($tag->products_count > 0) {
+                return redirect()->route('inventory.tag.index')
+                    ->with('warning', 'Cannot delete tag - it is associated with '.$tag->products_count.' product(s).');
+            }
+
+            // Delete the tag
             $tag->delete();
 
             return redirect()->route('inventory.tag.index')->with('success', 'Tag deleted successfully.');
