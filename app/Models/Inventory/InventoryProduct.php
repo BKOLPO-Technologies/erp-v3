@@ -24,6 +24,11 @@ class InventoryProduct extends Model
         return $this->belongsTo(ProductBrand::class);
     }
 
+    public function unit()
+    {
+        return $this->belongsTo(ProductUnit::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(ProductCategory::class);

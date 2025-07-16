@@ -394,8 +394,8 @@
 </div>
 
 <!-- Modal for creating a new branch -->
-@include('Accounts.unit.unit_modal')
-@include('Accounts.category.category_modal')
+@include('Inventory.unit.unit_modal')
+@include('Inventory.category.category_modal')
 @include('Inventory.tag.tag_modal')
 @include('Inventory.brand.brand_modal')
 @endsection
@@ -515,7 +515,7 @@
         e.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            url: '{{ route('accounts.unit.store2') }}',
+            url: '{{ route('inventory.unit.store2') }}',
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -546,7 +546,7 @@
         e.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
-            url: '{{ route('accounts.category.store2') }}',
+            url: '{{ route('inventory.category.store2') }}',
             type: 'POST',
             data: formData,
             success: function(response) {

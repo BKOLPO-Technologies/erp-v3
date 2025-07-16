@@ -52,6 +52,26 @@ class UnitController extends Controller
         }
     }
 
+    public function store2(Request $request)
+    {
+        //dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Store the category with the unique slug
+        $unit = ProductUnit::create([
+            'name' => $request->name,
+            'status' => $request->status ?? 1, // Default to active if not provided
+        ]);
+
+        return response()->json([
+            'success'  => true,
+            'message'  => 'Unit added successfully.',
+            'unit' => $unit, // Send back the created supplier data
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */

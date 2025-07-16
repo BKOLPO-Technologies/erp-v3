@@ -62,6 +62,37 @@ class CategoryController extends Controller
         }
     }
 
+    public function store2(Request $request)
+    {
+        //dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Generate slug from name
+        $slug = Str::slug($request->name);
+
+        // Check if slug already exists and append a number if necessary
+        $existingCategory = ProductCategory::where('slug', $slug)->first();
+        if ($existingCategory) {
+            $slug = $slug . '-' . (ProductCategory::count() + 1);
+        }
+
+        // Store the category with the unique slug
+        $category = ProductCategory::create([
+            'name' => $request->name,
+            'slug' => $slug,
+            'image' => $request->image ?? null, // Add logic for image if needed
+            'status' => $request->status ?? 1, // Default to active if not provided
+        ]);
+
+        return response()->json([
+            'success'  => true,
+            'message'  => 'Category added successfully.',
+            'category' => $category, // Send back the created supplier data
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
