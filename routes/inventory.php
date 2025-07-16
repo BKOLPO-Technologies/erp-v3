@@ -13,7 +13,7 @@ use App\Http\Controllers\Inventory\BrandController;
 
 Route::prefix('inventory')->as('inventory.')->group(function () {
     /* =============== Start Hrm Route  ============= */
-
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
@@ -27,6 +27,7 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
             Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
             Route::get('/products-by-category/{categoryId}', [ProductController::class, 'getProductsByCategory'])->name('product.by.category');
+            Route::post('/deleteImage', [ProductController::class, 'deleteImage'])->name('product.deleteImage');
         });
 
         /* ==================== Tag =================== */
@@ -88,5 +89,6 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::put('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
             Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
         });
+    });
 
 }); 

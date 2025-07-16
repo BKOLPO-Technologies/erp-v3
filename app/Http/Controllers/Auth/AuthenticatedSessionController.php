@@ -22,24 +22,56 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse{
+    public function store(LoginRequest $request): RedirectResponse
+    {
         try {
-            // Try authenticating the user
+            // Attempt login
             $request->authenticate();
 
-            // Regenerate session to prevent session fixation attacks
+            // Regenerate session to prevent session fixation
             $request->session()->regenerate();
 
-            // Redirect to the admin dashboard with a success message
-            return redirect()->intended(route('accounts.dashboard', absolute: false))
-                ->with('success', 'Admin Login Successfully');
+            // Get authenticated user
+            $user = auth()->user();
+
+            // Redirect based on user module or role
+            switch ($user->email) {
+                case 'superadmin@bkolpo.com':
+                    $redirectRoute = route('accounts.dashboard'); // main superadmin dashboard
+                    break;
+                case 'accounts@bkolpo.com':
+                    $redirectRoute = route('accounts.dashboard');
+                    break;
+                case 'inventory@bkolpo.com':
+                    $redirectRoute = route('inventory.dashboard');
+                    break;
+                case 'hr@bkolpo.com':
+                    $redirectRoute = url('/hrm/dashboard');
+                    break;
+                case 'ecommerce@bkolpo.com':
+                    $redirectRoute = route('ecommerce.dashboard');
+                    break;
+                case 'payroll@bkolpo.com':
+                    $redirectRoute = route('payroll.dashboard');
+                    break;
+                case 'process@bkolpo.com':
+                    $redirectRoute = route('process.dashboard');
+                    break;
+                default:
+                    $redirectRoute = route('dashboard'); // fallback
+                    break;
+            }
+
+            return redirect()->intended($redirectRoute)
+                ->with('success', 'Login Successfully');
+
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // If authentication fails, return back with an error message
             return redirect()->back()
                 ->withInput($request->only('email', 'remember'))
                 ->with(['error' => 'These credentials do not match our records.']);
         }
     }
+
 
 
     /**

@@ -6,7 +6,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-md-block">
-        <a href="#" class="btn btn-success d-flex align-items-center justify-content-center">
+        <a href="/" class="btn btn-success d-flex align-items-center justify-content-center">
             <i class="bi bi-house-door me-2"></i> Back To Home
         </a>
     </li>

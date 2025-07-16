@@ -38,13 +38,13 @@
                             <thead>
                                 <tr>
                                     <th>Sl</th>
+                                    <th>Image</th>
                                     <th>Product Name</th>
                                     <th>Group Name</th>
                                     <th>Product Code</th>
                                     <th>Category Name</th>
                                     <th>Price</th>
                                     {{-- <th>Quantity</th> --}}
-                                    <th>Image</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -52,25 +52,24 @@
                                 @foreach ($products as $key=> $product)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
+                                    <td class="col-1 text-center">  
+                                        @if($product->image)
+                                            <a href="{{ asset('upload/Inventory/products/' . $product->image) }}" target="_blank">
+                                                <img
+                                                    src="{{ !empty($product->image) ? asset('upload/Inventory/products/' . $product->image) : asset('Accounts/logo.jpg') }}"
+                                                    alt="Main Image"
+                                                    style="width: 50px; height: 40px; border: 1px solid #ddd; border-radius: 5px;">
+                                            </a>
+                                        @else
+                                            No Image
+                                        @endif
+                                    </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ ucfirst($product->group_name ?? '') }}</td>
                                     <td>{{ $product->product_code }}</td>
                                     <td>{{ $product->category->name ?? 'N/A' }}</td>
                                     <td>{{ $product->price }}</td>
                                     {{-- <td>{{ $product->quantity }}</td> --}}
-                                    <td>  
-                                        @if($product->image)
-                                            <a href="{{ asset('upload/Inventory/products/' . $product->image) }}" target="_blank">
-                                                <img
-                                                    src="{{ !empty($product->image) ? asset('upload/Inventory/products/' . $product->image) : asset('Accounts/logo.jpg') }}"
-                                                    alt="Main Image"
-                                                    style="width: 100%; height: 40px; border: 1px solid #ddd; border-radius: 5px;">
-                                            </a>
-                                        @else
-                                            No Image
-                                        @endif
-                                    </td>
-
                                     <td>
                                         <a href="{{ route('inventory.product.view', $product->id) }}" class="btn btn-success btn-sm">
                                             <i class="fas fa-eye"></i>

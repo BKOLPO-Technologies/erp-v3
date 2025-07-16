@@ -14,9 +14,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ route('accounts.dashboard') }}" class="brand-link">
-    {{-- <img src="dist/img/accountsLTELogo.png" alt="accountsLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-    <span class="brand-text fw-light">ERP <strong>Management System</strong></span>
+  <a href="{{ route('accounts.dashboard') }}" class="brand-link text-decoration-none align-items-center text-center">
+    <span class="brand-text fw-light fs-5 text-white">
+        <span class="text-uppercase">ERP</span> <strong class="text-uppercase">Accounts</strong>
+    </span>
   </a>
   <!-- Sidebar -->
   <div class="sidebar">

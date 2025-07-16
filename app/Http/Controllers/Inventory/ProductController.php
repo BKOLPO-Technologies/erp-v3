@@ -162,66 +162,162 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = InventoryProduct::findOrFail($id);
-        $pageTitle = 'Admin Product Edit';
-        $categories = ProductCategory::where('status',1)->latest()->get();
-        $brands = ProductBrand::where('status',1)->latest()->get();
-        $tags = ProductTag::where('status',1)->latest()->get();
-        $units = ProductUnit::where('status',1)->latest()->get();
-        return view('Accounts.product.edit',compact('pageTitle', 'product','categories', 'units'));
+        $product = InventoryProduct::with(['tags', 'images', 'specifications'])->findOrFail($id);
+        $pageTitle = 'Product Edit';
+        $categories = ProductCategory::where('status', 1)->latest()->get();
+        $brands = ProductBrand::where('status', 1)->latest()->get();
+        $tags = ProductTag::where('status', 1)->latest()->get();
+        $units = ProductUnit::where('status', 1)->latest()->get();
+        
+        return view('Inventory.product.edit', compact(
+            'pageTitle', 
+            'product',
+            'categories',
+            'brands',
+            'tags',
+            'units'
+        ));
     }
 
     public function update(Request $request, $id)
     {
-        // Validate the incoming data
-        $request->validate([
+        // Validate the incoming request
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
-            //'quantity' => 'required|integer|min:1',
+            'category_id' => 'required|exists:product_categories,id',
+            'brand_id' => 'required|exists:product_brands,id',
+            'tag_id' => 'required|array',
+            'tag_id.*' => 'exists:product_tags,id',
+            'unit_id' => 'required|exists:product_units,id',
+            'price' => 'nullable|numeric|min:0',
+            'quantity' => 'nullable|integer|min:0',
+            'alert_quantity' => 'required|integer|min:0',
+            'product_code' => 'nullable|string|max:50|unique:products,product_code,'.$id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'nullable|boolean',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
-            'category_id' => 'required',
-            'unit_id' => 'required',
+            'group_name' => 'nullable|string|max:50',
         ]);
 
-        // Find the product by ID
-        $product = InventoryProduct::findOrFail($id);
+        try {
+            DB::beginTransaction();
 
-        // Check if a new image is uploaded
-        if ($request->hasFile('image')) {
-            // Delete old image if it exists
-            if ($product->image && file_exists(public_path('upload/Accounts/products/' . $product->image))) {
-                @unlink(public_path('upload/Accounts/products/' . $product->image)); // Delete the old image
+            $product = InventoryProduct::findOrFail($id);
+
+            // Auto-generate stock status based on quantity
+            $stockStatus = 'in_stock';
+            if ($request->quantity <= 0) {
+                $stockStatus = 'out_of_stock';
+            } elseif ($request->quantity <= $request->alert_quantity) {
+                $stockStatus = 'low_stock';
             }
 
-            // Store new image
-            $file = $request->file('image');
-            $filename = date('YmdHi') . $file->getClientOriginalName();
-            $file->move(public_path('upload/Accounts/products'), $filename);
+            // Update the product with the validated data
+            $product->update([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'product_code' => $request->product_code,
+                'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
+                'unit_id' => $request->unit_id,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'alert_quantity' => $request->alert_quantity,
+                'stock_status' => $stockStatus,
+                'group_name' => $request->group_name,
+                'description' => $request->description,
+                'status' => $request->status,
+            ]);
 
-            // Update the product image with the new filename
-            $product->image = $filename;
+            // Handle main image upload
+            if ($request->hasFile('image')) {
+                $this->uploadImageUpdate($product, $request->file('image'), 'main');
+            }
+
+            // Handle multiple image uploads
+            if ($request->hasFile('product_images')) {
+                foreach ($request->file('product_images') as $image) {
+                    $this->uploadImageUpdate($product, $image, 'gallery');
+                }
+            }
+
+            // Sync tags
+            if ($request->has('tag_id')) {
+                $product->tags()->sync($request->tag_id);
+            }
+
+            // Update specifications
+            if ($request->has('specifications')) {
+                // First delete all existing specifications
+                $product->specifications()->delete();
+                
+                // Then create new ones
+                foreach ($request->specifications as $spec) {
+                    $product->specifications()->create([
+                        'title' => $spec['title'],
+                        'description' => $spec['description'],
+                        'status' => $spec['status'],
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('inventory.product.index')->with('success', 'Product updated successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Error updating product: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteImage(Request $request)
+    {
+        try {
+            $image = ProductImage::findOrFail($request->image_id);
+            
+            // Delete file from storage
+            $filePath = public_path('upload/Inventory/products/'.$image->image);
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+            
+            // Delete record from database
+            $image->delete();
+            
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    protected function uploadImageUpdate(InventoryProduct $product, $file, $type = 'main')
+    {
+        $uploadPath = 'upload/Inventory/products';
+        $filename = 'product_' . $product->id . '_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        
+        // Create directory if not exists
+        if (!File::exists(public_path($uploadPath))) {
+            File::makeDirectory(public_path($uploadPath), 0755, true);
         }
 
-        // $productCode = 'PRD' . strtoupper(Str::random(5));
+        // Move file to destination
+        $file->move(public_path($uploadPath), $filename);
 
-        // Update the product data
-        $product->update([
-            'name' => $request->input('name'),
-            // 'product_code' => $productCode,
-            'price' => $request->input('price', $product->price), // Keep existing price if not provided
-            'description' => $request->input('description', $product->description), // Keep existing description
-            //'quantity' => $request->input('quantity', $product->quantity), // Keep existing quantity
-            'status' => $request->has('status') ? $request->input('status') : $product->status, // Keep existing status
-            'category_id' => $request->input('category_id'),
-            'unit_id' => $request->input('unit_id'),
-            'group_name' => $request->group_name,
-            'product_code' => $request->input('product_code'),
-        ]);
-
-        // Redirect back to the product index with a success message
-        return redirect()->route('accounts.product.index')->with('success', 'Product updated successfully!');
+        if ($type === 'main') {
+            // Delete old main image if exists
+            if ($product->image) {
+                @unlink(public_path("{$uploadPath}/{$product->image}"));
+            }
+            $product->image = $filename;
+            $product->save();
+        } else {
+            // Create product image record
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image' => $filename,
+            ]);
+        }
     }
 
     public function show($id)
@@ -231,21 +327,47 @@ class ProductController extends Controller
         return view('Inventory.product.show',compact('pageTitle', 'product'));
     }
 
-    public function AdminProductDestroy($id)
+    public function destroy($id)
     {
-        // Find the supplier by ID
-        $product = InventoryProduct::findOrFail($id);
+        try {
+            DB::beginTransaction();
 
-        // Delete the product image if it exists
-        if ($product->image && Storage::disk('public')->exists($product->image)) {
-            Storage::disk('public')->delete($product->image);
+            // Find the product by ID with all relationships
+            $product = InventoryProduct::with(['images', 'specifications'])->findOrFail($id);
+
+            // Delete main product image if exists
+            if ($product->image) {
+                $imagePath = public_path('upload/Inventory/products/'.$product->image);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+
+            // Delete all product images
+            foreach ($product->images as $image) {
+                $imagePath = public_path('upload/Inventory/products/'.$image->image);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+                $image->delete(); // Delete the image record
+            }
+
+            // Delete all specifications
+            $product->specifications()->delete();
+
+            // Detach all tags
+            $product->tags()->detach();
+
+            // Finally delete the product
+            $product->delete();
+
+            DB::commit();
+
+            return redirect()->route('inventory.product.index')->with('success', 'Product deleted successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('inventory.product.index')->with('error', 'Error deleting product: ' . $e->getMessage());
         }
-
-        // Delete the supplier record
-        $product->delete();
-
-        // Redirect back to the supplier index with a success message
-        return redirect()->route('accounts.product.index')->with('success', 'Product deleted successfully!');
     }
 
     // AJAX handler for filtering products by category

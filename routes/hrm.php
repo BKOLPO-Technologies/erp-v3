@@ -14,7 +14,7 @@ use App\Http\Controllers\Hrm\ChatController;
 
 Route::prefix('hrm')->as('hrm.')->group(function () {
     /* =============== Start Hrm Route  ============= */
-
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
@@ -73,6 +73,6 @@ Route::prefix('hrm')->as('hrm.')->group(function () {
             Route::post('/update-payment-status/{id}', [StaffSalaryController::class, 'updatePaymentStatus'])->name('updatePaymentStatus');
         });
         
-
+    }); 
 
 }); 

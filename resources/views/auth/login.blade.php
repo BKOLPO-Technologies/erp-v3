@@ -21,7 +21,7 @@
 <div class="login-box">
   <div class="card card-outline card-primary shadow-lg">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>Accounting</b> Management</a>
+      <a href="#" class="h1"><b>ERP</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>

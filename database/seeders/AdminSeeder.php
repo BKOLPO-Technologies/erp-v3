@@ -19,17 +19,70 @@ class AdminSeeder extends Seeder
     public function run()
     {
         // Add the admin user
-        $user = User::updateOrCreate(
-            ['email' => 'superadmin@bkolpo.com'],
+        $users = [
             [
                 'name' => 'Super Admin',
                 'email' => 'superadmin@bkolpo.com',
-                'password' => Hash::make('Admin@123#!'),
-                'show_password' => 'Admin@123#!',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]
-        );
+                'password' => 'Admin@123#!',
+            ],
+            [
+                'name' => 'Accounts Manager',
+                'email' => 'accounts@bkolpo.com',
+                'password' => 'accounts@123',
+            ],
+            [
+                'name' => 'HR Manager',
+                'email' => 'hr@bkolpo.com',
+                'password' => 'hr@123',
+            ],
+            [
+                'name' => 'Payroll Officer',
+                'email' => 'payroll@bkolpo.com',
+                'password' => 'payroll@103',
+            ],
+            [
+                'name' => 'Inventory Manager',
+                'email' => 'inventory@bkolpo.com',
+                'password' => 'inventory@123',
+            ],
+            [
+                'name' => 'Ecommerce Admin',
+                'email' => 'ecommerce@bkolpo.com',
+                'password' => 'ecommerce@123',
+            ],
+            [
+                'name' => 'Process Admin',
+                'email' => 'process@bkolpo.com',
+                'password' => 'process@123',
+            ],
+        ];
+
+        foreach ($users as $data) {
+            User::updateOrCreate(
+                ['email' => $data['email']],
+                [
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'show_password' => $data['password'], // Optional, for testing/admin viewing
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]
+            );
+        }
+
+
+        // $user = User::updateOrCreate(
+        //     ['email' => 'superadmin@bkolpo.com'],
+        //     [
+        //         'name' => 'Super Admin',
+        //         'email' => 'superadmin@bkolpo.com',
+        //         'password' => Hash::make('Admin@123#!'),
+        //         'show_password' => 'Admin@123#!',
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now(),
+        //     ]
+        // );
 
         
         // Define the roles

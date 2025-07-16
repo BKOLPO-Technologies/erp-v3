@@ -45,7 +45,7 @@
 
                         <!-- HR Management -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <a href="{{ url('/hrm/dashboard') }}" class="text-white">
+                            <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-primary">
                                     <div class="inner">
                                         <p class="m-0">HR Management</p>
@@ -67,7 +67,7 @@
 
                         <!-- Inventory -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
-                            <a href="{{ url('/inventory/dashboard') }}" class="text-white">
+                            <a href="{{ route('login') }}" class="text-white">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <p class="m-0">Inventory</p>
