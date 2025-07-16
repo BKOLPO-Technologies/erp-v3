@@ -1,6 +1,8 @@
 @php
   $isProductsActive = Route::is('inventory.product.index', 'inventory.product.create', 'inventory.product.edit', 'inventory.product.view');
   $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show','inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit','inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit');
+  $isCustomersActive = Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.edit', 'inventory.customer.view');
+  $isVendorActive = Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.edit', 'inventory.vendor.view');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -101,6 +103,48 @@
                     </ul>
                 </li>
                 <!-- end setting -->
+
+                <!-- start customers -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $isCustomersActive ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
+                        <p>
+                            Customers
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.customer.index') }}" class="nav-link {{ Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.view', 'inventory.customer.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manage Customers</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- end customers -->
+
+                <!-- start vendors -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $isVendorActive ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
+                        <p>
+                            Vendors
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.vendor.index') }}" class="nav-link {{ Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.view', 'inventory.vendor.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manage Vendors</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- end vendors -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

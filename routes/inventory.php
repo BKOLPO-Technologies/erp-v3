@@ -8,6 +8,8 @@ use App\Http\Controllers\Inventory\CategoryController;
 use App\Http\Controllers\Inventory\UnitController;
 use App\Http\Controllers\Inventory\TagController;
 use App\Http\Controllers\Inventory\BrandController;
+use App\Http\Controllers\Inventory\CustomerController;
+use App\Http\Controllers\Inventory\VendorController;
 
 
 
@@ -88,6 +90,30 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
             Route::put('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
             Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
+        });
+
+        /* ==================== Customers =================== */
+        Route::prefix('customers')->group(function () {
+            Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+            Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+            Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+            Route::get('/show/{id}', [CustomerController::class, 'show'])->name('customer.show');
+            Route::post('/store2', [CustomerController::class, 'store2'])->name('customer.store2');
+            Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+            Route::put('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
+            Route::get('/delete/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+        });
+
+        /* ==================== Vendors =================== */
+        Route::prefix('vendors')->group(function () {
+            Route::get('/', [VendorController::class, 'index'])->name('vendor.index');
+            Route::get('/create', [VendorController::class, 'create'])->name('vendor.create');
+            Route::post('/store', [VendorController::class, 'store'])->name('vendor.store');
+            Route::get('/show/{id}', [VendorController::class, 'show'])->name('vendor.show');
+            Route::post('/store2', [VendorController::class, 'store2'])->name('vendor.store2');
+            Route::get('/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
+            Route::put('/update/{id}', [VendorController::class, 'update'])->name('vendor.update');
+            Route::get('/delete/{id}', [VendorController::class, 'destroy'])->name('vendor.destroy');
         });
     });
 
