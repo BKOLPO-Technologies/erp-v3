@@ -61,9 +61,12 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-image"></i></span>
-                                    <input type="file" class="form-control" id="logo" name="logo">
+                                    <input type="file" class="form-control" id="logo" name="logo" onchange="previewLogo(this)">
                                 </div>
                                 <small class="form-text text-muted">Upload brand logo (optional)</small>
+                                <div class="mt-2">
+                                    <img id="logoPreview" src="" alt="Logo Preview" style="max-height: 100px; display: none;">
+                                </div>
                             </div>
                         </div>
                         {{-- description --}}
@@ -109,3 +112,36 @@
     </section>
 </div>
 @endsection
+
+@push('js')
+<script>
+    // Logo preview function
+    function previewLogo(input) {
+        const preview = document.getElementById('logoPreview');
+        const file = input.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.addEventListener('load', function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            });
+            
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+    
+    // Initialize the preview if there's an existing image (for edit scenarios)
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoInput = document.getElementById('logo');
+        const preview = document.getElementById('logoPreview');
+        
+        // If you want to show an existing image when editing, you would set it here
+        // For create forms, this will remain empty
+    });
+</script>
+@endpush

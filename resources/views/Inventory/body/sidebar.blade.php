@@ -1,6 +1,6 @@
 @php
   $isProductsActive = Route::is('inventory.product.index', 'inventory.product.create', 'inventory.product.edit', 'inventory.product.view');
-  $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show');
+  $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show','inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit','inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -73,6 +73,18 @@
                     </a>
                     
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.category.index') }}" class="nav-link {{ Route::is('inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Product Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.unit.index') }}" class="nav-link {{ Route::is('inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Product Unit</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('inventory.tag.index') }}" class="nav-link {{ Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.show', 'inventory.tag.edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>

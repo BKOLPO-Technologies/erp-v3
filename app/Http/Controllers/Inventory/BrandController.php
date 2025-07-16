@@ -162,9 +162,14 @@ class BrandController extends Controller
     {
         try {
             $brand = ProductBrand::findOrFail($id);
-            if ($brand->logo && file_exists(public_path('storage/' . $brand->logo))) {
-                @unlink(public_path('storage/' . $brand->logo)); // Delete logo
+
+            // Correct path to uploaded logo
+            $logoPath = public_path('upload/Inventory/brands/' . $brand->logo);
+
+            if ($brand->logo && file_exists($logoPath)) {
+                @unlink($logoPath); // Delete logo
             }
+
             $brand->delete();
 
             return redirect()->route('inventory.brand.index')->with('success', 'Brand deleted successfully.');
@@ -172,4 +177,5 @@ class BrandController extends Controller
             return redirect()->back()->withErrors(['error' => 'Failed to delete brand: ' . $e->getMessage()]);
         }
     }
+
 }

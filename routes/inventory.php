@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Inventory\AdminController;
 use App\Http\Controllers\Inventory\ProductController;
+use App\Http\Controllers\Inventory\CategoryController;
+use App\Http\Controllers\Inventory\UnitController;
 use App\Http\Controllers\Inventory\TagController;
 use App\Http\Controllers\Inventory\BrandController;
 
@@ -23,8 +25,44 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/view/{id}', [ProductController::class, 'show'])->name('product.view');
             Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
             Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
-            Route::get('/delete/{id}', [ProductController::class, 'destrory'])->name('product.destroy');
+            Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
             Route::get('/products-by-category/{categoryId}', [ProductController::class, 'getProductsByCategory'])->name('product.by.category');
+        });
+
+        /* ==================== Tag =================== */
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+            Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+            Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+            Route::post('/store2', [CategoryController::class, 'store2'])->name('category.store2');
+            Route::get('/show/{id}', [CategoryController::class, 'show'])->name('category.show');
+            Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+            Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+            Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        });
+
+        /* ==================== Categories =================== */
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('category.index');
+            Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+            Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+            Route::post('/store2', [CategoryController::class, 'store2'])->name('category.store2');
+            Route::get('/show/{id}', [CategoryController::class, 'show'])->name('category.show');
+            Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+            Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+            Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        });
+
+        /* ==================== Units =================== */
+        Route::prefix('units')->group(function () {
+            Route::get('/', [UnitController::class, 'index'])->name('unit.index');
+            Route::get('/create', [UnitController::class, 'create'])->name('unit.create');
+            Route::post('/store', [UnitController::class, 'store'])->name('unit.store');
+            Route::post('/store2', [UnitController::class, 'store2'])->name('unit.store2');
+            Route::get('/show/{id}', [UnitController::class, 'show'])->name('unit.show');
+            Route::get('/edit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
+            Route::put('/update/{id}', [UnitController::class, 'update'])->name('unit.update');
+            Route::get('/delete/{id}', [UnitController::class, 'destroy'])->name('unit.destroy');
         });
 
         /* ==================== Tag =================== */
@@ -36,7 +74,7 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/show/{id}', [TagController::class, 'show'])->name('tag.show');
             Route::get('/edit/{id}', [TagController::class, 'edit'])->name('tag.edit');
             Route::put('/update/{id}', [TagController::class, 'update'])->name('tag.update');
-            Route::get('/delete/{id}', [TagController::class, 'destrory'])->name('tag.destroy');
+            Route::get('/delete/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
         });
 
         /* ==================== Brand =================== */
@@ -48,7 +86,7 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/show/{id}', [BrandController::class, 'show'])->name('brand.show');
             Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
             Route::put('/update/{id}', [BrandController::class, 'update'])->name('brand.update');
-            Route::get('/delete/{id}', [BrandController::class, 'destrory'])->name('brand.destroy');
+            Route::get('/delete/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
         });
 
 }); 

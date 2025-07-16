@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Brand Edit</h1>
+                    <h1>Category Create</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('inventory.dashboard') }}" style="text-decoration: none; color: black;">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('inventory.brand.index') }}" style="text-decoration: none; color: black;">Brand</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('inventory.category.index') }}" style="text-decoration: none; color: black;">Category</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
             </div>
@@ -29,17 +29,16 @@
             <div class="card card-primary card-outline shadow-lg">
               <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Edit Brand</h4>
-                    <a href="{{ route('inventory.brand.index')}}" class="btn btn-sm btn-danger rounded-0">
+                    <h4 class="mb-0">Add New Category</h4>
+                    <a href="{{ route('inventory.category.index')}}" class="btn btn-sm btn-danger rounded-0">
                         <i class="fa-solid fa-arrow-left"></i> Back To List
                     </a>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{ route('inventory.brand.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{ route('inventory.category.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -49,40 +48,25 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <input type="text" class="form-control" placeholder="Enter Brand Name" value="{{ old('name', $brand->name) }}" name="name">
+                                <input type="text" class="form-control" placeholder="Enter Category Name" name="name" value="{{ old('name') }}">
                             </div>
                         </div>
                         {{-- logo --}}
                         <div class="col-md-6">
                             <div class="form-group mb-2">
-                                <label for="logo" class="form-label">Logo
+                                <label for="logo" class="form-label">Image
                                     @error('logo')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fa fa-image"></i></span>
-                                    <input type="file" class="form-control" id="logo" name="logo" onchange="previewLogo(this)">
+                                    <input type="file" class="form-control" id="logo" name="logo" onchange="previewImage(this)">
                                 </div>
-                                <small class="form-text text-muted">Upload new logo to replace existing one</small>
+                                <small class="form-text text-muted">Upload Category image (optional)</small>
                                 <div class="mt-2">
-                                    @if($brand->logo)
-                                        <img id="logoPreview" src="{{ asset('upload/Inventory/brands/'.$brand->logo) }}" alt="Current Logo" style="max-height: 100px;" class="img-thumbnail">
-                                    @else
-                                        <img id="logoPreview" src="" alt="Logo Preview" style="max-height: 100px; display: none;" class="img-thumbnail">
-                                    @endif
+                                    <img id="imagePreview" src="" alt="Image Preview" style="max-height: 100px; display: none;" class="img-thumbnail">
                                 </div>
-                            </div>
-                        </div>
-                        {{-- description --}}
-                        <div class="col-md-12">
-                            <div class="form-group mb-2">
-                                <label for="description" class="form-label">Description
-                                    @error('description')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter brand description">{{ old('description', $brand->description) }}</textarea>
                             </div>
                         </div>
                         {{-- status --}}
@@ -95,8 +79,8 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-check-circle"></i></span>
                                 <select class="form-control" id="status" name="status">
-                                    <option value="1" {{ old('status', $brand->status) == 1 ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ old('status', $brand->status) == 0 ? 'selected' : '' }}>Inactive</option>
+                                    <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -104,7 +88,7 @@
                     <div class="row mt-2">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary bg-success text-light" style="float: right;">
-                                <i class="fas fa-save"></i> Update Brand
+                                <i class="fas fa-plus"></i> Add Category
                             </button>
                         </div>
                     </div>
@@ -120,20 +104,23 @@
 
 @push('js')
 <script>
-    // Logo preview function
-    function previewLogo(input) {
-        const preview = document.getElementById('logoPreview');
+    // Image preview function
+    function previewImage(input) {
+        const preview = document.getElementById('imagePreview');
         const file = input.files[0];
         
         if (file) {
             const reader = new FileReader();
             
-            reader.addEventListener('load', function() {
-                preview.src = reader.result;
+            reader.onload = function(e) {
+                preview.src = e.target.result;
                 preview.style.display = 'block';
-            });
+            }
             
             reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
         }
     }
 </script>
