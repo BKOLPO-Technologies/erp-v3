@@ -75,7 +75,7 @@ class AdminController extends Controller
 
     public function AdminDashboard()
     {
-        $pageTitle = 'HRM Dashboard';
+        $pageTitle = 'HR Dashboard';
 
         // Project calculations
         $projectTotalAmount = Project::sum('grand_total');

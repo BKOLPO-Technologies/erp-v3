@@ -71,103 +71,12 @@
         </div> --}}
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                        <h3>{{ $projectTotalAmount }}</h3>
-        
-                        <p>Project Total Order</p>
-                        </div>
-                        <div class="icon">
-                        <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="{{ route('accounts.projects.index') }}" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                        <h3>{{ $projectTotalAmountPaid }}</h3>
-        
-                        <p>Project Total Amount Paid</p>
-                        </div>
-                        <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="{{ route('accounts.projects.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                        <h3>{{ $projectTotalAmountDue }}</h3>
-        
-                        <p>Project Total Amount Due</p>
-                        </div>
-                        <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="{{ route('accounts.projects.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $purchaseTotalAmount }}</h3>
-                            <p>Purchase Total</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <a href="{{ route('accounts.purchase.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                    
+                <div class="col-md-12">
+                    {{-- <div class="welcome-message">
+                        <h2>Welcome to the Inventory Dashboard</h2>
+                    </div> --}}
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-lg-6 col-6">
-                    <!-- PIE CHART -->
-                    <div class="card card-danger">
-                        <div class="card-header">
-                        <h3 class="card-title">Pie Chart</h3>
-        
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                            {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> --}}
-                        </div>
-                        </div>
-                        <div class="card-body">
-                        <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
-                    </div>
-                    <!-- ----- -->
-                </div>
-
-                <div class="col-lg-6 col-6">
-                    <!-- BAR CHART -->
-                    <div class="card card-success">
-                        <div class="card-header">
-                            <h3 class="card-title">Bar Chart</h3>
-        
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
-                                {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> --}}
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart">
-                                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 

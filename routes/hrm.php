@@ -12,7 +12,7 @@ use App\Http\Controllers\Hrm\StaffSalaryController;
 use App\Http\Controllers\Hrm\ChatController;
 
 
-Route::prefix('hrm')->as('hrm.')->group(function () {
+Route::prefix('hr')->as('hrm.')->group(function () {
     /* =============== Start Hrm Route  ============= */
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');

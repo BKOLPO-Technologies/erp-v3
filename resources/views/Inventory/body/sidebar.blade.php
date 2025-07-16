@@ -30,7 +30,6 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                @can('dashboard-menu')
                    <!-- start dashboard -->
                     <li class="nav-item menu-open">
                         <a href="{{ route('inventory.dashboard') }}"
@@ -42,10 +41,9 @@
                         </a>
                     </li>
                     <!-- end dashboard -->
-                @endcan
 
                 <!-- start product -->
-                <li class="nav-item {{ $isProductsActive ? 'menu-open' : '' }}">
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link {{ $isProductsActive ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
                         <p>
@@ -66,7 +64,7 @@
                 <!-- end product -->
 
                 <!-- start setting -->
-                <li class="nav-item {{ $isSettingActive ? 'menu-open' : '' }}">
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link {{ $isSettingActive ? 'active' : '' }}">
                         <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
                         <p>
