@@ -7,13 +7,15 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Tag Edit</h1>
+                    <h1>
+                        {{ $pageTitle ?? 'Create Specification' }}
+                    </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('inventory.dashboard') }}" style="text-decoration: none; color: black;">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('inventory.tag.index') }}" style="text-decoration: none; color: black;">Tag</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('inventory.specification.index') }}" style="text-decoration: none; color: black;">Specification</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
             </div>
@@ -29,17 +31,16 @@
             <div class="card card-primary card-outline shadow-lg">
               <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Edit Tag</h4>
-                    <a href="{{ route('inventory.tag.index')}}" class="btn btn-sm btn-danger rounded-0">
+                    <h4 class="mb-0">Add New Specification</h4>
+                    <a href="{{ route('inventory.specification.index')}}" class="btn btn-sm btn-danger rounded-0">
                         <i class="fa-solid fa-arrow-left"></i> Back To List
                     </a>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{ route('inventory.tag.update', $tag->id) }}" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{ route('inventory.specification.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -49,7 +50,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </label>
-                                <input type="text" class="form-control" placeholder="Enter Tag Name" value="{{ $tag->name }}" name="name">
+                                <input type="text" class="form-control" placeholder="Enter Specification Name" name="name">
                             </div>
                         </div>
                         {{-- status --}}
@@ -62,27 +63,16 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa fa-check-circle"></i></span>
                                 <select class="form-control" id="status" name="status">
-                                    <option value="1" {{ $tag->status == 1 ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ $tag->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                    <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
-                        </div>
-                        {{-- description --}}
-                        <div class="col-md-12">
-                            <div class="form-group mb-2">
-                                <label for="description" class="form-label">Description
-                                    @error('description')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter tag description">{{ $tag->description }}</textarea>
-                            </div>
-                        </div>
+                        </div>                  
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary bg-success text-light" style="float: right;">
-                                <i class="fas fa-plus"></i>  Update Tag
+                                <i class="fas fa-plus"></i>  Add Specification
                             </button>
                         </div>
                     </div>

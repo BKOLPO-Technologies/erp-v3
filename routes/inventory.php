@@ -10,6 +10,7 @@ use App\Http\Controllers\Inventory\TagController;
 use App\Http\Controllers\Inventory\BrandController;
 use App\Http\Controllers\Inventory\CustomerController;
 use App\Http\Controllers\Inventory\VendorController;
+use App\Http\Controllers\Inventory\SpecificationController;
 
 
 
@@ -114,6 +115,17 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/edit/{id}', [VendorController::class, 'edit'])->name('vendor.edit');
             Route::put('/update/{id}', [VendorController::class, 'update'])->name('vendor.update');
             Route::get('/delete/{id}', [VendorController::class, 'destroy'])->name('vendor.destroy');
+        });
+
+        /* ==================== Specification =================== */
+        Route::prefix('specifications')->group(function () {
+            Route::get('/', [SpecificationController::class, 'index'])->name('specification.index');
+            Route::get('/create', [SpecificationController::class, 'create'])->name('specification.create');
+            Route::post('/store', [SpecificationController::class, 'store'])->name('specification.store');
+            Route::get('/show/{id}', [SpecificationController::class, 'show'])->name('specification.show');
+            Route::get('/edit/{id}', [SpecificationController::class, 'edit'])->name('specification.edit');
+            Route::put('/update/{id}', [SpecificationController::class, 'update'])->name('specification.update');
+            Route::get('/delete/{id}', [SpecificationController::class, 'destroy'])->name('specification.destroy');
         });
     });
 

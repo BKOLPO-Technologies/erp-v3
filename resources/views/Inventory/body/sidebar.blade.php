@@ -1,6 +1,6 @@
 @php
   $isProductsActive = Route::is('inventory.product.index', 'inventory.product.create', 'inventory.product.edit', 'inventory.product.view');
-  $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show','inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit','inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit');
+  $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show','inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit','inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit', 'inventory.specification.index', 'inventory.specification.create', 'inventory.specification.show', 'inventory.specification.edit');
   $isCustomersActive = Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.edit', 'inventory.customer.view');
   $isVendorActive = Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.edit', 'inventory.vendor.view');
 @endphp
@@ -98,6 +98,12 @@
                             <a href="{{ route('inventory.brand.index') }}" class="nav-link {{ Route::is('inventory.brand.index', 'inventory.brand.create', 'inventory.brand.show', 'inventory.brand.edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Product Brands</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.specification.index') }}" class="nav-link {{ Route::is('inventory.specification.index', 'inventory.specification.create', 'inventory.specification.show', 'inventory.specification.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Product Specifications</p>
                             </a>
                         </li>
                     </ul>
