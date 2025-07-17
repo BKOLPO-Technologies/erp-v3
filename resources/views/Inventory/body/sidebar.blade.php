@@ -3,6 +3,7 @@
   $isSettingActive = Route::is('inventory.tag.index', 'inventory.tag.create', 'inventory.tag.edit', 'inventory.tag.show','inventory.brand.index', 'inventory.brand.create', 'inventory.brand.edit', 'inventory.brand.show','inventory.category.index', 'inventory.category.create', 'inventory.category.show', 'inventory.category.edit','inventory.unit.index', 'inventory.unit.create', 'inventory.unit.show', 'inventory.unit.edit', 'inventory.specification.index', 'inventory.specification.create', 'inventory.specification.show', 'inventory.specification.edit');
   $isCustomersActive = Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.edit', 'inventory.customer.view');
   $isVendorActive = Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.edit', 'inventory.vendor.view');
+  $isStockInWardActive = Route::is('inventory.stockinward.index', 'inventory.stockinward.create', 'inventory.stockinward.edit', 'inventory.stockinward.show');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -146,6 +147,27 @@
                             <a href="{{ route('inventory.vendor.index') }}" class="nav-link {{ Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.view', 'inventory.vendor.edit') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Manage Vendors</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- end vendors -->
+
+                <!-- start stock inward -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $isStockInWardActive ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
+                        <p>
+                            Stock
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.stockinward.index') }}" class="nav-link {{ Route::is('inventory.stockinward.index', 'inventory.stockinward.create', 'inventory.stockinward.show', 'inventory.stockinward.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manage Stock Inward</p>
                             </a>
                         </li>
                     </ul>

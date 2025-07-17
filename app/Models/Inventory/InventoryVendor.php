@@ -10,4 +10,9 @@ class InventoryVendor extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
+    
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
 }

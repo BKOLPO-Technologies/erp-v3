@@ -42,9 +42,14 @@ class InventoryProduct extends Model
     }
 
 
-   public function specifications()
+    public function specifications()
     {
         return $this->hasMany(ProductSpecification::class, 'product_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
     }
 
 }
