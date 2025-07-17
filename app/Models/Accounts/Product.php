@@ -2,9 +2,11 @@
 
 namespace App\Models\Accounts;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     protected $guarded = [];
 
     // Relationship: A product belongs to a unit

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('end_time')->nullable();
             $table->text('reason')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

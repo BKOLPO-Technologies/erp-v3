@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('postbox')->nullable();
             $table->string('phone')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             // Foreign key constraint for the role

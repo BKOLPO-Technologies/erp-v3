@@ -56,6 +56,7 @@ return new class extends Migration
             $table->boolean('send_welcome_email')->default(0)->comment('1=>Email Send, 0=>Email Not Send');
             $table->string('password'); 
             $table->string('show_password'); 
+            $table->softDeletes();
             $table->timestamps(); 
         });
     }

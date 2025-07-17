@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('device_id')->nullable(); 
             $table->string('timestamp')->nullable();   
             $table->tinyInteger('type')->default(1)->comment('1=>Manually, 2=>Zkteco');
+            $table->softDeletes();
             $table->timestamps(); 
         });
     }

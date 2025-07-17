@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('starting_year')->nullable();
             $table->string('passing_year')->nullable();
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

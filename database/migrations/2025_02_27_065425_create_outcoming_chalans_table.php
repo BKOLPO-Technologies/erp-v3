@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
             $table->date('invoice_date');
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

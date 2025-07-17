@@ -39,6 +39,7 @@ return new class extends Migration
             
             // Adding a status to distinguish incoming and outgoing chalans
             $table->enum('status', ['incoming', 'outcoming'])->default('incoming'); // Status to differentiate
+            $table->softDeletes();
             $table->timestamps();
         });
         

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('days_allowed');
             $table->tinyInteger('status')->default(1)->comment('1=>Publish, 0=>Unpublish');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

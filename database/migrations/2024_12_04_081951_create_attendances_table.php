@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('long')->nullable(); 
             $table->string('location')->nullable();  
             $table->tinyinteger('type')->default('1')->comment('1=>Manually, 2=>Zkteco')->nullable();  
+            $table->softDeletes();
             $table->timestamps(); 
         });
     }

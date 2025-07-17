@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('type')->default(1)->comment('1 => Journal, 2 => Contra');
             $table->tinyInteger('status')->default(1)->comment('0 => Draft, 1 => Pending, 2 => Approved');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

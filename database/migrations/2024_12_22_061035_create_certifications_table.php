@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('certification_name')->nullable();
             $table->string('year')->nullable();
             $table->string('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

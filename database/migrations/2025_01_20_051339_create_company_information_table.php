@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();
             $table->tinyInteger('status')->nullable()->default(0)->comment('1=>Active, 0=>Inactive');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

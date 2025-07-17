@@ -35,6 +35,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'paid', 'partially_paid'])->default('pending'); // Purchases status
 
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             // Foreign key relation to the suppliers table

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('outcoming_chalan_product_id')->constrained('outcoming_chalan_products')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
-            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

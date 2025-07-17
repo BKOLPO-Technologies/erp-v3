@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('show_password')->nullable();
             $table->tinyInteger('status')->nullable()->default(1)->comment('1=>Active, 0=>Inactive');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 

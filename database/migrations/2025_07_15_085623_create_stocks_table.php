@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('lot');
             $table->string('reference_id');
             $table->integer('quantity');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('region_s')->nullable();
             $table->string('country_s')->nullable();
             $table->string('postbox_s')->nullable();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -3,9 +3,11 @@
 namespace App\Models\Accounts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JournalVoucher extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'transaction_code',
         'company_id',

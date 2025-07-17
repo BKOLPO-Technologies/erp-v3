@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('form_date')->nullable(); 
             $table->date('to_date')->nullable();  
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->decimal('subtotal', 10, 2)->default(0);
             $table->decimal('total', 10, 2)->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

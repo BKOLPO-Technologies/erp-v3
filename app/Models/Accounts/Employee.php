@@ -5,10 +5,12 @@ namespace App\Models\Accounts;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     // Specify the fillable attributes for mass assignment
     protected $fillable = [

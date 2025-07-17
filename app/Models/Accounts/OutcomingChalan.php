@@ -3,9 +3,11 @@
 namespace App\Models\Accounts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OutcomingChalan extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'sale_id',
         'invoice_date',

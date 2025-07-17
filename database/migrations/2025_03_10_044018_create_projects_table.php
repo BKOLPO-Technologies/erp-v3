@@ -35,6 +35,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->longText('terms_conditions')->nullable();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -3,9 +3,11 @@
 namespace App\Models\Accounts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LedgerGroup extends Model
 {
+    use SoftDeletes;
     protected $guarded = [];
     //protected $fillable = ['group_id', 'ledger_id'];
     
