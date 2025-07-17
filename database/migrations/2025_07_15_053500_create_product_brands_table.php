@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active, 0=Inactive');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
