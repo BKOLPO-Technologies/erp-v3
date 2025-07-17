@@ -52,4 +52,20 @@ class InventoryProduct extends Model
         return $query->where('status', 1);
     }
 
+    public function prices()
+    {
+        return $this->hasMany(InventoryProductPrice::class);
+    }
+
+    public function latestPrice()
+    {
+        return $this->hasOne(InventoryProductPrice::class)->latest();
+    }
+    
+    public function stockInwards()
+    {
+        return $this->hasMany(StockInward::class, 'product_id');
+    }
+
+
 }

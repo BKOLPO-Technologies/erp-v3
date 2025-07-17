@@ -25,7 +25,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
                                     @can('role-create')
-                                    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-success rounded-0">
+                                    <a href="{{ route('accounts.roles.create') }}" class="btn btn-sm btn-success rounded-0">
                                         <i class="fas fa-plus fa-sm"></i> Add New Role
                                     </a>
                                     @endcan
@@ -65,13 +65,13 @@
                                                 <td class="col-2"> 
                                                     <!-- View Button -->
                                                     @can('role-view')
-                                                    <a href="{{ route('roles.show',$role->id) }}" class="btn btn-success btn-sm">
+                                                    <a href="{{ route('accounts.roles.show',$role->id) }}" class="btn btn-success btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     @endcan
                                                     <!-- Edit Button -->
                                                     @can('role-edit')
-                                                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-primary btn-sm"
+                                                    <a href="{{ route('accounts.roles.edit', $role->id) }}" class="btn btn-primary btn-sm"
                                                         @if($role->name == 'Super Admin') 
                                                             style="pointer-events: none; opacity: 0.5;" 
                                                             title="Admin role cannot be edited"
@@ -81,7 +81,7 @@
                                                     @endcan
                                                     @can('role-delete')
                                                     <!-- Delete Button -->
-                                                    <a href="{{ route('roles.delete', $role->id) }}" id="delete" class="btn btn-danger btn-sm" 
+                                                    <a href="{{ route('accounts.roles.delete', $role->id) }}" id="delete" class="btn btn-danger btn-sm" 
                                                         @if($role->name == 'Super Admin') 
                                                             style="pointer-events: none; opacity: 0.5;" 
                                                             title="Cannot delete Admin role"

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Models\Inventory\ProductCategory;
 use App\Models\Inventory\InventoryProduct;
+use App\Models\Inventory\InventoryProductPrice;
 use App\Models\Inventory\ProductImage;
 use App\Models\Inventory\ProductTag;
 use App\Models\Inventory\ProductBrand;
@@ -89,6 +90,13 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'status' => $request->status,
                 
+            ]);
+
+            // Create product price record
+            InventoryProductPrice::create([
+                'inventory_product_id' => $product->id,
+                'price' => $request->price,
+                'status' => $request->status, 
             ]);
 
             // Handle main image upload
@@ -233,6 +241,23 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'status' => $request->status,
             ]);
+
+            // Update product price record
+            $productPrice = InventoryProductPrice::where('inventory_product_id', $product->id
+            )->first();
+            
+            if ($productPrice) {
+                $productPrice->update([
+                    'price' => $request->price,
+                    'status' => $request->status, 
+                ]);
+            } else {
+                InventoryProductPrice::create([
+                    'inventory_product_id' => $product->id,
+                    'price' => $request->price,
+                    'status' => $request->status, 
+                ]);
+            }
 
             // Handle main image upload
             if ($request->hasFile('image')) {

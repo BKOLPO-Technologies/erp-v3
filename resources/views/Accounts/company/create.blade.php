@@ -376,7 +376,7 @@
         let formData = $(this).serialize(); // Get form data
 
         $.ajax({
-            url: '{{ route('branch.store2') }}',
+            url: '{{ route('accounts.branch.store2') }}',
             type: 'POST',
             data: formData,
             success: function(response) {
