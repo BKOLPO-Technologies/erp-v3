@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Inventory\InventoryProduct;
 use App\Models\Inventory\InventoryVendor;
+use App\Models\Inventory\Stock;
 use App\Models\Inventory\StockInward;
 use Illuminate\Support\Str;
 
@@ -58,6 +59,14 @@ class StockInwardController extends Controller
             // Update product stock quantity
             $product = InventoryProduct::find($validated['product_id']);
             $product->increment('quantity', $validated['quantity']);
+
+            // 3. Insert into Stock Table
+            Stock::create([
+                'product_id'  => $validated['product_id'],
+                'type'        => 'in',
+                'quantity'    => $validated['quantity'],
+                'reference'   => $validated['reference_lot'],
+            ]);
             
             return redirect()->route('inventory.stockinward.index')
                 ->with('success', 'Stock inward created successfully!');
@@ -137,6 +146,20 @@ class StockInwardController extends Controller
             // Update product stock quantity
             $product = InventoryProduct::find($validated['product_id']);
             $product->increment('quantity', $validated['quantity'] - $stockInward->quantity);
+            // Update Stock Table
+            Stock::where('reference', $stockInward->reference_lot)
+                ->update([
+                    'product_id' => $validated['product_id'],
+                    'quantity' => $validated['quantity'],
+                ]);
+                
+            // Update reference/lot number if needed
+            if ($stockInward->reference_lot !== $this->generateReferenceLot()) {
+                $newReference = $this->generateReferenceLot();
+                $stockInward->update(['reference_lot' => $newReference]);
+                Stock::where('reference', $stockInward->reference_lot)
+                    ->update(['reference' => $newReference]);
+            }
             
             return redirect()->route('inventory.stockinward.index')
                 ->with('success', 'Stock inward updated successfully!');

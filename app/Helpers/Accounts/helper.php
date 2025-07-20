@@ -5,6 +5,7 @@ use Rakibhstu\Banglanumber\NumberToBangla;
 use App\Models\Accounts\JournalVoucherDetail;
 use App\Models\Accounts\Company;
 use App\Models\Accounts\CompanyInformation;
+use App\Models\Inventory\Stock;
 
 function journalvoucher()
 {
@@ -140,6 +141,19 @@ if (!function_exists('get_company_info')) {
     }
 }
 
+// balance stock function
+if (!function_exists('balanceStock')) {
+    function balanceStock($productId)
+    {
+        $totalIn = Stock::where('product_id', $productId)
+            ->where('type', 'in')
+            ->sum('quantity');
 
+        $totalOut = Stock::where('product_id', $productId)
+            ->where('type', 'out')
+            ->sum('quantity');
 
+        return max($totalIn - $totalOut, 0);
+    }
+}
 

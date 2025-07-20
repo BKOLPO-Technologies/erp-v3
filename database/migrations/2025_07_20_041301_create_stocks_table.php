@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->string('lot');
-            $table->string('reference_id');
+            $table->foreignId('product_id')->constrained('inventory_products')->onDelete('cascade');
+            $table->enum('type', ['in', 'out']);
+            $table->string('reference');
             $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();

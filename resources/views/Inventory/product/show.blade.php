@@ -113,6 +113,10 @@
                                             <td>{{ $product->quantity ?? '' }}</td>
                                         </tr>
                                         <tr>
+                                            <th>Latest Quantity (from stocks)</th>
+                                            <td>{{ balanceStock($product->id) }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Alert Quantity</th>
                                             <td>{{ $product->alert_quantity ?? '' }}</td>
                                         </tr>

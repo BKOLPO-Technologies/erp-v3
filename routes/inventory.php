@@ -12,6 +12,7 @@ use App\Http\Controllers\Inventory\CustomerController;
 use App\Http\Controllers\Inventory\VendorController;
 use App\Http\Controllers\Inventory\SpecificationController;
 use App\Http\Controllers\Inventory\StockInwardController;
+use App\Http\Controllers\Inventory\OrderController;
 
 
 
@@ -138,6 +139,21 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/edit/{id}', [StockInwardController::class, 'edit'])->name('stockinward.edit');
             Route::put('/update/{id}', [StockInwardController::class, 'update'])->name('stockinward.update');
             Route::get('/delete/{id}', [StockInwardController::class, 'destroy'])->name('stockinward.destroy');
+        });
+
+        /* ==================== Orders =================== */
+        Route::prefix('order')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('order.index');
+            Route::get('/create', [OrderController::class, 'create'])->name('order.create');
+            Route::post('/store', [OrderController::class, 'store'])->name('order.store');
+            Route::get('/show/{id}', [OrderController::class, 'show'])->name('order.show');
+            Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+            // Cart AJAX routes
+            Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('order.addToCart');
+            Route::post('/update-cart', [OrderController::class, 'updateCart'])->name('order.updateCart');
+            Route::post('/remove-from-cart', [OrderController::class, 'removeFromCart'])->name('order.removeFromCart');
+            Route::post('/clear-cart', [OrderController::class, 'clearCart'])->name('order.clearCart');
         });
     });
 

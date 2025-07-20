@@ -4,6 +4,7 @@
   $isCustomersActive = Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.edit', 'inventory.customer.view');
   $isVendorActive = Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.edit', 'inventory.vendor.view');
   $isStockInWardActive = Route::is('inventory.stockinward.index', 'inventory.stockinward.create', 'inventory.stockinward.edit', 'inventory.stockinward.show');
+$isOrderActive = Route::is('inventory.order.index', 'inventory.order.create', 'inventory.order.edit', 'inventory.order.view');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -152,6 +153,27 @@
                     </ul>
                 </li>
                 <!-- end vendors -->
+
+                <!-- start orders -->
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link {{ $isOrderActive ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-folder"></i> <!-- Updated Icon -->
+                        <p>
+                            Orders
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('inventory.order.index') }}" class="nav-link {{ Route::is('inventory.order.index', 'inventory.order.create', 'inventory.order.view', 'inventory.order.edit') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manage Orders</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- end orders -->
 
                 <!-- start stock inward -->
                 <li class="nav-item menu-open">
