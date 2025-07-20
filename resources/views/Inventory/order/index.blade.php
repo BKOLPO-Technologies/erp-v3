@@ -41,7 +41,7 @@
                                 <thead class="">
                                     <tr>
                                         <th width="5%">Sl</th>
-                                        <th>Order Number</th>
+                                        <th>Order Code</th>
                                         <th>Customer</th>
                                         <th>Date</th>
                                         <th>Items</th>

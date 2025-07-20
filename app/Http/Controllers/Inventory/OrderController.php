@@ -29,7 +29,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-     public function create()
+    public function create()
     {
         $customers = InventoryCustomer::where('status', 1)->get();
         $products = InventoryProduct::where('status', 1)
@@ -51,81 +51,6 @@ class OrderController extends Controller
             'pageTitle',
             'cart'
         ));
-    }
-
-    public function addToCart(Request $request)
-    {
-        $product = InventoryProduct::findOrFail($request->product_id);
-        
-        $cart = session()->get('cart', []);
-        
-        if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
-        } else {
-            $cart[$product->id] = [
-                "id" => $product->id,
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "image" => $product->image,
-                "max_quantity" => $product->quantity
-            ];
-        }
-        
-        session()->put('cart', $cart);
-        return response()->json([
-            'success' => true,
-            'cart_count' => count($cart),
-            'message' => 'Product added to cart'
-        ]);
-    }
-
-    public function updateCart(Request $request)
-    {
-        if ($request->product_id && $request->quantity) {
-            $cart = session()->get('cart');
-            
-            if (isset($cart[$request->product_id])) {
-                if ($request->quantity <= $cart[$request->product_id]['max_quantity']) {
-                    $cart[$request->product_id]['quantity'] = $request->quantity;
-                    session()->put('cart', $cart);
-                    return response()->json(['success' => true]);
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Quantity exceeds available stock'
-                    ], 400);
-                }
-            }
-        }
-        
-        return response()->json(['success' => false], 400);
-    }
-
-    public function removeFromCart(Request $request)
-    {
-        if ($request->product_id) {
-            $cart = session()->get('cart');
-            
-            if (isset($cart[$request->product_id])) {
-                unset($cart[$request->product_id]);
-                session()->put('cart', $cart);
-            }
-            
-            return response()->json([
-                'success' => true,
-                'cart_count' => count($cart),
-                'message' => 'Product removed from cart'
-            ]);
-        }
-        
-        return response()->json(['success' => false], 400);
-    }
-
-    public function clearCart()
-    {
-        session()->forget('cart');
-        return response()->json(['success' => true]);
     }
 
     /**
@@ -165,8 +90,8 @@ class OrderController extends Controller
 
             // Generate order number with a more unique approach
             $latestOrder = Order::latest()->first();
-            $orderNumber = 'ORD-' . date('Ymd') . '-' . str_pad(($latestOrder ? $latestOrder->id + 1 : 1), 6, '0', STR_PAD_LEFT);
-      
+            $orderNumber = date('Ymd') . '-' . str_pad(($latestOrder ? $latestOrder->id + 1 : 1), 8, '0', STR_PAD_LEFT);
+
 
             // Create the order
             $order = Order::create([
@@ -261,5 +186,80 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function addToCart(Request $request)
+    {
+        $product = InventoryProduct::findOrFail($request->product_id);
+        
+        $cart = session()->get('cart', []);
+        
+        if (isset($cart[$product->id])) {
+            $cart[$product->id]['quantity']++;
+        } else {
+            $cart[$product->id] = [
+                "id" => $product->id,
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image,
+                "max_quantity" => $product->quantity
+            ];
+        }
+        
+        session()->put('cart', $cart);
+        return response()->json([
+            'success' => true,
+            'cart_count' => count($cart),
+            'message' => 'Product added to cart'
+        ]);
+    }
+
+    public function updateCart(Request $request)
+    {
+        if ($request->product_id && $request->quantity) {
+            $cart = session()->get('cart');
+            
+            if (isset($cart[$request->product_id])) {
+                if ($request->quantity <= $cart[$request->product_id]['max_quantity']) {
+                    $cart[$request->product_id]['quantity'] = $request->quantity;
+                    session()->put('cart', $cart);
+                    return response()->json(['success' => true]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Quantity exceeds available stock'
+                    ], 400);
+                }
+            }
+        }
+        
+        return response()->json(['success' => false], 400);
+    }
+
+    public function removeFromCart(Request $request)
+    {
+        if ($request->product_id) {
+            $cart = session()->get('cart');
+            
+            if (isset($cart[$request->product_id])) {
+                unset($cart[$request->product_id]);
+                session()->put('cart', $cart);
+            }
+            
+            return response()->json([
+                'success' => true,
+                'cart_count' => count($cart),
+                'message' => 'Product removed from cart'
+            ]);
+        }
+        
+        return response()->json(['success' => false], 400);
+    }
+
+    public function clearCart()
+    {
+        session()->forget('cart');
+        return response()->json(['success' => true]);
     }
 }

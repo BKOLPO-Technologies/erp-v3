@@ -82,22 +82,22 @@ class StockInwardController extends Controller
      */
     protected function generateReferenceLot()
     {
-        $prefix = 'STK-IN-'; // You can customize this prefix
-        $datePart = date('Ymd'); // YYYYMMDD format
-        $randomPart = strtoupper(substr(uniqid(), -4)); // Last 4 chars of uniqid
-        
-        // Check if exists and regenerate if needed
+        $prefix = 'LOT-'; // Shorter and more generic
+        $datePart = date('ymd'); // YYMMDD for shorter format (e.g., 250720)
+        $randomPart = strtoupper(Str::random(3)); // Random 3 uppercase letters/numbers
+
         do {
             $reference = $prefix . $datePart . '-' . $randomPart;
             $exists = StockInward::where('reference_lot', $reference)->exists();
-            
+
             if ($exists) {
-                $randomPart = strtoupper(substr(uniqid(), -4));
+                $randomPart = strtoupper(Str::random(3));
             }
         } while ($exists);
-        
+
         return $reference;
     }
+
 
 
     /**

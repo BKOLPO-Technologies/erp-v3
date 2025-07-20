@@ -12,6 +12,7 @@ use App\Http\Controllers\Inventory\CustomerController;
 use App\Http\Controllers\Inventory\VendorController;
 use App\Http\Controllers\Inventory\SpecificationController;
 use App\Http\Controllers\Inventory\StockInwardController;
+use App\Http\Controllers\Inventory\StockOutwardController;
 use App\Http\Controllers\Inventory\OrderController;
 
 
@@ -140,6 +141,18 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::put('/update/{id}', [StockInwardController::class, 'update'])->name('stockinward.update');
             Route::get('/delete/{id}', [StockInwardController::class, 'destroy'])->name('stockinward.destroy');
         });
+
+        /* ==================== Stock Outward =================== */
+        Route::prefix('stockoutward')->group(function () {
+            Route::get('/', [StockOutwardController::class, 'index'])->name('stockoutward.index');
+            Route::get('/create', [StockOutwardController::class, 'create'])->name('stockoutward.create');
+            Route::post('/store', [StockOutwardController::class, 'store'])->name('stockoutward.store');
+            Route::get('/show/{id}', [StockOutwardController::class, 'show'])->name('stockoutward.show');
+            Route::get('/edit/{id}', [StockOutwardController::class, 'edit'])->name('stockoutward.edit');
+            Route::put('/update/{id}', [StockOutwardController::class, 'update'])->name('stockoutward.update');
+            Route::get('/delete/{id}', [StockOutwardController::class, 'destroy'])->name('stockoutward.destroy');
+        });
+
 
         /* ==================== Orders =================== */
         Route::prefix('order')->group(function () {
