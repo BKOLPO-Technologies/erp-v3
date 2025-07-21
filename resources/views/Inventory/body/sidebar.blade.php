@@ -4,7 +4,7 @@
   $isCustomersActive = Route::is('inventory.customer.index', 'inventory.customer.create', 'inventory.customer.edit', 'inventory.customer.view');
   $isVendorActive = Route::is('inventory.vendor.index', 'inventory.vendor.create', 'inventory.vendor.edit', 'inventory.vendor.view');
   $isStockInWardActive = Route::is('inventory.stockinward.index', 'inventory.stockinward.create', 'inventory.stockinward.edit', 'inventory.stockinward.show','inventory.stockoutward.index', 'inventory.stockoutward.create', 'inventory.stockoutward.edit', 'inventory.stockoutward.show');
-  $isOrderActive = Route::is('inventory.order.index', 'inventory.order.create', 'inventory.order.edit', 'inventory.order.view');
+  $isOrderActive = Route::is('inventory.order.index', 'inventory.order.create', 'inventory.order.edit', 'inventory.order.show');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">

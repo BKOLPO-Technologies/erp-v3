@@ -27,7 +27,9 @@ return new class extends Migration
             // Financial fields
             $table->decimal('subtotal', 12, 2)->default(0);
             $table->decimal('discount', 12, 2)->default(0);
+            $table->integer('vat_rate')->nullable()->default(0);
             $table->decimal('vat_amount', 12, 2)->default(0);
+            $table->integer('tax_rate')->nullable()->default(0);
             $table->decimal('tax_amount', 12, 2)->default(0);
             $table->decimal('shipping_cost', 12, 2)->default(0);
             $table->decimal('total_amount', 12, 2)->default(0);

@@ -12,4 +12,5 @@ class Stock extends Model
     {
         return $this->belongsTo(InventoryProduct::class, 'product_id');
     }
+    
 }

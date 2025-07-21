@@ -16,9 +16,10 @@ return new class extends Migration
             
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('inventory_products');
-            $table->decimal('quantity', 10, 2);
+            $table->integer('quantity');
             $table->decimal('unit_price', 12, 2);
             $table->decimal('total_price', 12, 2);
+            $table->softDeletes();
             $table->timestamps();
             
             $table->index('order_id');

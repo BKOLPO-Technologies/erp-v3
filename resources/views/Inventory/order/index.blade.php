@@ -44,7 +44,7 @@
                                         <th>Order Code</th>
                                         <th>Customer</th>
                                         <th>Date</th>
-                                        <th>Items</th>
+                                        <th width="5%">Num of Products</th>
                                         <th>Total Amount</th>
                                         <th>Status</th>
                                         <th width="15%">Actions</th>
@@ -76,17 +76,24 @@
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge badge-pill badge-primary">
-                                                    {{ $order->items->sum('quantity') }} items
+                                                    {{ $order->items->sum('quantity') }}
                                                 </span>
                                             </td>
                                             <td class="text-right">
-                                                {{ number_format($order->total_amount, 2) }}
-                                                <br>
-                                                <small
-                                                    class="{{ $order->due_amount > 0 ? 'text-danger' : 'text-success' }}">
+                                                {{-- Total Amount --}}
+                                                {{ number_format($order->total_amount, 2) }} <br>
+
+                                                {{-- Paid Amount --}}
+                                                <small class="text-info">
+                                                    Paid: {{ number_format($order->total_amount - $order->due_amount, 2) }}
+                                                </small><br>
+
+                                                {{-- Due or Paid Status --}}
+                                                <small class="{{ $order->due_amount > 0 ? 'text-danger' : 'text-success' }}">
                                                     {{ $order->due_amount > 0 ? 'Due: ' . number_format($order->due_amount, 2) : 'Paid' }}
                                                 </small>
                                             </td>
+
                                             <td>
                                                 <span
                                                     class="badge badge-{{ $order->order_status === \App\Models\Inventory\Order::ORDER_STATUS_COMPLETED
@@ -112,18 +119,12 @@
                                                         class="btn btn-sm btn-info mr-1" title="View">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-sm btn-primary mr-1" title="Edit">
+                                                    <a href="{{ route('inventory.order.edit', $order->id) }}" class="btn btn-sm btn-primary mr-1" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <form action="{{ route('inventory.order.destroy', $order->id) }}"
-                                                        method="POST" style="display:inline-block">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete"
-                                                            onclick="return confirm('Are you sure?')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
+                                                    <a href="{{ route('inventory.order.destroy', $order->id) }}" id="delete" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

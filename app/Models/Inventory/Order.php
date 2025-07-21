@@ -5,6 +5,7 @@ namespace App\Models\Inventory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class Order extends Model
 {
@@ -24,7 +25,9 @@ class Order extends Model
         'expected_delivery_date',
         'subtotal',
         'discount',
+        'vat_rate',
         'vat_amount',
+        'tax_rate',
         'tax_amount',
         'shipping_cost',
         'total_amount',

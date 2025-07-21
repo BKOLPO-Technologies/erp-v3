@@ -151,6 +151,11 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/edit/{id}', [StockOutwardController::class, 'edit'])->name('stockoutward.edit');
             Route::put('/update/{id}', [StockOutwardController::class, 'update'])->name('stockoutward.update');
             Route::get('/delete/{id}', [StockOutwardController::class, 'destroy'])->name('stockoutward.destroy');
+
+            // Additional AJAX routes
+            Route::get('/get-orders/{customerId}', [StockOutwardController::class, 'getOrders'])->name('get.orders');
+            Route::get('/get-product-details/{productId}', [StockOutwardController::class, 'getProductDetails'])->name('get.product.details');
+    
         });
 
 
@@ -160,7 +165,10 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::get('/create', [OrderController::class, 'create'])->name('order.create');
             Route::post('/store', [OrderController::class, 'store'])->name('order.store');
             Route::get('/show/{id}', [OrderController::class, 'show'])->name('order.show');
+            Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
+            Route::put('/update/{id}', [OrderController::class, 'update'])->name('order.update');
             Route::get('/delete/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
+            Route::post('/orders/remove-item', [OrderController::class, 'removeItem'])->name('order.removeItem');
 
             // Cart AJAX routes
             Route::post('/add-to-cart', [OrderController::class, 'addToCart'])->name('order.addToCart');
