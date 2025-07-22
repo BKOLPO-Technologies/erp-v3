@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Accounts;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Accounts\User;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -23,7 +25,7 @@ class UserController extends Controller
     {
         $users = User::latest()->get();
         $pageTitle = 'User List';
-        return view('Accounts.users.index',compact('users','pageTitle'));
+        return view('General.users.index',compact('users','pageTitle'));
     }
     
     /**
@@ -33,9 +35,9 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        $roles = Role::where('name', '!=', 'Admin')->pluck('name', 'name')->all(); 
+        $roles = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->all(); 
         $pageTitle = 'User Create';
-        return view('Accounts.users.create',compact('roles','pageTitle'));
+        return view('General.users.create',compact('roles','pageTitle'));
     }
     
     /**
@@ -88,7 +90,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $pageTitle = 'User View';
-        return view('Accounts.users.show',compact('user','pageTitle'));
+        return view('General.users.show',compact('user','pageTitle'));
     }
     
     /**
@@ -100,12 +102,12 @@ class UserController extends Controller
     public function edit($id): View
     {
         $user = User::find($id);
-        $roles = Role::where('name', '!=', 'Admin')->pluck('name', 'name')->all(); 
+        $roles = Role::where('name', '!=', 'Super Admin')->pluck('name', 'name')->all(); 
         $userRole = $user->roles->pluck('name','name')->all();
 
         $pageTitle = 'User Edit';
     
-        return view('Accounts.users.edit',compact('user','roles','userRole','pageTitle'));
+        return view('General.users.edit',compact('user','roles','userRole','pageTitle'));
     }
     
     /**
@@ -161,4 +163,7 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->back()->with('success','User deleted successfully');
     }
+
 }
+
+

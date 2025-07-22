@@ -496,7 +496,7 @@
               </a>
             </li> 
             @endcan
-                 @can('user-menu')  
+                 {{-- @can('user-menu')  
               <li class="nav-item">
                 <a href="{{ route('accounts.users.index') }}" class="nav-link {{ Route::is('accounts.users.index','accounts.users.create','accounts.users.edit','accounts.users.show') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
@@ -511,7 +511,7 @@
                     <p>Role List</p>
                 </a>
               </li>
-              @endcan
+              @endcan --}}
           </ul>
         </li>
         @endcan

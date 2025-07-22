@@ -5,13 +5,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-       <li class="nav-item d-none d-md-block">
-        @if(session()->has('impersonate_original_id'))
-            <a href="{{ route('impersonate.leave') }}" class="btn btn-danger d-flex align-items-center justify-content-center">
-                <i class="fas fa-sign-out-alt"></i> Return to Super Admin
-            </a>
-        @endif
-      </li>
     </ul>
 
     <!-- Right navbar links -->

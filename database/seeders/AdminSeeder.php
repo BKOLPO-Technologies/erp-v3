@@ -23,26 +23,14 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Super Admin',
                 'email' => 'superadmin@bkolpo.com',
-                'password' => 'Admin@123#!',
+                'password' => '12345678',
                 'role' => 'Super Admin'
             ],
             [
                 'name' => 'Accounts Manager',
                 'email' => 'accounts@bkolpo.com',
                 'password' => 'accounts@123',
-                'role' => 'Admin'
-            ],
-            [
-                'name' => 'HR Manager',
-                'email' => 'hr@bkolpo.com',
-                'password' => 'hr@123',
-                'role' => 'Admin'
-            ],
-            [
-                'name' => 'Payroll Officer',
-                'email' => 'payroll@bkolpo.com',
-                'password' => 'payroll@103',
-                'role' => 'Admin'
+                'role' => 'Accounts Manager'
             ],
             [
                 'name' => 'Inventory Manager',
@@ -51,29 +39,40 @@ class AdminSeeder extends Seeder
                 'role' => 'Inventory Manager'
             ],
             [
+                'name' => 'HR Manager',
+                'email' => 'hr@bkolpo.com',
+                'password' => 'hr@123',
+                'role' => 'HR Manager'
+            ],
+            [
+                'name' => 'Payroll Officer',
+                'email' => 'payroll@bkolpo.com',
+                'password' => 'payroll@103',
+                'role' => 'Payroll Officer'
+            ],
+            [
                 'name' => 'Ecommerce Admin',
                 'email' => 'ecommerce@bkolpo.com',
                 'password' => 'ecommerce@123',
-                'role' => 'Admin'
+                'role' => 'Ecommerce Admin'
             ],
             [
                 'name' => 'Process Admin',
                 'email' => 'process@bkolpo.com',
                 'password' => 'process@123',
-                'role' => 'Admin'
+                'role' => 'Process Admin'
             ],
         ];
 
         // Define the roles
         $roles = [
             ['id' => 1, 'name' => 'Super Admin'],
-            ['id' => 2, 'name' => 'Admin'],
+            ['id' => 2, 'name' => 'Accounts Manager'],
             ['id' => 3, 'name' => 'Inventory Manager'],
-            ['id' => 4, 'name' => 'Sales Team'],
-            ['id' => 5, 'name' => 'Sales Manager'],
-            ['id' => 6, 'name' => 'Business Manager'],
-            ['id' => 7, 'name' => 'Business Owner'],
-            ['id' => 8, 'name' => 'Project Manager'],
+            ['id' => 4, 'name' => 'HR Manager'],
+            ['id' => 5, 'name' => 'Payroll Officer'],
+            ['id' => 6, 'name' => 'Ecommerce Admin'],
+            ['id' => 7, 'name' => 'Process Admin'],
         ];
 
         // Create or update roles

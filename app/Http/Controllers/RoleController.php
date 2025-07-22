@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Accounts;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('id','DESC')->latest()->get();
         $pageTitle = 'Role List';
-        return view('Accounts.roles.index',compact('roles','pageTitle'));
+        return view('General.roles.index',compact('roles','pageTitle'));
     }
     
     /**
@@ -40,7 +40,7 @@ class RoleController extends Controller
     {
         $permission = Permission::get();
         $pageTitle = 'Role Create';
-        return view('Accounts.roles.create',compact('permission','pageTitle'));
+        return view('General.roles.create',compact('permission','pageTitle'));
     }
     
     /**
@@ -92,7 +92,7 @@ class RoleController extends Controller
             ->get();
 
         $pageTitle = 'Role View';
-        return view('Accounts.roles.show',compact('role','rolePermissions','pageTitle'));
+        return view('General.roles.show',compact('role','rolePermissions','pageTitle'));
     }
     
     /**
@@ -110,7 +110,7 @@ class RoleController extends Controller
             ->all();
 
         $pageTitle = 'Role Edit';
-        return view('Accounts.roles.edit',compact('role','permission','rolePermissions','pageTitle'));
+        return view('General.roles.edit',compact('role','permission','rolePermissions','pageTitle'));
     }
     
     /**

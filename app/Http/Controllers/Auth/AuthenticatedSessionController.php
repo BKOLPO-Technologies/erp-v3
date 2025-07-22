@@ -33,11 +33,12 @@ class AuthenticatedSessionController extends Controller
 
             // Get authenticated user
             $user = auth()->user();
+            // dd($user);
 
             // Redirect based on user module or role
             switch ($user->email) {
                 case 'superadmin@bkolpo.com':
-                    $redirectRoute = route('accounts.dashboard'); // main superadmin dashboard
+                    $redirectRoute = route('dashboard'); // main superadmin dashboard
                     break;
                 case 'accounts@bkolpo.com':
                     $redirectRoute = route('accounts.dashboard');
@@ -58,7 +59,7 @@ class AuthenticatedSessionController extends Controller
                     $redirectRoute = route('process.dashboard');
                     break;
                 default:
-                    $redirectRoute = route('dashboard'); // fallback
+                    $redirectRoute = route('login'); // fallback
                     break;
             }
 
