@@ -101,17 +101,23 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id): View
     {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
-
-        $pageTitle = 'Role Edit';
-        return view('General.roles.edit',compact('role','permission','rolePermissions','pageTitle'));
+        $role = Role::findOrFail($id);
+        $permission = Permission::all();
+        $rolePermissions = $role->permissions->pluck('id')->toArray();
+        
+        $pageTitle = 'Edit Role: ' . $role->name;
+        
+        return view('General.roles.edit', compact(
+            'role',
+            'permission',
+            'rolePermissions',
+            'pageTitle'
+        ));
     }
+    
     
     /**
      * Update the specified resource in storage.

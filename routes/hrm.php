@@ -15,7 +15,7 @@ use App\Http\Controllers\Hrm\ChatController;
 Route::prefix('hr')->as('hrm.')->group(function () {
     /* =============== Start Hrm Route  ============= */
     Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
         // ==================== Staff Management Routes ====================

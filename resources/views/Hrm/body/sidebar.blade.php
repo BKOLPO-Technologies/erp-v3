@@ -29,7 +29,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-
+                    @can('dashboard-menu')  
                     <li class="nav-item menu-open">
                         <a href="{{ route('hrm.dashboard') }}"
                             class="nav-link {{ Route::is('hrm.dashboard') ? 'active' : '' }}">
@@ -39,7 +39,7 @@
                             </p>
                         </a>
                     </li>
-
+                    @endcan
                 <li
                     class="nav-item menu-open {{ Route::is('hrm.staff.list', 'hrm.staff.create', 'hrm.staff.edit', 'hrm.staff.show', 'hrm.ta-da.index', 'hrm.ta-da.create', 'hrm.ta-da.edit', 'hrm.ta-da.show', 'hrm.leaves.index', 'hrm.leaves.create', 'hrm.leaves.edit', 'hrm.leaves.show', 'hrm.attendance.index', 'hrm.attendance.create', 'hrm.attendance.edit', 'hrm.attendance.show', 'hrm.activity.index', 'hrm.activity.create', 'hrm.activity.edit', 'hrm.activity.show', 'hrm.salary.index', 'hrm.salary.create', 'hrm.salary.show') ? 'menu-open' : '' }}">
                     <a href="#"

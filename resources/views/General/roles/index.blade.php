@@ -41,6 +41,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($roles as $key => $role)
+                                            @continue($role->name === 'Super Admin')
                                             @php
                                                 $rolePermissions = Spatie\Permission\Models\Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
                                                     ->where("role_has_permissions.role_id",$role->id)

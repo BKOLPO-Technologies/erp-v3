@@ -35,6 +35,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                    <!-- start dashboard -->
+                    @can('dashboard-menu')  
                     <li class="nav-item menu-open">
                         <a href="{{ route('inventory.dashboard') }}"
                             class="nav-link {{ Route::is('inventory.dashboard') ? 'active' : '' }}">
@@ -44,6 +45,7 @@
                             </p>
                         </a>
                     </li>
+                    @endcan
                     <!-- end dashboard -->
 
                 <!-- start product -->
@@ -67,6 +69,7 @@
                 </li>
                 <!-- end product -->
 
+                @can('setting-menu')  
                 <!-- start setting -->
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link {{ $isSettingActive ? 'active' : '' }}">
@@ -111,6 +114,7 @@
                     </ul>
                 </li>
                 <!-- end setting -->
+                @endcan
 
                 <!-- start customers -->
                 <li class="nav-item menu-open">

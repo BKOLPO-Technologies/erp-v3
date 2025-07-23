@@ -44,7 +44,7 @@ use App\Http\Controllers\Accounts\ProductSaleReceiveController;
 Route::prefix('accounts')->as('accounts.')->group(function () {
     /* =============== Start Admin Route  ============= */
     Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
         /* ==================== Branch =================== */

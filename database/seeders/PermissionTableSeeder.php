@@ -13,75 +13,68 @@ class PermissionTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = [
-            // Branch Permissions
-            'branch-menu',
-            'branch-list',
-            'branch-create',
-            'branch-edit',
-            'branch-view',
-            'branch-delete',
-            // Company Permissions
-            'company-menu',
-            'company-list',
-            'company-create',
-            'company-edit',
-            'company-view',
-            'company-delete',
-            // Cart Of Accounts
-            'ledger-group-menu',
-            'ledger-group-list',
-            'ledger-group-create',
-            'ledger-group-edit',
-            'ledger-group-view',
-            'ledger-group-delete',
-            'ledger-menu',
-            'ledger-list',
-            'ledger-create',
-            'ledger-edit',
-            'ledger-view',
-            'ledger-delete',
-            // Journal Permissions
-            'journal-menu',
-            'journal-list',
-            'journal-create',
-            'journal-edit',
-            'journal-view',
-            'journal-delete',
-            // Accounts Report Permissions
-            'report-menu',
-            'report-list',
-            'trial-balnce-report',
-            'balance-shit-report',
-            // User Permissions
-            'user-menu',
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-view',
-            'user-delete',
-            // Role Permissions
-            'role-menu',
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-view',
-            'role-delete',
-            // Settings Permissions
-            'dashboard-menu',
-            'setting-menu',
-            'setting-information',
-            'setting-information-edit',
-            'profile-view',
-            'password-change',
+        // Permissions grouped by role
+        $permissionsByRole = [
+            'Accounts Manager' => [
+                // Setting Permissions
+                ['name' => 'dashboard-menu', 'group' => 'settings'],
+                ['name' => 'setting-menu', 'group' => 'settings'],
+                ['name' => 'setting-information', 'group' => 'settings'],
+                ['name' => 'setting-information-edit', 'group' => 'settings'],
+                ['name' => 'profile-view', 'group' => 'settings'],
+                ['name' => 'password-change', 'group' => 'settings'],
+                // Category Permissions
+                ['name' => 'category-menu', 'group' => 'category'],
+                ['name' => 'category-list', 'group' => 'category'],
+                ['name' => 'category-create', 'group' => 'category'],
+                ['name' => 'category-edit', 'group' => 'category'],
+                ['name' => 'category-view', 'group' => 'category'],
+                ['name' => 'category-delete', 'group' => 'category'],
+
+            ],
+            'Inventory Manager' => [
+                ['name' => 'dashboard-menu', 'group' => 'settings'],
+                ['name' => 'setting-menu', 'group' => 'settings'],
+                ['name' => 'setting-information', 'group' => 'settings'],
+                ['name' => 'setting-information-edit', 'group' => 'settings'],
+                ['name' => 'profile-view', 'group' => 'settings'],
+                ['name' => 'password-change', 'group' => 'settings'],
+                // Category Permissions
+                ['name' => 'category-menu', 'group' => 'category'],
+                ['name' => 'category-list', 'group' => 'category'],
+                ['name' => 'category-create', 'group' => 'category'],
+                ['name' => 'category-edit', 'group' => 'category'],
+                ['name' => 'category-view', 'group' => 'category'],
+                ['name' => 'category-delete', 'group' => 'category'],
+            ],
+            'HR Manager' => [
+                ['name' => 'dashboard-menu', 'group' => 'settings'],
+                ['name' => 'setting-menu', 'group' => 'settings'],
+                ['name' => 'setting-information', 'group' => 'settings'],
+                ['name' => 'setting-information-edit', 'group' => 'settings'],
+                ['name' => 'profile-view', 'group' => 'settings'],
+                ['name' => 'password-change', 'group' => 'settings'],
+            ],
         ];
-        
-        foreach ($permissions as $permission) {
-            Permission::updateOrCreate(
-                ['name' => $permission], 
-                [] 
-            );
+
+        // Loop through and assign permissions to roles
+        foreach ($permissionsByRole as $roleName => $permissions) {
+            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => $roleName]);
+
+            $permissionNames = [];
+
+            foreach ($permissions as $permissionData) {
+                // Create or update permission
+                $permission = \Spatie\Permission\Models\Permission::updateOrCreate(
+                    ['name' => $permissionData['name']],
+                    ['group' => $permissionData['group']]
+                );
+
+                $permissionNames[] = $permission->name;
+            }
+
+            // Sync all permissions to this role
+            $role->syncPermissions($permissionNames);
         }
-        
     }
 }

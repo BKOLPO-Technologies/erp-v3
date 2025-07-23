@@ -20,7 +20,7 @@ use App\Http\Controllers\Inventory\OrderController;
 Route::prefix('inventory')->as('inventory.')->group(function () {
     /* =============== Start Hrm Route  ============= */
     Route::middleware(['auth', 'verified'])->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
         /* ==================== Product =================== */
