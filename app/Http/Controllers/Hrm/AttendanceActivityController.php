@@ -19,7 +19,7 @@ class AttendanceActivityController extends Controller
     {
         $pageTitle = 'Activity list';
         $activitys  = AttendanceActivity::latest()->get();
-        return view('Hrm.activity.index',compact('pageTitle','activitys'));
+        return view('Hr.activity.index',compact('pageTitle','activitys'));
     }
 
     /**
@@ -29,7 +29,7 @@ class AttendanceActivityController extends Controller
     {
         $staffs = Staff::latest()->get();
         $pageTitle = 'Activity Create';
-        return view('Hrm.activity.create',compact('pageTitle','staffs'));
+        return view('Hr.activity.create',compact('pageTitle','staffs'));
     }
 
     /**
@@ -61,7 +61,7 @@ class AttendanceActivityController extends Controller
             'location' => $request->location,
         ]);
 
-        return redirect()->route('hrm.activity.index')->with('success', 'Activity created successfully.');
+        return redirect()->route('hr.activity.index')->with('success', 'Activity created successfully.');
     }
 
     /**
@@ -72,7 +72,7 @@ class AttendanceActivityController extends Controller
         $activity = AttendanceActivity::findOrFail($id);
         $pageTitle = 'Activity View';
 
-        return view('Hrm.activity.show',compact('activity','pageTitle'));
+        return view('Hr.activity.show',compact('activity','pageTitle'));
     }
 
     /**
@@ -104,13 +104,13 @@ class AttendanceActivityController extends Controller
             $activity->delete();
 
             // Redirect back with a success message
-            return redirect()->route('hrm.activity.index')->with('success', 'Activity record deleted successfully.');
+            return redirect()->route('hr.activity.index')->with('success', 'Activity record deleted successfully.');
         } catch (ModelNotFoundException $e) {
             // Redirect back with an error message if the record is not found
-            return redirect()->route('hrm.activity.index')->with('error', 'Activity record not found.');
+            return redirect()->route('hr.activity.index')->with('error', 'Activity record not found.');
         } catch (\Exception $e) {
             // Handle any other exceptions
-            return redirect()->route('hrm.activity.index')->with('error', 'An error occurred while deleting the attendance record.');
+            return redirect()->route('hr.activity.index')->with('error', 'An error occurred while deleting the attendance record.');
         }
     }
 }

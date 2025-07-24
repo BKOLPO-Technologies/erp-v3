@@ -19,7 +19,7 @@ class AttendanceController extends Controller
     {
         $pageTitle = 'Attendance list';
         $attendances  = Attendance::latest()->get();
-        return view('Hrm.attendance.index',compact('pageTitle','attendances'));
+        return view('Hr.attendance.index',compact('pageTitle','attendances'));
     }
 
     /**
@@ -30,7 +30,7 @@ class AttendanceController extends Controller
         $staffs = Staff::latest()->get();
         $shifts = Shift::where('status',1)->latest()->get();
         $pageTitle = 'Attendance Create';
-        return view('Hrm.attendance.create',compact('pageTitle','staffs','shifts'));
+        return view('Hr.attendance.create',compact('pageTitle','staffs','shifts'));
     }
 
     /**
@@ -65,7 +65,7 @@ class AttendanceController extends Controller
             'location' => $request->location,
         ]);
 
-        return redirect()->route('hrm.attendance.index')->with('success', 'Attendance created successfully.');
+        return redirect()->route('hr.attendance.index')->with('success', 'Attendance created successfully.');
     }
 
     /**
@@ -76,7 +76,7 @@ class AttendanceController extends Controller
         $attendance = Attendance::findOrFail($id);
         $pageTitle = 'Attendance View';
 
-        return view('Hrm.attendance.show',compact('attendance','pageTitle'));
+        return view('Hr.attendance.show',compact('attendance','pageTitle'));
     }
 
     /**
@@ -108,13 +108,13 @@ class AttendanceController extends Controller
             $attendance->delete();
 
             // Redirect back with a success message
-            return redirect()->route('hrm.attendance.index')->with('success', 'Attendance record deleted successfully.');
+            return redirect()->route('hr.attendance.index')->with('success', 'Attendance record deleted successfully.');
         } catch (ModelNotFoundException $e) {
             // Redirect back with an error message if the record is not found
-            return redirect()->route('hrm.attendance.index')->with('error', 'Attendance record not found.');
+            return redirect()->route('hr.attendance.index')->with('error', 'Attendance record not found.');
         } catch (\Exception $e) {
             // Handle any other exceptions
-            return redirect()->route('hrm.attendance.index')->with('error', 'An error occurred while deleting the attendance record.');
+            return redirect()->route('hr.attendance.index')->with('error', 'An error occurred while deleting the attendance record.');
         }
     }
 

@@ -20,7 +20,7 @@ class TaDaController extends Controller
     {
         $pageTitle = 'TA/DA list';
         $tads = TaDa::latest()->get();
-        return view('Hrm.tada.index',compact('pageTitle','tads'));
+        return view('Hr.tada.index',compact('pageTitle','tads'));
     }
 
     /**
@@ -31,7 +31,7 @@ class TaDaController extends Controller
         $pageTitle = 'TA\DA Create';
         $staffs = Staff::latest()->get();
         $tadaTypes = TaDaType::where('status',1)->latest()->get();
-        return view('Hrm.tada.create',compact('pageTitle','staffs','tadaTypes'));
+        return view('Hr.tada.create',compact('pageTitle','staffs','tadaTypes'));
     }
 
     /**
@@ -92,7 +92,7 @@ class TaDaController extends Controller
                 }
             }
     
-            return redirect()->route('hrm.ta-da.index')->with('success', 'TA/DA record created successfully!');
+            return redirect()->route('hr.ta-da.index')->with('success', 'TA/DA record created successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -106,7 +106,7 @@ class TaDaController extends Controller
     {
         $pageTitle = 'TA/DA Details';
         $tada = TaDa::findOrFail($id); // Retrieve the specific record
-        return view('Hrm.tada.show', compact('pageTitle', 'tada'));
+        return view('Hr.tada.show', compact('pageTitle', 'tada'));
     }
     
 
@@ -119,7 +119,7 @@ class TaDaController extends Controller
         $pageTitle = 'TA/DA Details';
         $tadaTypes = TaDaType::where('status',1)->latest()->get();
         $staffs = Staff::latest()->get();
-        return view('Hrm.tada.edit', compact('pageTitle', 'taDa','tadaTypes','staffs'));
+        return view('Hr.tada.edit', compact('pageTitle', 'taDa','tadaTypes','staffs'));
     }
 
     /**
@@ -156,7 +156,7 @@ class TaDaController extends Controller
             ]);
         }
 
-        return redirect()->route('hrm.ta-da.index')->with('success', 'TA/DA updated successfully!');
+        return redirect()->route('hr.ta-da.index')->with('success', 'TA/DA updated successfully!');
     }
 
 
@@ -182,7 +182,7 @@ class TaDaController extends Controller
         // Delete the main TA/DA record
         $taDa->delete();
 
-        return redirect()->route('hrm.ta-da.index')->with('success', 'TA/DA deleted successfully!');
+        return redirect()->route('hr.ta-da.index')->with('success', 'TA/DA deleted successfully!');
     }
 
 }

@@ -24,7 +24,7 @@ class StaffController extends Controller
     {
         $pageTitle = 'Staff list';
         $staffs = Staff::latest()->get();
-        return view('Hrm.staff.index',compact('pageTitle','staffs'));
+        return view('Hr.staff.index',compact('pageTitle','staffs'));
     }
 
     /**
@@ -33,7 +33,7 @@ class StaffController extends Controller
     public function create()
     {
         $pageTitle = 'Staff Create';
-        return view('Hrm.staff.create',compact('pageTitle'));
+        return view('Hr.staff.create',compact('pageTitle'));
     }
 
     /**
@@ -227,7 +227,7 @@ class StaffController extends Controller
             }
 
             // Redirect with a success message
-            return redirect()->route('hrm.staff.list')->with('success', 'Staff created successfully.');
+            return redirect()->route('hr.staff.list')->with('success', 'Staff created successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Handle validation errors
             Log::error('Validation error: ' . $e->getMessage()); 
@@ -249,7 +249,7 @@ class StaffController extends Controller
         $staff = Staff::with(['educations', 'certifications', 'awards', 'employmentHistories'])->findOrFail($id);
         $pageTitle = 'Staff View';
 
-        return view('Hrm.staff.show',compact('staff','pageTitle'));
+        return view('Hr.staff.show',compact('staff','pageTitle'));
     }
 
     /**
@@ -266,7 +266,7 @@ class StaffController extends Controller
         $award = $staff->awards()->first();
         $employment = $staff->employmentHistories()->first();
 
-        return view('Hrm.staff.edit',compact('staff','pageTitle','education','certification','award','employment'));
+        return view('Hr.staff.edit',compact('staff','pageTitle','education','certification','award','employment'));
     }
 
     /**
@@ -479,7 +479,7 @@ class StaffController extends Controller
             $user->save();
 
             // Redirect with a success message
-            return redirect()->route('hrm.staff.list')->with('success', 'Staff updated successfully.');
+            return redirect()->route('hr.staff.list')->with('success', 'Staff updated successfully.');
             // return redirect()->back()->with('success', 'Staff updated successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation error: ' . $e->getMessage());
@@ -499,7 +499,7 @@ class StaffController extends Controller
         $staff = Staff::find($id);
 
         if (!$staff) {
-            return redirect()->route('hrm.staff.list')->with('error', 'Staff not found.');
+            return redirect()->route('hr.staff.list')->with('error', 'Staff not found.');
         }
 
         try {
@@ -539,6 +539,6 @@ class StaffController extends Controller
         // Finally, delete the staff record
         $staff->delete();
 
-        return redirect()->route('hrm.staff.list')->with('success', 'Staff and associated files deleted successfully.');
+        return redirect()->route('hr.staff.list')->with('success', 'Staff and associated files deleted successfully.');
     }
 }

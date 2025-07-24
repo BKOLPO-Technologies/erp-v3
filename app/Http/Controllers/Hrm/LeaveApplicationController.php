@@ -20,7 +20,7 @@ class LeaveApplicationController extends Controller
     {
         $pageTitle = 'Leave Application list';
         $leaveApplications  = LeaveApplication::latest()->get();
-        return view('Hrm.leaves.index',compact('pageTitle','leaveApplications'));
+        return view('Hr.leaves.index',compact('pageTitle','leaveApplications'));
     }
 
     /**
@@ -31,7 +31,7 @@ class LeaveApplicationController extends Controller
         $staffs = Staff::latest()->get();
         $leaveTypes = LeaveType::where('status',1)->latest()->get();
         $pageTitle = 'Leave Application Create';
-        return view('Hrm.leaves.create',compact('pageTitle','staffs','leaveTypes'));
+        return view('Hr.leaves.create',compact('pageTitle','staffs','leaveTypes'));
     }
 
     /**
@@ -76,7 +76,7 @@ class LeaveApplicationController extends Controller
         }
 
         // Redirect with a success message
-        return redirect()->route('hrm.leaves.index')->with('success', 'Leave application created successfully.');
+        return redirect()->route('hr.leaves.index')->with('success', 'Leave application created successfully.');
     }
 
 
@@ -88,7 +88,7 @@ class LeaveApplicationController extends Controller
         $leaveApplication = LeaveApplication::findOrFail($id);
         $pageTitle = 'Leave Application Show';
 
-        return view('Hrm.leaves.show',compact('leaveApplication','pageTitle'));
+        return view('Hr.leaves.show',compact('leaveApplication','pageTitle'));
     }
 
     /**
@@ -102,7 +102,7 @@ class LeaveApplicationController extends Controller
         $staffs = Staff::latest()->get();
         $leaveTypes = LeaveType::where('status',1)->latest()->get();
 
-        return view('Hrm.leaves.edit',compact('leaveApplication','staffs','leaveTypes','pageTitle'));
+        return view('Hr.leaves.edit',compact('leaveApplication','staffs','leaveTypes','pageTitle'));
     }
 
 
@@ -151,7 +151,7 @@ class LeaveApplicationController extends Controller
             }
         }
 
-        return redirect()->route('hrm.leaves.index')->with('success', 'Leave application updated successfully.');
+        return redirect()->route('hr.leaves.index')->with('success', 'Leave application updated successfully.');
     }
 
     /**
@@ -179,7 +179,7 @@ class LeaveApplicationController extends Controller
         $leaveApplication->delete();
     
         // Redirect back with a success message
-        return redirect()->route('hrm.leaves.index')->with('success', 'Leave application and associated documents deleted successfully.');
+        return redirect()->route('hr.leaves.index')->with('success', 'Leave application and associated documents deleted successfully.');
     }
     
 }

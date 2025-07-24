@@ -117,7 +117,7 @@ class AdminController extends Controller
             $allMonths[$monthName] = $projects[$monthKey] ?? 0;
         }
 
-        return view('Hrm.dashboard', compact(
+        return view('Hr.dashboard', compact(
             'pageTitle',
             'projectTotalAmount',
             'projectTotalAmountPaid',

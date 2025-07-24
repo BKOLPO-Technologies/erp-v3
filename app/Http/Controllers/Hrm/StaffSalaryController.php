@@ -44,7 +44,7 @@ class StaffSalaryController extends Controller
         }
     
         // Return the filtered results to the view
-        return view('Hrm.salary.index', compact('pageTitle', 'salarys'));
+        return view('Hr.salary.index', compact('pageTitle', 'salarys'));
     }
     
 
@@ -56,7 +56,7 @@ class StaffSalaryController extends Controller
     {
         $pageTitle = "Add Salary";
         $staffs = Staff::latest()->get();
-        return view('Hrm.salary.create', compact('pageTitle', 'staffs'));
+        return view('Hr.salary.create', compact('pageTitle', 'staffs'));
     }
 
     
@@ -106,7 +106,7 @@ class StaffSalaryController extends Controller
         $salary = Salary::with('staff')->findOrFail($id);
         $salary->will_get = $salary->salary - $salary->payment_amount;
 
-        return view('Hrm.salary.show', compact('salary','pageTitle'));
+        return view('Hr.salary.show', compact('salary','pageTitle'));
     }
 
     /**
@@ -158,7 +158,7 @@ class StaffSalaryController extends Controller
         $salary->updated_by = auth()->user()->name;
         $salary->save();
 
-        return redirect()->route('hrm.salary.index')->with('success', 'Salary payment updated successfully!');
+        return redirect()->route('hr.salary.index')->with('success', 'Salary payment updated successfully!');
      }
      
     /**
