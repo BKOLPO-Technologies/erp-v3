@@ -101,7 +101,7 @@ class LedgerController extends Controller
             'updated_at'   => now(),
         ]);
 
-        return redirect()->route('ledger.index')->with('success', 'Ledger created successfully.');
+        return redirect()->route('accounts.ledger.index')->with('success', 'Ledger created successfully.');
     }
 
     /**
@@ -243,7 +243,7 @@ class LedgerController extends Controller
         // ]);
 
 
-        return redirect()->route('ledger.index')->with('success', 'Ledger updated successfully.');
+        return redirect()->route('accounts.ledger.index')->with('success', 'Ledger updated successfully.');
     }
 
 
@@ -260,7 +260,7 @@ class LedgerController extends Controller
         // Step 2: Check if the Ledger has any related JournalVoucherDetail
         if ($ledger->journalVoucherDetails()->exists()) {
             // If JournalVoucherDetails exist, you cannot delete the ledger directly
-            return redirect()->route('ledger.index')
+            return redirect()->route('accounts.ledger.index')
                             ->with('error', 'Cannot delete this Ledger because it has related Journal Voucher entries. Please delete the journal entries first.');
         }
 
@@ -270,7 +270,7 @@ class LedgerController extends Controller
         // Step 4: Delete the ledger
         $ledger->delete();
 
-        return redirect()->route('ledger.index')->with('success', 'Ledger deleted successfully.');
+        return redirect()->route('accounts.ledger.index')->with('success', 'Ledger deleted successfully.');
     }
     // import download formate
     public function downloadFormat()

@@ -52,7 +52,7 @@
                                                     'accounts-manager' => [
                                                         'title' => 'Accounts Manager',
                                                         'bg_color' => 'bg-success',
-                                                        'groups' => ['settings', 'category']
+                                                        'groups' => ['settings','accounts','customers','vendors','projects','transactions','sales','purchases','reports','company','branch','products']
                                                     ],
                                                     'inventory-manager' => [
                                                         'title' => 'Inventory Manager',
@@ -107,14 +107,14 @@
                                                                 </div>
 
                                                                 <div class="card-body">
-                                                                    <div class="form-group clearfix">
+                                                                    <div class="form-group clearfix d-flex flex-wrap">
                                                                         @foreach($groupPermissions as $value)
-                                                                            <div class="icheck-success d-inline mb-2 mr-3">
+                                                                            <div class="icheck-success d-inline mb-3 mr-4" style="min-width: 220px;">
                                                                                 <input type="checkbox" 
-                                                                                       value="{{ $value->id }}" 
-                                                                                       name="permission[{{ $value->id }}]" 
-                                                                                       class="permission-checkbox {{ $roleKey }}-checkbox {{ $roleKey }}-{{ $group }}-checkbox" 
-                                                                                       id="checkbox{{ $roleKey }}{{ $value->id }}">
+                                                                                    value="{{ $value->id }}" 
+                                                                                    name="permission[{{ $value->id }}]" 
+                                                                                    class="permission-checkbox {{ $roleKey }}-checkbox {{ $roleKey }}-{{ $group }}-checkbox" 
+                                                                                    id="checkbox{{ $roleKey }}{{ $value->id }}">
                                                                                 <label for="checkbox{{ $roleKey }}{{ $value->id }}">
                                                                                     {{ ucwords(str_replace('-', ' ', $value->name)) }}
                                                                                 </label>
