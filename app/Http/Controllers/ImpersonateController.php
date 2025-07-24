@@ -36,7 +36,7 @@ class ImpersonateController extends Controller
                 $redirectRoute = route('inventory.dashboard');
                 break;
             case 'hr@bkolpo.com':
-                $redirectRoute = url('/hrm/dashboard');
+                $redirectRoute = url('/hr/dashboard');
                 break;
             case 'ecommerce@bkolpo.com':
                 $redirectRoute = route('ecommerce.dashboard');

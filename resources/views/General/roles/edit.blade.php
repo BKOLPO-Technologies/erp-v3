@@ -61,7 +61,7 @@
                                                     'inventory-manager' => [
                                                         'title' => 'Inventory Manager',
                                                         'bg_color' => 'bg-info',
-                                                        'groups' => ['settings', 'category'],
+                                                        'groups' => ['settings', 'products','customers','vendors','orders','stocks']
                                                     ],
                                                     'hr-manager' => [
                                                         'title' => 'HR Manager',

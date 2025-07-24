@@ -40,6 +40,7 @@
                         </a>
                     </li>
                     @endcan
+                @can('hr-menu')  
                 <li
                     class="nav-item menu-open {{ Route::is('hr.staff.list', 'hr.staff.create', 'hr.staff.edit', 'hr.staff.show', 'hr.ta-da.index', 'hr.ta-da.create', 'hr.ta-da.edit', 'hr.ta-da.show', 'hr.leaves.index', 'hr.leaves.create', 'hr.leaves.edit', 'hr.leaves.show', 'hr.attendance.index', 'hr.attendance.create', 'hr.attendance.edit', 'hr.attendance.show', 'hr.activity.index', 'hr.activity.create', 'hr.activity.edit', 'hr.activity.show', 'hr.salary.index', 'hr.salary.create', 'hr.salary.show') ? 'menu-open' : '' }}">
                     <a href="#"
@@ -51,6 +52,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('hr-staff-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.staff.list') }}"
                                 class="nav-link {{ Route::is('hr.staff.list', 'hr.staff.create', 'hr.staff.edit', 'hr.staff.show') ? 'active' : '' }}">
@@ -58,6 +60,8 @@
                                 <p>Staff List</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('hr-tada-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.ta-da.index') }}"
                                 class="nav-link {{ Route::is('hr.ta-da.index', 'hr.ta-da.create', 'hr.ta-da.edit', 'hr.ta-da.show') ? 'active' : '' }}">
@@ -65,6 +69,8 @@
                                 <p>TA/DA List</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('hr-leave-application-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.leaves.index') }}"
                                 class="nav-link {{ Route::is('hr.leaves.index', 'hr.leaves.create', 'hr.leaves.edit', 'hr.leaves.show') ? 'active' : '' }}">
@@ -72,6 +78,8 @@
                                 <p>Leave Applications</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('hr-attendance-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.attendance.index') }}"
                                 class="nav-link {{ Route::is('hr.attendance.index', 'hr.attendance.create', 'hr.attendance.edit', 'hr.attendance.show') ? 'active' : '' }}">
@@ -79,6 +87,8 @@
                                 <p>Attendance List</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('hr-activity-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.activity.index') }}"
                                 class="nav-link {{ Route::is('hr.activity.index', 'hr.activity.create', 'hr.activity.edit', 'hr.activity.show') ? 'active' : '' }}">
@@ -86,6 +96,8 @@
                                 <p>Activity List</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('hr-salary-list')  
                         <li class="nav-item">
                             <a href="{{ route('hr.salary.index') }}"
                                 class="nav-link {{ Route::is('hr.salary.index', 'hr.salary.create', 'hr.salary.show') ? 'active' : '' }}">
@@ -93,8 +105,10 @@
                                 <p>Salary</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
