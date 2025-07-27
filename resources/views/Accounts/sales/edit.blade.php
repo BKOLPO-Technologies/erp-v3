@@ -304,7 +304,7 @@
 </div>
 
 <!-- Modal for creating a new Client -->
-@include('Accounts.inventory.client.client_modal')
+@include('Accounts.client.client_modal')
 
 @endsection
 

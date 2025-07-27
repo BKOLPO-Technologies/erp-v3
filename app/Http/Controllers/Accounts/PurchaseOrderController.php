@@ -262,7 +262,7 @@ class PurchaseOrderController extends Controller
         $grandtotal = $subtotal + (($purchase->transport_cost) + ($purchase->carrying_charge) + ($purchase->vat) + ($purchase->tax) - ($purchase->discount));
 
         $suppliers = Supplier::orderBy('id', 'desc')->get();
-        $aproducts = Product::where('status',1)->latest()->get();
+        $aproducts = Product::where('status',1)->where('group_name', 'purchases')->with('unit')->latest()->get();
         $categories = Category::where('status',1)->latest()->get();
         $projects = Project::where('project_type','Running')->latest()->get();
 
@@ -271,7 +271,7 @@ class PurchaseOrderController extends Controller
         $prices = $purchase->products->pluck('pivot.price')->implode(',');
         $discounts = $purchase->products->pluck('pivot.discount')->implode(',');
 
-        dd($aproducts);
+        // dd($aproducts);
 
         return view('Accounts.purchase.order.edit', [
             'pageTitle' => $pageTitle, 
