@@ -213,6 +213,8 @@ class PurchaseOrderController extends Controller
 
             return redirect()->route('accounts.purchase.order.index')->with('success', 'Purchase created successfully!');
         } catch (\Exception $e) {
+
+            // dd($e->getMessage());
             DB::rollback();
             //Log::error('Transaction failed', ['error' => $e->getMessage()]);
             return back()->withErrors(['error' => 'Something went wrong! Please try again.']);
@@ -245,8 +247,9 @@ class PurchaseOrderController extends Controller
         $purchase = Purchase::where('id', $id)
             ->with(['products', 'supplier', 'project', 'purchaseProducts']) // Include supplier details
             ->first();
+            // dd($purchase);
 
-        //dd($purchase->purchaseProducts);
+        // dd($purchase->purchaseProducts);
         
         if ($purchase->invoice_date) {
             $purchase->invoice_date = Carbon::parse($purchase->invoice_date);
@@ -267,6 +270,8 @@ class PurchaseOrderController extends Controller
         $quantities = $purchase->products->pluck('pivot.quantity')->implode(',');
         $prices = $purchase->products->pluck('pivot.price')->implode(',');
         $discounts = $purchase->products->pluck('pivot.discount')->implode(',');
+
+        dd($aproducts);
 
         return view('Accounts.purchase.order.edit', [
             'pageTitle' => $pageTitle, 

@@ -11,13 +11,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/admin/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'restrict.access'])->name('dashboard');
 
 Route::get('/', [HomeController::class, 'Home'])->name('home');
 
-Route::middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'restrict.access'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -41,15 +41,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
 
-    // login as
-    Route::middleware(['auth', 'role:Super Admin'])->get('/impersonate/{id}', [ImpersonateController::class, 'loginAs'])->name('impersonate.login');
-    Route::middleware(['auth'])->get('/impersonate-leave', [ImpersonateController::class, 'leave'])->name('impersonate.leave');
-
 });
+
+// login as
+Route::middleware(['auth', 'role:superadmin'])->get('/impersonate/{id}', [ImpersonateController::class, 'loginAs'])->name('impersonate.login');
+Route::middleware(['auth'])->get('/impersonate-leave', [ImpersonateController::class, 'leave'])->name('impersonate.leave');
 
 
 require __DIR__.'/auth.php';
-
 require __DIR__.'/accounts.php';
 require __DIR__.'/hr.php';
 require __DIR__.'/inventory.php';

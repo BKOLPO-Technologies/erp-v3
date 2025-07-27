@@ -90,8 +90,9 @@
                                         <div class="col-sm-4 invoice-col">
                                             <address>
                                                 <strong>{{ $sale->client->name }}</strong><br>
-                                                {{ $sale->client->address }}, {{ $sale->client->city }}<br>
-                                                {{ $sale->client->region }}, {{ $sale->client->country }}<br>
+                                                {{-- {{ $sale->client->address }}, {{ $sale->client->city }}<br> --}}
+                                                {{ $sale->client->address }}<br>
+                                                {{-- {{ $sale->client->region }}, {{ $sale->client->country }}<br> --}}
                                                 Phone: {{ $sale->client->phone }}<br>
                                                 Email: {{ $sale->client->email }}
                                             </address>

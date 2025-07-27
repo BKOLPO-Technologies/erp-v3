@@ -17,9 +17,8 @@ use App\Http\Controllers\Inventory\OrderController;
 
 
 
-Route::prefix('inventory')->as('inventory.')->group(function () {
+Route::prefix('inventory')->as('inventory.')->middleware(['auth', 'verified', 'restrict.access'])->group(function () {
     /* =============== Start Hrm Route  ============= */
-    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
@@ -176,6 +175,4 @@ Route::prefix('inventory')->as('inventory.')->group(function () {
             Route::post('/remove-from-cart', [OrderController::class, 'removeFromCart'])->name('order.removeFromCart');
             Route::post('/clear-cart', [OrderController::class, 'clearCart'])->name('order.clearCart');
         });
-    });
-
 }); 

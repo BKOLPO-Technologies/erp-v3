@@ -470,7 +470,7 @@
             $productSelect.empty().append('<option value="">Loading products...</option>');
 
             $.ajax({
-                url: '/admin/product/products-by-category/' + encodeURIComponent(categoryId),
+                url: '/accounts/product/products-by-category/' + encodeURIComponent(categoryId),
                 method: 'GET',
                 dataType: 'json',
                 success: function (response) {

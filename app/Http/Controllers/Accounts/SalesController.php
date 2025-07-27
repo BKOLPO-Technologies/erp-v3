@@ -194,6 +194,8 @@ class SalesController extends Controller
     
                 $journalVoucher = JournalVoucher::create([
                     'transaction_code' => $transactionCode,
+                    'company_id'       => $companyInfo->id,
+                    'branch_id'        => $companyInfo->branch->id,
                     'transaction_date' => now()->format('Y-m-d'),
                     'description'      => 'Invoice Entry for Sales',
                     'status'           => 1,

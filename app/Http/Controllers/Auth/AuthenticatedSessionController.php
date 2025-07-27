@@ -33,33 +33,32 @@ class AuthenticatedSessionController extends Controller
 
             // Get authenticated user
             $user = auth()->user();
-            // dd($user);
 
-            // Redirect based on user module or role
-            switch ($user->email) {
-                case 'superadmin@bkolpo.com':
+            // Redirect based on user role from DB
+            switch ($user->role) {
+                case 'superadmin':
                     $redirectRoute = route('dashboard'); // main superadmin dashboard
                     break;
-                case 'accounts@bkolpo.com':
+                case 'accounts':
                     $redirectRoute = route('accounts.dashboard');
                     break;
-                case 'inventory@bkolpo.com':
+                case 'inventory':
                     $redirectRoute = route('inventory.dashboard');
                     break;
-                case 'hr@bkolpo.com':
+                case 'hr':
                     $redirectRoute = url('/hr/dashboard');
                     break;
-                case 'ecommerce@bkolpo.com':
+                case 'ecommerce':
                     $redirectRoute = route('ecommerce.dashboard');
                     break;
-                case 'payroll@bkolpo.com':
+                case 'payroll':
                     $redirectRoute = route('payroll.dashboard');
                     break;
-                case 'process@bkolpo.com':
+                case 'process':
                     $redirectRoute = route('process.dashboard');
                     break;
                 default:
-                    $redirectRoute = route('login'); // fallback
+                    $redirectRoute = route('login'); // fallback to login page or somewhere else
                     break;
             }
 
@@ -72,6 +71,7 @@ class AuthenticatedSessionController extends Controller
                 ->with(['error' => 'These credentials do not match our records.']);
         }
     }
+
 
 
 

@@ -12,9 +12,8 @@ use App\Http\Controllers\Hrm\StaffSalaryController;
 use App\Http\Controllers\Hrm\ChatController;
 
 
-Route::prefix('hr')->as('hr.')->group(function () {
+Route::prefix('hr')->as('hr.')->middleware(['auth', 'verified', 'restrict.access'])->group(function () {
     /* =============== Start Hrm Route  ============= */
-    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
@@ -72,7 +71,5 @@ Route::prefix('hr')->as('hr.')->group(function () {
             Route::get('/delete/{id}', [StaffSalaryController::class, 'destroy'])->name('delete');
             Route::post('/update-payment-status/{id}', [StaffSalaryController::class, 'updatePaymentStatus'])->name('updatePaymentStatus');
         });
-        
-    }); 
 
 }); 

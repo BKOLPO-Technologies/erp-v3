@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PurchaseProduct extends Model
 {
-    protected $table = 'purchase_product'; // Define the table name if it's different from plural of model
+    protected $table = 'purchase_products'; // Define the table name if it's different from plural of model
     use SoftDeletes;
     protected $fillable = [
         'purchase_id',

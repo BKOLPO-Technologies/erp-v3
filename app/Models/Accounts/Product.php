@@ -31,7 +31,7 @@ class Product extends Model
     
     public function sales()
     {
-        return $this->belongsToMany(Sale::class, 'sale_product') // Define pivot table name
+        return $this->belongsToMany(Sale::class, 'sale_products') // Define pivot table name
                     ->withPivot('quantity', 'price') // Access pivot data (quantity, price)
                     ->withTimestamps(); // Automatically manage created_at and updated_at timestamps
     }

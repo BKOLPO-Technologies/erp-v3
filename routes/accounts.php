@@ -40,10 +40,8 @@ use App\Http\Controllers\Accounts\IncomingChalanController;
 use App\Http\Controllers\Accounts\OutComingChalanController;
 use App\Http\Controllers\Accounts\ProductSaleReceiveController;
 
-
-Route::prefix('accounts')->as('accounts.')->group(function () {
+Route::prefix('accounts')->as('accounts.')->middleware(['auth', 'verified', 'restrict.access'])->group(function () {
     /* =============== Start Admin Route  ============= */
-    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
 
@@ -176,8 +174,8 @@ Route::prefix('accounts')->as('accounts.')->group(function () {
         /* ==================== Report =================== */
         Route::prefix('report/accounts')->as('report.')->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('index')->middleware('can:report-list');
-            Route::get('/trial/balance', [ReportController::class, 'trialBalance'])->name('trial.balance')->middleware('can:trial-balnce-report');
-            Route::get('/balance/sheet', [ReportController::class, 'balanceSheet'])->name('balance.sheet')->middleware('can:balance-shit-report');
+            Route::get('/trial/balance', [ReportController::class, 'trialBalance'])->name('trial.balance')->middleware('can:report-trial-balance');
+            Route::get('/balance/sheet', [ReportController::class, 'balanceSheet'])->name('balance.sheet')->middleware('can:report-balance-sheet');
             Route::get('/ledger', [ReportController::class, 'ledgerList'])->name('ledger.report');
             Route::get('/ledger/report/{id}', [ReportController::class, 'ledgerReport'])->name('ledger.single.report');
             Route::get('/ledger/group', [ReportController::class, 'ledgerGroupList'])->name('ledger.group.report');
@@ -462,10 +460,6 @@ Route::prefix('accounts')->as('accounts.')->group(function () {
             Route::get('/in', [StockController::class, 'In'])->name('stock.in');
             Route::get('/in/{id}', [StockController::class, 'InView'])->name('stock.in.view');
         });
-
-    });
-
-
 
 
 

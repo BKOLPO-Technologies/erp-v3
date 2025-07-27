@@ -11,7 +11,7 @@ class ImpersonateController extends Controller
 {
     public function loginAs($id)
     {
-        if (!Auth::user()->hasRole('Super Admin')) {
+        if (!Auth::user()->hasRole('superadmin')) { 
             abort(403);
         }
 
@@ -24,27 +24,27 @@ class ImpersonateController extends Controller
         // Get impersonated user
         $user = auth()->user();
 
-        // Dynamic redirect based on user email
-        switch ($user->email) {
-            case 'superadmin@bkolpo.com':
+        // Redirect based on user role
+        switch ($user->role) {
+            case 'superadmin':
                 $redirectRoute = route('dashboard');
                 break;
-            case 'accounts@bkolpo.com':
+            case 'accounts':
                 $redirectRoute = route('accounts.dashboard');
                 break;
-            case 'inventory@bkolpo.com':
+            case 'inventory':
                 $redirectRoute = route('inventory.dashboard');
                 break;
-            case 'hr@bkolpo.com':
+            case 'hr':
                 $redirectRoute = url('/hr/dashboard');
                 break;
-            case 'ecommerce@bkolpo.com':
+            case 'ecommerce':
                 $redirectRoute = route('ecommerce.dashboard');
                 break;
-            case 'payroll@bkolpo.com':
+            case 'payroll':
                 $redirectRoute = route('payroll.dashboard');
                 break;
-            case 'process@bkolpo.com':
+            case 'process':
                 $redirectRoute = route('process.dashboard');
                 break;
             default:
@@ -67,7 +67,4 @@ class ImpersonateController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Returned to Super Admin account.');
     }
-
-
-    
 }

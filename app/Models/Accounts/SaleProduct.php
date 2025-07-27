@@ -3,10 +3,12 @@
 namespace App\Models\Accounts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SaleProduct extends Model
 {
-    protected $table = 'sale_product'; // Define the table name if it's different from plural of model
+    use SoftDeletes;
+    protected $table = 'sale_products'; // Define the table name if it's different from plural of model
 
     protected $fillable = [
         'sale_id',

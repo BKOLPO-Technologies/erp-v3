@@ -92,7 +92,7 @@
             <span class="float-right text-muted text-sm"></span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="{{ route('accounts.logout')}}" class="dropdown-item">
+          <a href="{{ route('hr.logout')}}" class="dropdown-item">
             <i class="fas fa-lock mr-2"></i> Logout
             <span class="float-right text-muted text-sm"></span>
           </a>

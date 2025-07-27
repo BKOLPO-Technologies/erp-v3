@@ -54,17 +54,17 @@
                                             @php
                                                 $roleGroups = [
                                                     'accounts-manager' => [
-                                                        'title' => 'Accounts Manager',
+                                                        'title' => 'accounts',
                                                         'bg_color' => 'bg-success',
                                                         'groups' => ['settings','accounts','customers','vendors','projects','transactions','sales','purchases','reports','company','branch','products']
                                                     ],
                                                     'inventory-manager' => [
-                                                        'title' => 'Inventory Manager',
+                                                        'title' => 'inventory',
                                                         'bg_color' => 'bg-info',
                                                         'groups' => ['settings', 'products','customers','vendors','orders','stocks']
                                                     ],
                                                     'hr-manager' => [
-                                                        'title' => 'HR Manager',
+                                                        'title' => 'hr',
                                                         'bg_color' => 'bg-primary',
                                                         'groups' => ['settings', 'hr'],
                                                     ],
@@ -77,7 +77,7 @@
                                                 @if (strtolower($role->name) === strtolower($roleData['title']))
                                                     <h3
                                                         class="{{ $roleData['bg_color'] }} w-100 p-2 text-center text-light font-weight-bolder rounded">
-                                                        {{ $roleData['title'] }}
+                                                        {{ Str::title($roleData['title']) }}
                                                     </h3>
                                                     <hr>
 

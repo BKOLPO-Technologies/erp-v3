@@ -69,7 +69,7 @@
                                                 </td>           
                                                 <td class="col-2">
                                                     <!-- Login As Button -->
-                                                    @if(Auth::user()->hasRole('Super Admin') && Auth::id() != $user->id)
+                                                    @if(Auth::user()->hasRole('superadmin') && Auth::id() != $user->id)
                                                         <a href="{{ route('impersonate.login', $user->id) }}" class="btn btn-warning btn-sm">
                                                             <i class="fas fa-sign-in-alt"></i> Login As
                                                         </a>

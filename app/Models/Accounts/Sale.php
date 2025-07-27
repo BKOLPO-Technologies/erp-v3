@@ -13,7 +13,7 @@ class Sale extends Model
     // Define the relationship with the Product model
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'sale_product', 'sale_id', 'item_id') 
+        return $this->belongsToMany(Product::class, 'sale_products', 'sale_id', 'item_id') 
                     ->withPivot('quantity', 'price', 'discount')
                     ->withTimestamps();
     }
