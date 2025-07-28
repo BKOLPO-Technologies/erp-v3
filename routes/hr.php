@@ -10,12 +10,17 @@ use App\Http\Controllers\Hrm\AttendanceController;
 use App\Http\Controllers\Hrm\AttendanceActivityController;
 use App\Http\Controllers\Hrm\StaffSalaryController;
 use App\Http\Controllers\Hrm\ChatController;
+use App\Http\Controllers\Hrm\ProfileController;
 
 
 Route::prefix('hr')->as('hr.')->middleware(['auth', 'verified', 'restrict.access'])->group(function () {
     /* =============== Start Hrm Route  ============= */
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/password/change', [ProfileController::class, 'changePasswordForm'])->name('password.change');
+        Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('password.update');
 
         // ==================== Staff Management Routes ====================
         Route::get('/staff/index', [StaffController::class, 'index'])->name('staff.list');

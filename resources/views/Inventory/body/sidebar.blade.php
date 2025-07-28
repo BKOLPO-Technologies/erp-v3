@@ -19,10 +19,8 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="{{ asset('Accounts/assets/img/AdminLTELogo.png') }}" class="img-circle elevation-2"
-                    alt="User Image">
-            </div>
+           <img src="{{ Auth::user()->profile_image ? asset(Auth::user()->profile_image) : asset('Accounts/dist/img/avatar5.png') }}" width="30" height="30"
+      class="user-image rounded-circle shadow" alt="User Image"> 
 
             <div class="info">
                 <a href="{{ route('inventory.dashboard') }}" class="d-block">{{ Auth::user()->name ?? '' }}</a>

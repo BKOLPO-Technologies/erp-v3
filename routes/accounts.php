@@ -3,10 +3,7 @@
 use App\Models\Accounts\LedgerSubGroup;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Accounts\BankController;
-use App\Http\Controllers\Accounts\RoleController;
-use App\Http\Controllers\Accounts\UserController;
 use App\Http\Controllers\Accounts\AdminController;
 use App\Http\Controllers\Accounts\BranchController;
 use App\Http\Controllers\Accounts\LedgerController;
@@ -39,11 +36,17 @@ use App\Http\Controllers\Accounts\SaleReceiptController;
 use App\Http\Controllers\Accounts\IncomingChalanController;
 use App\Http\Controllers\Accounts\OutComingChalanController;
 use App\Http\Controllers\Accounts\ProductSaleReceiveController;
+use App\Http\Controllers\Accounts\ProfileController;
 
 Route::prefix('accounts')->as('accounts.')->middleware(['auth', 'verified', 'restrict.access'])->group(function () {
     /* =============== Start Admin Route  ============= */
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/password/change', [ProfileController::class, 'changePasswordForm'])->name('password.change');
+        Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('password.update');
+    
 
         /* ==================== Branch =================== */
         Route::prefix('branch')->as('branch.')->group(function () {
@@ -252,23 +255,6 @@ Route::prefix('accounts')->as('accounts.')->middleware(['auth', 'verified', 'res
             Route::get('journalExport', [CompanyInformationController::class, 'journalExport'])->name('journalExport');
         });
 
-        /* ==================== Role and User Management =================== */
-        Route::resource('roles', RoleController::class) ->middleware([
-            'can:role-list',   
-            'can:role-create',  
-            'can:role-edit',   
-            'can:role-delete',
-            'can:role-view',
-        ]);
-        Route::get('roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.delete');
-        Route::resource('users', UserController::class)->middleware([
-            'can:user-list',   
-            'can:user-create',  
-            'can:user-edit',   
-            'can:user-delete',   
-            'can:user-view',   
-        ]);
-        Route::get('users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
 
         /* ==================== Category =================== */
         Route::prefix('category')->group(function () {

@@ -71,18 +71,18 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-            <img src="{{ asset('Accounts/assets/img/user2-160x160.jpg ') }}" width="30" height="30"
+            <img src="{{ Auth::user()->profile_image ? asset(Auth::user()->profile_image) : asset('Accounts/dist/img/avatar5.png') }}" width="30" height="30"
             class="user-image rounded-circle shadow" alt="User Image"> 
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="{{ route('accounts.profile.edit') }}" class="dropdown-item">
             <i class="fas fa-users mr-2"></i> Profile View
             <span class="float-right text-muted text-sm"></span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          <a href="{{ route('accounts.password.change') }}" class="dropdown-item">
             <i class="fas fa-lock mr-2"></i> Password Change
             <span class="float-right text-muted text-sm"></span>
           </a>

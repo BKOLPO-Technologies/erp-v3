@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('Inventory.layouts.admin')
 @section('admin')
 <div class="content-wrapper">
     <div class="content-header">
@@ -10,7 +9,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('inventory.dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active">{{ $pageTitle ?? '' }}</li>
                     </ol>
                 </div>
@@ -25,7 +24,7 @@
                     <h3 class="card-title">Edit Profile</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('inventory.profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

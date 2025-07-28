@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -13,7 +14,7 @@ use Hash;
 
 class ProfileController extends Controller
 {
-    /**
+     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
@@ -23,7 +24,7 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         $pageTitle = 'Profile Edit';
 
-        return view('profile.edit', [
+        return view('Inventory.profile.edit', [
             'user' => $user,
             'pageTitle' => $pageTitle,
         ]);
@@ -63,31 +64,10 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
-
-    public function changePasswordForm()
+     public function changePasswordForm()
     {
         $pageTitle = 'Change Password';
-        return view('profile.password', compact('pageTitle'));
+        return view('Inventory.profile.password', compact('pageTitle'));
     }
 
     public function updatePassword(Request $request)

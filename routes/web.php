@@ -15,12 +15,20 @@ Route::get('/admin/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'restrict.access'])->name('dashboard');
 
+
+// Route::get('/register', function () {
+//     return redirect()->route('login');
+// });
+
 Route::get('/', [HomeController::class, 'Home'])->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'restrict.access'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/password/change', [ProfileController::class, 'changePasswordForm'])->name('password.change');
+    Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('admin.password.update');
+    
 
     /* ==================== Role and User Management =================== */
     Route::resource('roles', RoleController::class) ->middleware([

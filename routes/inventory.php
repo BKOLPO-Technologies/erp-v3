@@ -14,6 +14,7 @@ use App\Http\Controllers\Inventory\SpecificationController;
 use App\Http\Controllers\Inventory\StockInwardController;
 use App\Http\Controllers\Inventory\StockOutwardController;
 use App\Http\Controllers\Inventory\OrderController;
+use App\Http\Controllers\Inventory\ProfileController;
 
 
 
@@ -21,6 +22,10 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth', 'verified', 'r
     /* =============== Start Hrm Route  ============= */
         Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('dashboard')->middleware('can:dashboard-menu');
         Route::get('/logout', [AdminController::class, 'AdminDestroy'])->name('logout');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/password/change', [ProfileController::class, 'changePasswordForm'])->name('password.change');
+        Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('password.update');
 
         /* ==================== Product =================== */
         Route::prefix('product')->group(function () {
