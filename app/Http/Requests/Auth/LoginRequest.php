@@ -48,7 +48,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => __('Your account is inactive or blocked.'),
+                'email' => 'Your account is inactive or blocked.',
             ]);
         }
 
