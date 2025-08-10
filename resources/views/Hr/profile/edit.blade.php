@@ -52,12 +52,12 @@
 
                         <div class="form-group mt-4">
                             <label for="name">Name</label>
-                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" required>
+                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" placeholder="Enter name" required>
                         </div>
 
                         <div class="form-group mt-3">
                             <label for="email">Email</label>
-                            <input type="email" name="email" value="{{ $user->email }}" class="form-control" disabled required>
+                            <input type="email" name="email" value="{{ $user->email }}" class="form-control" placeholder="Enter email" disabled required>
                         </div>
 
                         <div class="form-group mt-4">
