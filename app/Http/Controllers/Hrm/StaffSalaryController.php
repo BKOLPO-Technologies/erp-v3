@@ -74,6 +74,11 @@ class StaffSalaryController extends Controller
         $staff_ids = $request->input('staff_id');
         $salaries = $request->input('salary');
 
+        // If no staff selected
+        if (empty($staff_ids)) {
+            return back()->with('error', 'No staff selected. Please select at least one staff member.');
+        }
+
         foreach ($staff_ids as $key => $staff_id) {
             $salary = $salaries[$key];
 
