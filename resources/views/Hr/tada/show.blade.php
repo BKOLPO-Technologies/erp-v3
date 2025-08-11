@@ -6,7 +6,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">{{ $pageTitle ?? 'N/A'}}</h1>
+              <h1 class="m-0">{{ $pageTitle ?? ''}}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -24,7 +24,7 @@
                     <div class="card card-primary card-outline shadow-lg">
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">Details of TA/DA: {{ $tada->user->name ?? 'N/A' }}</h4>
+                                <h4 class="mb-0">Details of TA/DA: {{ $tada->user->name ?? '' }}</h4>
                                 <a href="{{ route('hr.ta-da.index') }}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
@@ -34,11 +34,11 @@
                             <div class="row">
                                 <!-- Name -->
                                 <div class="col-md-6">
-                                    <p><strong>Staff Name:</strong> {{ $tada->user->name ?? 'N/A' }}</p>
+                                    <p><strong>Staff Name:</strong> {{ $tada->user->name ?? '' }}</p>
                                 </div>
                                 <!-- Designation -->
                                 <div class="col-md-6">
-                                    <p><strong>TaDa Type:</strong> {{ $tada->type->name ?? 'N/A' }}</p>
+                                    <p><strong>TaDa Type:</strong> {{ $tada->type->name ?? '' }}</p>
                                 </div>
                                 <!-- Date -->
                                 <div class="col-md-6">
@@ -69,7 +69,7 @@
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ $detail->purpose }}</td>
                                                     <td>{{ number_format($detail->amount, 2) }}</td>
-                                                    <td>{{ $detail->remarks ?? 'N/A' }}</td>
+                                                    <td>{{ $detail->remarks ?? '' }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>

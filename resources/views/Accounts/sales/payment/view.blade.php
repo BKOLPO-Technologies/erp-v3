@@ -6,12 +6,12 @@
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1 class="m-0">{{ $pageTitle ?? 'N/A'}}</h1>
+                  <h1 class="m-0">{{ $pageTitle ?? ''}}</h1>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('accounts.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">{{ $pageTitle ?? 'N/A'}}</li>
+                    <li class="breadcrumb-item active">{{ $pageTitle ?? ''}}</li>
                   </ol>
                 </div>
               </div>
@@ -25,7 +25,7 @@
                         <div class="card card-primary card-outline shadow-lg">
                             <div class="card-header py-2">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                                    <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                     <a href="{{ route('accounts.sale.payment.index')}}" class="btn btn-sm btn-danger rounded-0">
                                         <i class="fa-solid fa-arrow-left"></i> Back To List
                                     </a>
@@ -49,7 +49,7 @@
                                         </tr>
                                         <tr>
                                             <th>Customer</th>
-                                            <td>{{ $project->client->name ?? 'N/A' }}</td>
+                                            <td>{{ $project->client->name ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Reference No</th>
@@ -57,7 +57,7 @@
                                         </tr>
                                         <tr>
                                             <th>Schedule Date</th>
-                                            <td>{{ $project->schedule_date ?? 'N/A' }}</td>
+                                            <td>{{ $project->schedule_date ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Project Type</th>
@@ -65,7 +65,7 @@
                                         </tr>
                                         <tr>
                                             <th>Description</th>
-                                            <td>{{ $project->description ?? 'N/A' }}</td>
+                                            <td>{{ $project->description ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <th>Terms & Conditions</th>

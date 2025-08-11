@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ $pageTitle ?? 'N/A' }}</h1>
+                    <h1 class="m-0">{{ $pageTitle ?? '' }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('hr.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
+                        <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? '' }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,7 +25,7 @@
                     <div class="card card-primary card-outline shadow-lg">
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                                <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                 <a href="{{ route('hr.salary.index')}}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List
                                 </a>
@@ -36,35 +36,35 @@
                                 <tbody>
                                     <tr>
                                         <th>Staff Name</th>
-                                        <td>{{ $salary->staff->name ?? 'N/A' }}</td>
+                                        <td>{{ $salary->staff->name ?? '' }}</td>
                                     </tr>  
                                     <tr>
                                         <th>Salary</th>
-                                        <td>৳{{ number_format($salary->salary, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->salary, 2) ?? '' }}</td>
                                     </tr>  
                                     <!-- <tr>
                                         <th>Basic Salary</th>
-                                        <td>৳{{ number_format($salary->basic_salary, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->basic_salary, 2) ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>House Rent</th>
-                                        <td>৳{{ number_format($salary->house_rent, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->house_rent, 2) ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Gross Salary</th>
-                                        <td>৳{{ number_format($salary->gross_salary, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->gross_salary, 2) ?? '' }}</td>
                                     </tr> -->
                                     <tr>
                                         <th>Payment Amount</th>
-                                        <td>৳{{ number_format($salary->payment_amount, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->payment_amount, 2) ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Due Amount</th>
-                                        <td>৳{{ number_format($salary->will_get, 2) ?? 'N/A' }}</td>
+                                        <td>৳{{ number_format($salary->will_get, 2) ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Payment Mode</th>
-                                        <td>{{ $salary->payment_mode ?? 'N/A' }}</td>
+                                        <td>{{ $salary->payment_mode ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Status</th>
@@ -80,16 +80,16 @@
                                     </tr>
                                     <tr>
                                         <th>Date</th>
-                                        <td>{{ \Carbon\Carbon::createFromDate($salary->year, $salary->month, 1)->format('F d, Y') ?? 'N/A' }}</td>
+                                        <td>{{ \Carbon\Carbon::createFromDate($salary->year, $salary->month, 1)->format('F d, Y') ?? '' }}</td>
                                     </tr>
 
                                     <tr>
                                         <th>Month</th>
-                                        <td>{{ \Carbon\Carbon::createFromFormat('m', $salary->month)->format('F') ?? 'N/A' }}</td>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('m', $salary->month)->format('F') ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Year</th>
-                                        <td>{{ $salary->year ?? 'N/A' }}</td>
+                                        <td>{{ $salary->year ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Profile Image</th>

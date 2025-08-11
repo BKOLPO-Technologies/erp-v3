@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ $pageTitle ?? 'N/A' }}</h1>
+                    <h1 class="m-0">{{ $pageTitle ?? '' }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('hr.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? 'N/A' }}</li>
+                        <li class="breadcrumb-item active"> HR Management / {{ $pageTitle ?? '' }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,7 +25,7 @@
                     <div class="card card-primary card-outline shadow-lg">
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                                <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                 <a href="{{ route('hr.staff.list')}}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List Staff
                                 </a>
@@ -36,15 +36,15 @@
                                 <tbody>
                                     <tr>
                                         <th>HR Code</th>
-                                        <td>{{ $staff->hr_code ?? 'N/A' }}</td>
+                                        <td>{{ $staff->hr_code ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Full Name</th>
-                                        <td>{{ $staff->full_name ?? 'N/A' }}</td>
+                                        <td>{{ $staff->full_name ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td>{{ $staff->email ?? 'N/A' }}</td>
+                                        <td>{{ $staff->email ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Birthday</th>
@@ -52,11 +52,11 @@
                                     </tr>
                                     <tr>
                                         <th>Sex</th>
-                                        <td>{{ $staff->sex ?? 'N/A' }}</td>
+                                        <td>{{ $staff->sex ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Hometown</th>
-                                        <td>{{ $staff->hometown ?? 'N/A' }}</td>
+                                        <td>{{ $staff->hometown ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Last Login</th>
@@ -64,110 +64,110 @@
                                     </tr>
                                     <tr>
                                         <th>Marital Status</th>
-                                        <td>{{ $staff->marital_status ?? 'N/A' }}</td>
+                                        <td>{{ $staff->marital_status ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Nationality</th>
-                                        <td>{{ $staff->nation ?? 'N/A' }}</td>
+                                        <td>{{ $staff->nation ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Religion</th>
-                                        <td>{{ $staff->religion ?? 'N/A' }}</td>
+                                        <td>{{ $staff->religion ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>ID Document Type</th>
-                                        <td>{{ $staff->id_document_type ?? 'N/A' }}</td>
+                                        <td>{{ $staff->id_document_type ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>ID Creation Date</th>
-                                        <td>{{ \Carbon\Carbon::parse($staff->id_creation_date)->format('j F Y') ?? 'N/A' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($staff->id_creation_date)->format('j F Y') ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Place of Issue</th>
-                                        <td>{{ $staff->place_of_issue ?? 'N/A' }}</td>
+                                        <td>{{ $staff->place_of_issue ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Resident of</th>
-                                        <td>{{ $staff->resident_of ?? 'N/A' }}</td>
+                                        <td>{{ $staff->resident_of ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Current Address</th>
-                                        <td>{{ $staff->current_address ?? 'N/A' }}</td>
+                                        <td>{{ $staff->current_address ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Literacy</th>
-                                        <td>{{ $staff->literacy ?? 'N/A' }}</td>
+                                        <td>{{ $staff->literacy ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Status</th>
-                                        <td>{{ $staff->status ?? 'N/A' }}</td>
+                                        <td>{{ $staff->status ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Job Position</th>
-                                        <td>{{ $staff->job_position ?? 'N/A' }}</td>
+                                        <td>{{ $staff->job_position ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Workplace</th>
-                                        <td>{{ $staff->workplace ?? 'N/A' }}</td>
+                                        <td>{{ $staff->workplace ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Bank Account Number</th>
-                                        <td>{{ $staff->bank_account_number ?? 'N/A' }}</td>
+                                        <td>{{ $staff->bank_account_number ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Account Name</th>
-                                        <td>{{ $staff->account_name ?? 'N/A' }}</td>
+                                        <td>{{ $staff->account_name ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Bank of Issue</th>
-                                        <td>{{ $staff->bank_of_issue ?? 'N/A' }}</td>
+                                        <td>{{ $staff->bank_of_issue ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Personal Tax Code</th>
-                                        <td>{{ $staff->personal_tax_code ?? 'N/A' }}</td>
+                                        <td>{{ $staff->personal_tax_code ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Hourly Rate</th>
-                                        <td>{{ $staff->hourly_rate ?? 'N/A' }}</td>
+                                        <td>{{ $staff->hourly_rate ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Phone</th>
-                                        <td>{{ $staff->phone ?? 'N/A' }}</td>
+                                        <td>{{ $staff->phone ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Facebook</th>
-                                        <td>{{ $staff->facebook ?? 'N/A' }}</td>
+                                        <td>{{ $staff->facebook ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>LinkedIn</th>
-                                        <td>{{ $staff->linkedin ?? 'N/A' }}</td>
+                                        <td>{{ $staff->linkedin ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Skype</th>
-                                        <td>{{ $staff->skype ?? 'N/A' }}</td>
+                                        <td>{{ $staff->skype ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Default Language</th>
-                                        <td>{{ $staff->default_language ?? 'N/A' }}</td>
+                                        <td>{{ $staff->default_language ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Direction</th>
-                                        <td>{{ $staff->direction ?? 'N/A' }}</td>
+                                        <td>{{ $staff->direction ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Email Signature</th>
-                                        <td>{{ $staff->email_signature ?? 'N/A' }}</td>
+                                        <td>{{ $staff->email_signature ?? '' }}</td>
                                     </tr>
                                    <!-- Education -->
                                     @foreach ($staff->educations as $education)
                                     <tr>
                                         <th>Educational Qualifications</th>
                                         <td>
-                                            Institution Name: {{ $education->institution_name ?? 'N/A' }}<br>
-                                            Subject Name: {{ $education->subject_name ?? 'N/A' }}<br>
-                                            Starting Year: {{ \Carbon\Carbon::parse($education->starting_year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Passing Year: {{ \Carbon\Carbon::parse($education->passing_year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Description: {{ $education->description ?? 'N/A' }}
+                                            Institution Name: {{ $education->institution_name ?? '' }}<br>
+                                            Subject Name: {{ $education->subject_name ?? '' }}<br>
+                                            Starting Year: {{ \Carbon\Carbon::parse($education->starting_year)->format('d F Y') ?? '' }}<br>
+                                            Passing Year: {{ \Carbon\Carbon::parse($education->passing_year)->format('d F Y') ?? '' }}<br>
+                                            Description: {{ $education->description ?? '' }}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -177,9 +177,9 @@
                                     <tr>
                                         <th>Certifications</th>
                                         <td>
-                                            Certification Name: {{ $certification->certification_name ?? 'N/A' }}<br>
-                                            Year: {{ \Carbon\Carbon::parse($certification->year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Description: {{ $certification->description ?? 'N/A' }}
+                                            Certification Name: {{ $certification->certification_name ?? '' }}<br>
+                                            Year: {{ \Carbon\Carbon::parse($certification->year)->format('d F Y') ?? '' }}<br>
+                                            Description: {{ $certification->description ?? '' }}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -189,9 +189,9 @@
                                     <tr>
                                         <th>Awards</th>
                                         <td>
-                                            Award Name: {{ $award->award_name ?? 'N/A' }}<br>
-                                            Year: {{ \Carbon\Carbon::parse($award->year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Description: {{ $award->description ?? 'N/A' }}
+                                            Award Name: {{ $award->award_name ?? '' }}<br>
+                                            Year: {{ \Carbon\Carbon::parse($award->year)->format('d F Y') ?? '' }}<br>
+                                            Description: {{ $award->description ?? '' }}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -201,22 +201,22 @@
                                     <tr>
                                         <th>Employment History</th>
                                         <td>
-                                            Company Name: {{ $employment->company_name ?? 'N/A' }}<br>
-                                            Position: {{ $employment->position ?? 'N/A' }}<br>
-                                            Starting Year: {{ \Carbon\Carbon::parse($employment->starting_year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Ending Year: {{ \Carbon\Carbon::parse($employment->ending_year)->format('d F Y') ?? 'N/A' }}<br>
-                                            Description: {{ $employment->description ?? 'N/A' }}
+                                            Company Name: {{ $employment->company_name ?? '' }}<br>
+                                            Position: {{ $employment->position ?? '' }}<br>
+                                            Starting Year: {{ \Carbon\Carbon::parse($employment->starting_year)->format('d F Y') ?? '' }}<br>
+                                            Ending Year: {{ \Carbon\Carbon::parse($employment->ending_year)->format('d F Y') ?? '' }}<br>
+                                            Description: {{ $employment->description ?? '' }}
                                         </td>
                                     </tr>
                                     @endforeach
                                     
                                     <tr>
                                         <th>Previous Job</th>
-                                        <td>{{ $staff->previous_job ?? 'N/A' }}</td>
+                                        <td>{{ $staff->previous_job ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Publication Job</th>
-                                        <td>{{ $staff->publication_job ?? 'N/A' }}</td>
+                                        <td>{{ $staff->publication_job ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Active</th>

@@ -5,12 +5,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">{{ $pageTitle ?? 'N/A'}}</h1>
+              <h1 class="m-0">{{ $pageTitle ?? ''}}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('hr.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle ?? 'N/A' }}</li>
+                <li class="breadcrumb-item active" aria-current="page">HR Management / {{ $pageTitle ?? '' }}</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -23,7 +23,7 @@
                     <div class="card card-primary card-outline shadow-lg">
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                                <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                 <a href="{{ route('hr.ta-da.index')}}" class="btn btn-sm btn-danger rounded-0">
                                     <i class="fa-solid fa-arrow-left"></i> Back To List TA/DA
                                 </a>
