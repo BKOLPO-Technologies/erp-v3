@@ -511,7 +511,7 @@
                         <button type="button" class="btn btn-success btn-sm me-1 add-row">
                             <i class="fas fa-plus"></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm remove-row">
+                        <button type="button" class="btn btn-danger mt-1 btn-sm remove-row">
                             <i class="fas fa-minus"></i>
                         </button>
                     </td>

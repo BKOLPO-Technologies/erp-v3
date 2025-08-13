@@ -38,13 +38,15 @@ class LedgerController extends Controller
 
         $ledgers = Ledger::with(['groups', 'journalVoucherDetails'])->get();
 
-        //dd($ledgers);
+        // dd($ledgers);
 
         $ledgers->each(function ($ledger) {
             $ledger->ledgerSums = $this->getLedgerSums($ledger);
         });
 
         $totals = $this->getTotalSums($ledgers);
+
+        // dd($totals);
         
         return view('Accounts.ledger.index',compact('pageTitle','ledgers','totals'));
     }
