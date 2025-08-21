@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('accounts.dashboard') }}" style="text-decoration: none; color: black;">Home</a></li>
-                        <li class="breadcrumb-item active">{{ $pageTitle ?? 'N/A'}}</li>
+                        <li class="breadcrumb-item active">{{ $pageTitle ?? ''}}</li>
                     </ol>
                 </div>
             </div>
@@ -32,7 +32,7 @@
               <div class="card-header">
                 <!-- <h3 class="card-title">Edit client Details</h3> -->
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                    <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                     <a href="{{ route('accounts.client.index')}}" class="btn btn-sm btn-danger rounded-0">
                         <i class="fa-solid fa-arrow-left"></i> Back To List
                     </a>

@@ -46,6 +46,7 @@
   <!-- Daterangepicker CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.css">
   
+  
   @stack('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

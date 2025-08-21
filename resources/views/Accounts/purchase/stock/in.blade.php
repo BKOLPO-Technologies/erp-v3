@@ -1,17 +1,17 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Stock In List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1 class="m-0">{{ $pageTitle ?? 'N/A'}}</h1>
+                  <h1 class="m-0">{{ $pageTitle ?? ''}}</h1>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('accounts.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">{{ $pageTitle ?? 'N/A'}}</li>
+                    <li class="breadcrumb-item active">{{ $pageTitle ?? ''}}</li>
                   </ol>
                 </div>
               </div>
@@ -25,7 +25,7 @@
                         <div class="card card-primary card-outline shadow-lg">
                             <div class="card-header py-2">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
+                                    <h4 class="mb-0">{{ $pageTitle ?? '' }}</h4>
                                 </div>
                             </div>
                             <div class="card-body">
