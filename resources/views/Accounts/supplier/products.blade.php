@@ -12,7 +12,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('accounts.dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('accounts.supplier.index') }}">Suppliers</a></li>
-                        <li class="breadcrumb-item active">Purchased Products</li>
+                        <li class="breadcrumb-item active">Purchase Products</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="card card-primary card-outline shadow-lg">
                 <div class="card-header py-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">{{ $supplier->name }} - Products Purchased</h4>
+                        <h4 class="mb-0">{{ $supplier->name }} - Products Purchase</h4>
                         <a href="{{ route('accounts.supplier.view',$supplier->id) }}" class="btn btn-sm btn-danger rounded-0">
                             <i class="fa-solid fa-arrow-left"></i> Back To List
                         </a>

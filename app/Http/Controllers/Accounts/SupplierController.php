@@ -47,6 +47,7 @@ class SupplierController extends Controller
 
     public function AdminSupplierStore(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
@@ -213,6 +214,7 @@ class SupplierController extends Controller
     {
         // Fetch the supplier
         $supplier = Supplier::findOrFail($supplierId);
+        // dd($supplier);
 
         // Fetch the purchased products for this supplier
         $purchasedProducts = Purchase::where('supplier_id', $supplierId)
@@ -220,6 +222,7 @@ class SupplierController extends Controller
                                     ->get();
 
         $pageTitle = 'Purchased Products History';
+        // dd($purchasedProducts);
 
         $totalPurchaseAmount = $supplier->totalPurchaseAmount();
         $totalPaidAmount = $supplier->totalPaidAmount();

@@ -221,7 +221,7 @@ class ClientController extends Controller
 
         // dd($purchasedProducts);
 
-        $pageTitle = 'Saled Products History';
+        $pageTitle = 'Sale Products History';
 
         $totalPurchaseAmount = $client->totalPurchaseAmount();
         //dd($totalPurchaseAmount);
