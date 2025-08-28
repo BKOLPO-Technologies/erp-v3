@@ -99,15 +99,18 @@ class ReportController extends Controller
         $fromDate = $request->input('from_date', now()->subMonth()->format('Y-m-d'));
         $toDate = $request->input('to_date', now()->format('Y-m-d'));
 
-        $purchases = $this->getPurchasesReport2($fromDate, $toDate);
-        $sales = $this->getSalesReport2($fromDate, $toDate);
+        $purchases = collect($this->getPurchasesReport2($fromDate, $toDate));
+        $sales     = collect($this->getSalesReport2($fromDate, $toDate));
 
         // $purchasesSalesReports = $purchases->merge($sales)->sortBy('invoice_date');
 
+        //   dd($sales);
         $purchasesSalesReports = $purchases->merge($sales)->sortBy([
             ['type', 'asc'],
             ['invoice_date', 'asc'],
         ]);
+
+        // dd($purchasesSalesReports);
 
         return view('Accounts.report.account.purchases_sales_report', compact(
             'pageTitle',
