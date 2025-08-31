@@ -98,6 +98,7 @@ class SalesController extends Controller
         $vat = $companyInfo->vat;
         $tax = $companyInfo->tax;
         
+        
         return view('Accounts.sales.create', compact(
             'pageTitle', 
             'clients', 
@@ -172,26 +173,33 @@ class SalesController extends Controller
                 ]);
             }
     
-            // Ledger & Journal Voucher logic (same as your current logic)
+            // Ledger & Journal Voucher logic
             $saleAmount = $sale->grand_total ?? 0;
             $salesLedger = Ledger::where('type', 'Sales')->first();
             $receivableLedger = Ledger::where('type', 'Receivable')->first();
-    
+            $vatLedger = Ledger::where('type', 'Vat')->first();
+            $taxLedger = Ledger::where('type', 'Tax')->first();
+
+            $vatAmount = $sale->vat_amount ?? 0;
+            $taxAmount = $sale->tax_amount ?? 0;
+
+            $netSalesAmount = $saleAmount + ($vatAmount + $taxAmount);
+
             if ($salesLedger && $receivableLedger) {
                 $companyInfo = get_company(); 
                 $currentMonth = now()->format('m');
                 $fiscalYear = str_replace('-', '', $companyInfo->fiscal_year);
-    
+
                 $latestJV = JournalVoucher::whereRaw('MONTH(created_at) = ?', [$currentMonth])
                             ->orderBy('created_at', 'desc')
                             ->first();
-    
+
                 $increment = $latestJV && preg_match('/(\d{3})$/', $latestJV->transaction_code, $matches)
                             ? ((int)$matches[0] + 1)
                             : 1;
-    
+
                 $transactionCode = 'BCL-V-' . $fiscalYear . $currentMonth . str_pad($increment, 3, '0', STR_PAD_LEFT);
-    
+
                 $journalVoucher = JournalVoucher::create([
                     'transaction_code' => $transactionCode,
                     'company_id'       => $companyInfo->id,
@@ -200,8 +208,9 @@ class SalesController extends Controller
                     'description'      => 'Invoice Entry for Sales',
                     'status'           => 1,
                 ]);
-    
-                JournalVoucherDetail::insert([
+
+              $details = [
+                    // Receivable Debit
                     [
                         'journal_voucher_id' => $journalVoucher->id,
                         'ledger_id'          => $receivableLedger->id,
@@ -212,19 +221,51 @@ class SalesController extends Controller
                         'created_at'         => now(),
                         'updated_at'         => now(),
                     ],
-                    [
+                ];
+
+                // VAT Debit (insert before Sales)
+                if ($vatLedger && $vatAmount > 0) {
+                    $details[] = [
                         'journal_voucher_id' => $journalVoucher->id,
-                        'ledger_id'          => $salesLedger->id,
+                        'ledger_id'          => $vatLedger->id,
                         'reference_no'       => $sale->invoice_no,
-                        'description'        => 'Sales for Invoice ' . $sale->invoice_no,
-                        'debit'              => 0,
-                        'credit'             => $saleAmount,
+                        'description'        => 'VAT for Invoice ' . $sale->invoice_no,
+                        'debit'              => $vatAmount,
+                        'credit'             => 0,
                         'created_at'         => now(),
                         'updated_at'         => now(),
-                    ]
-                ]);
+                    ];
+                }
+
+                // Tax Debit (insert before Sales)
+                if ($taxLedger && $taxAmount > 0) {
+                    $details[] = [
+                        'journal_voucher_id' => $journalVoucher->id,
+                        'ledger_id'          => $taxLedger->id,
+                        'reference_no'       => $sale->invoice_no,
+                        'description'        => 'Tax for Invoice ' . $sale->invoice_no,
+                        'debit'              => $taxAmount,
+                        'credit'             => 0,
+                        'created_at'         => now(),
+                        'updated_at'         => now(),
+                    ];
+                }
+
+                // Sales Credit (last)
+                $details[] = [
+                    'journal_voucher_id' => $journalVoucher->id,
+                    'ledger_id'          => $salesLedger->id,
+                    'reference_no'       => $sale->invoice_no,
+                    'description'        => 'Sales for Invoice ' . $sale->invoice_no,
+                    'debit'              => 0,
+                    'credit'             => $netSalesAmount,
+                    'created_at'         => now(),
+                    'updated_at'         => now(),
+                ];
+
+                JournalVoucherDetail::insert($details);
             }
-    
+
             DB::commit();
             return redirect()->route('accounts.sale.index')->with('success', 'Sale created successfully!');
         } catch (\Exception $e) {

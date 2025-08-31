@@ -156,7 +156,7 @@
 
             if (groupId) {
                 $.ajax({
-                    url: "/get-sub-groups/" + groupId,
+                    url: "/accounts/get-sub-groups/" + groupId,
                     type: "GET",
                     success: function (data) {
                         $('#sub_group_id').empty().append('<option value="">Select Sub Group</option>');
