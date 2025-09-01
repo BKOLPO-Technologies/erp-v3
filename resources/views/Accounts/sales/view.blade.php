@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-sm-4 invoice-col">
                                             <b>Invoice :- {{ $sale->invoice_no }}</b><br>
-                                            <b>Reference :- {{ $sale->project->reference_no }}</b><br>
+                                            <b>Reference :- {{ $sale->project->reference_no ?? '' }}</b><br>
                                         </div>
                                     </div>
 

@@ -217,66 +217,99 @@ class PurchaseInvoiceController extends Controller
             $purchase_amount = $purchaseInvoice->grand_total ?? 0;
             $purchasesLedger = Ledger::where('type', 'Purchases')->first();
             $payableLedger = Ledger::where('type', 'Payable')->first();
+            $vatLedger = Ledger::where('type', 'Vat')->first();
+            $taxLedger = Ledger::where('type', 'Tax')->first();
+
+            $vatAmount = $purchaseInvoice->vat_amount ?? 0;
+            $taxAmount = $purchaseInvoice->tax_amount ?? 0;
+
+            $netPurchaseAmount = $purchase_amount - $vatAmount - $taxAmount;
 
             if ($purchasesLedger && $payableLedger) {
 
-                // 09-04-2025 new code //
                 $companyInfo = get_company(); 
                 $currentMonth = now()->format('m');
-                $currentYear = now()->format('y');
-                $randomNumber = rand(100000, 999999);
 
-                $journalVoucher = JournalVoucher::whereRaw('MONTH(created_at) = ?', [$currentMonth]) 
-                ->orderBy('created_at', 'desc') 
-                // ->where('transaction_code', $sale->invoice_no)
-                ->first(); 
+                $latestJV = JournalVoucher::whereRaw('MONTH(created_at) = ?', [$currentMonth])
+                    ->orderBy('created_at', 'desc')
+                    ->first(); 
 
-                if ($journalVoucher) {
-                    preg_match('/(\d{3})$/', $journalVoucher->transaction_code, $matches); 
+                $increment = 1;
+                if ($latestJV && preg_match('/(\d{3})$/', $latestJV->transaction_code, $matches)) {
                     $increment = (int)$matches[0] + 1;
-                }else{
-                    $increment = 1;
                 }
 
                 $formattedIncrement = str_pad($increment, 3, '0', STR_PAD_LEFT);
                 $fiscalYearWithoutHyphen = str_replace('-', '', $companyInfo->fiscal_year);
-
                 $transactionCode = 'BCL-V-' . $fiscalYearWithoutHyphen . $currentMonth . $formattedIncrement;
-                // $new_invoice_no = 'BCL-INV-' . $fiscalYearWithoutHyphen . $currentMonth . $formattedIncrement;
-                $new_invoice_no = $originalPurchase->invoice_no;
+
+                $new_invoice_no = $originalPurchase->invoice_no ?? '';
 
                 $journalVoucher = JournalVoucher::create([
                     'transaction_code' => $transactionCode,
+                    'company_id'       => $companyInfo->id,
+                    'branch_id'        => $companyInfo->branch->id,
                     'transaction_date' => now()->format('Y-m-d'),
                     'description' => 'Purchase PO No Recorded - Supplier',
                     'status' => 1, 
                 ]);
 
-                // Purchase -> Purchases Account (Debit Entry)
-                JournalVoucherDetail::create([
+                // Ledger Details array
+                $details = [];
+
+                // Purchases Debit
+                $details[] = [
                     'journal_voucher_id' => $journalVoucher->id,
                     'ledger_id' => $purchasesLedger->id,
-                    'reference_no' => $new_invoice_no ?? '',
+                    'reference_no' => $new_invoice_no,
                     'description' => 'Purchased Goods from Supplier',
                     'debit' => $purchase_amount,
                     'credit' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);
+                ];
 
-                // Purchase Payable -> Accounts Payable (Credit Entry)
-                JournalVoucherDetail::create([
+                // Payable Credit (Net Purchase)
+                $details[] = [
                     'journal_voucher_id' => $journalVoucher->id,
                     'ledger_id' => $payableLedger->id,
-                    'reference_no' => $new_invoice_no ?? '',
+                    'reference_no' => $new_invoice_no,
                     'description' => 'Supplier Payable Recorded for Purchase',
                     'debit' => 0,
-                    'credit' => $purchase_amount,
+                    'credit' => $netPurchaseAmount,
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);
+                ];
 
-                //Log::info('Journal Voucher details created', ['journal_voucher_id' => $journalVoucher->id]);
+                // VAT Debit
+                if ($vatLedger && $vatAmount > 0) {
+                    $details[] = [
+                        'journal_voucher_id' => $journalVoucher->id,
+                        'ledger_id' => $vatLedger->id,
+                        'reference_no' => $new_invoice_no,
+                        'description' => 'VAT for Purchase',
+                        'debit' => 0,
+                        'credit' => $vatAmount,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                // Tax Debit
+                if ($taxLedger && $taxAmount > 0) {
+                    $details[] = [
+                        'journal_voucher_id' => $journalVoucher->id,
+                        'ledger_id' => $taxLedger->id,
+                        'reference_no' => $new_invoice_no,
+                        'description' => 'TAX for Purchase',
+                        'debit' => 0,
+                        'credit' => $taxAmount,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                JournalVoucherDetail::insert($details);
             }
 
             DB::commit();
