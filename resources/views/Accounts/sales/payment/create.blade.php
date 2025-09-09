@@ -422,6 +422,7 @@
 
                                 let total = ( (product.quantity * product.price) - product.discount );
                                 totalQuantity += product.quantity;
+                                console.log(totalQuantity)
                                 totalPurchaseAmount += total;
                                 
                                 $('#purchase-products').append(`

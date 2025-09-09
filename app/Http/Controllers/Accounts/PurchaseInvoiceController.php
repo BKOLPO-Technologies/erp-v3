@@ -262,7 +262,7 @@ class PurchaseInvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-   public function edit(string $id)
+    public function edit(string $id)
     {
         $invoice = PurchaseInvoice::with([
                 'supplier',
