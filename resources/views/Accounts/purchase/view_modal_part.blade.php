@@ -43,7 +43,7 @@
             <strong>Purchase Details</strong>
         </h4>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <th colspan="5" class="text-right">Discount:</th>
-                        <th>-{{ number_format($totalDiscount, 2) }}</th>
+                        <th>{{ number_format($totalDiscount, 2) }}</th>
                     </tr>
                     <tr>
                         <th colspan="5" class="text-right">Total Purchase Amount:</th>
@@ -106,7 +106,7 @@
             </table>
             <div class="pl-2 pb-2" style="margin-top: 10px;">
                 <strong>Amount in Words:</strong>
-                <strong class="text-uppercase">{{ convertNumberToWords($totalTotal) }}</strong>
+                <strong>{{ convertNumberToWords($totalTotal) }}</strong>
             </div>
         </div>
     </div>
@@ -114,12 +114,12 @@
     <br>
 
     <!-- Payment Details -->
-    <div style="border: 1px solid #dbdbdb;">
+    <div style="border: 1px solid #dbdbdb;" id="payment-details-section">
         <h4 class="text-center mt-2 mb-3" style="text-decoration: underline; text-decoration-color: #3498db; text-decoration-thickness: 3px;">
             <strong>Payment Details</strong>
         </h4>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Payment Date</th>
@@ -158,12 +158,12 @@
     <br>
 
     <!-- Summary Calculation -->
-    <div style="border: 1px solid #dbdbdb;">
+    <div style="border: 1px solid #dbdbdb;" id="summary-section">
         <h4 class="text-center mt-2 mb-3" style="text-decoration: underline; text-decoration-color: #3498db; text-decoration-thickness: 3px;">
             <strong>Summary</strong>
         </h4>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-striped table-bordered">
                 <tbody>
                     <tr>
                         <th>Total Purchase Amount:</th>
@@ -181,7 +181,7 @@
             </table>
             <div class="pl-2 pb-2" style="margin-top: 10px;">
                 <strong>Amount in Words:</strong>
-                <strong class="text-uppercase">{{ convertNumberToWords(number_format($totalTotal - $totalPayment, 2, '.', '')) }}</strong>
+                <strong>{{ convertNumberToWords(number_format($totalTotal - $totalPayment, 2, '.', '')) }}</strong>
             </div>
         </div>
     </div>
@@ -190,12 +190,33 @@
 <!-- Print Script -->
 <script>
     function printInvoice() {
-        const printContents = document.getElementById('printableArea').innerHTML;
-        const originalContents = document.body.innerHTML;
+    const printContents = document.getElementById('printableArea').outerHTML;
+    const html = `
+        <html>
+        <head>
+            <title>Print Invoice</title>
+            <style>
+                @media print {
+                    body {
+                        margin: 15mm 0mm 15mm 0mm; /* top, right, bottom, left */
+                    }
+                    #payment-details-section, 
+                    #summary-section {
+                        display: none !important;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            ${printContents}
+        </body>
+        </html>
+    `;
 
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-        location.reload(); // Optional: reload the page to restore state
-    }
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = html;
+    window.print();
+    document.body.innerHTML = originalContents;
+    location.reload();
+}
 </script>

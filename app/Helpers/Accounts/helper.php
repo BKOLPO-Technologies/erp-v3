@@ -88,7 +88,7 @@ function convertNumberToWords($number)
         $taka .= ' and ' . $poisha;
     }
 
-    return $taka . ' only.';
+    return ucwords($taka . ' only.');
 }
 
 
