@@ -66,6 +66,11 @@
                                                     <a href="{{ route('accounts.project.receipt.payment.show', ['invoice_no' => $receipt->invoice_no]) }}" class="btn btn-success btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    <!-- Edit Button -->
+                                                    <a href="{{ route('accounts.project.receipt.payment.edit', $receipt->id) }}" class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    
                                                     <a href="{{ route('accounts.project.receipt.payment.destroy', $receipt->id) }}" id="delete" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </a>

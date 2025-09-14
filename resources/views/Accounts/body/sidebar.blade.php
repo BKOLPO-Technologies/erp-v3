@@ -9,7 +9,7 @@
   $isPurchaseActive = Route::is('workorders.index','workorders.create','workorders.edit','workorders.show','incoming.chalan.index','incoming.chalan.create','incoming.chalan.show','incoming.chalan.edit');
   $isAccountMasterActive = Route::is('accounts.chart_of_accounts.*', 'accounts.ledger.*', 'accounts.ledger.group.*', 'accounts.ledger.sub.group.*', 'accounts.client.index','accounts.client.create','accounts.client.view','accounts.client.edit','accounts.client.products','accounts.client.transactions', 'accounts.supplier.index','accounts.supplier.create','accounts.supplier.view','accounts.supplier.edit','accounts.supplier.products','accounts.supplier.transactions');
   // new
-  $isTransactionsActive = Route::is('accounts.journal-voucher.*','accounts.purchase.invoice.index','accounts.purchase.invoice.create','accounts.purchase.invoice.show','accounts.purchase.invoice.edit','accounts.purchase.order.index','accounts.purchase.order.create','accounts.purchase.order.edit','accounts.purchase.order.create','accounts.sale.index','accounts.sale.create','accounts.sale.show','accounts.sale.edit','workorders.index','workorders.create','workorders.edit','workorders.show','incoming.chalan.index','accounts.incoming.chalan.create','accounts.incoming.chalan.show','accounts.incoming.chalan.edit','accounts.sale.payment.index','accounts.sale.payment.create','accounts.stock.in','accounts.stock.in.view', 'accounts.sale.payment.show','accounts.project.receipt.payment.index', 'accounts.project.receipt.payment.create', 'accounts.project.receipt.payment.show','accounts.contra-voucher.create','accounts.contra-voucher.index','accounts.contra-voucher.edit');
+  $isTransactionsActive = Route::is('accounts.journal-voucher.*','accounts.purchase.invoice.index','accounts.purchase.invoice.create','accounts.purchase.invoice.show','accounts.purchase.invoice.edit','accounts.purchase.order.index','accounts.purchase.order.create','accounts.purchase.order.edit','accounts.purchase.order.create','accounts.sale.index','accounts.sale.create','accounts.sale.show','accounts.sale.edit','workorders.index','workorders.create','workorders.edit','workorders.show','incoming.chalan.index','accounts.incoming.chalan.create','accounts.incoming.chalan.show','accounts.incoming.chalan.edit','accounts.sale.payment.index','accounts.sale.payment.create','accounts.stock.in','accounts.stock.in.view', 'accounts.sale.payment.show','accounts.project.receipt.payment.index', 'accounts.project.receipt.payment.create', 'accounts.project.receipt.payment.show','accounts.contra-voucher.create','accounts.contra-voucher.index','accounts.contra-voucher.edit','accounts.project.receipt.payment.edit');
 @endphp
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -195,7 +195,7 @@
           <ul class="nav nav-treeview">
             @can('receipt-list')
             <li class="nav-item">
-                <a href="{{ route('accounts.project.receipt.payment.index') }}" class="nav-link {{ Route::is('accounts.project.receipt.payment.index','accounts.project.receipt.payment.create','accounts.project.receipt.payment.show') ? 'active' : '' }}">
+                <a href="{{ route('accounts.project.receipt.payment.index') }}" class="nav-link {{ Route::is('accounts.project.receipt.payment.index','accounts.project.receipt.payment.create','accounts.project.receipt.payment.show','accounts.project.receipt.payment.edit') ? 'active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Receipt</p>
                 </a>

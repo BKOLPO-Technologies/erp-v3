@@ -333,29 +333,6 @@
 
  <!-- JS to toggle visibility -->
  <script>
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     const paymentMethodSelect = document.getElementById('payment_method');
-    //     const bankAccountDiv = document.getElementById('bank_account_div');
-    //     const chequeNoDiv = document.getElementById('cheque_no_div');
-    //     const chequeDateDiv = document.getElementById('cheque_date_div');
-
-    //     paymentMethodSelect.addEventListener('change', function () {
-    //         let selectedOption = this.options[this.selectedIndex];
-    //         let paymentType = selectedOption.getAttribute('data-type');
-
-    //         if (paymentType === 'Bank') {
-    //             bankAccountDiv.style.display = 'block';
-    //             chequeNoDiv.style.display = 'block';
-    //             chequeDateDiv.style.display = 'block';
-    //         } else {
-    //             bankAccountDiv.style.display = 'none';
-    //             chequeNoDiv.style.display = 'none';
-    //             chequeDateDiv.style.display = 'none';
-    //         }
-    //     });
-    // });
-
-
     document.addEventListener("DOMContentLoaded", function () {
         const paymentMethodSelect = document.getElementById('payment_method');
         const paymentMoodSelect = document.getElementById('payment_mood');
