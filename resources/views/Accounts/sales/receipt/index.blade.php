@@ -1,6 +1,6 @@
 @extends('Accounts.layouts.admin', ['pageTitle' => 'Receive Payment List'])
 @section('admin')
-    <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('Accounts/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -26,7 +26,7 @@
                             <div class="card-header py-2">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="mb-0">{{ $pageTitle ?? 'N/A' }}</h4>
-                                    <a href="{{ route('receipt.payment.create') }}" class="btn btn-sm btn-success rounded-0">
+                                    <a href="{{ route('accounts.receipt.payment.create') }}" class="btn btn-sm btn-success rounded-0">
                                         <i class="fas fa-plus fa-sm"></i> Add New Receive
                                     </a>
                                 </div>
