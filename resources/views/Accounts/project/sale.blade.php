@@ -375,6 +375,97 @@
                             </div>
                             {{-- End Expense List --}}
 
+                              {{-- Start Sales List --}}
+                                <div class="mt-4">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header py-2">
+                                                <h4 class="mb-0">Sales</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="example13" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Sl</th>
+                                                                <th>Invoice No</th>
+                                                                <th>Invoice Date</th>
+                                                                <th>Subtotal</th>
+                                                                <th>Discount</th>
+                                                                <th>Total</th>
+                                                                <th>Paid Amount</th>
+                                                                <th>Status</th>
+                                                                {{-- <th>Action</th> --}}
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $saleTotal = 0;
+                                                                $salePaidAmount = 0;
+                                                            @endphp
+                                                            @foreach ($sales as $index => $sale)
+                                                                @php
+                                                                    $saleTotal += $sale->total ?? 0;
+                                                                    $salePaidAmount += $sale->paid_amount ?? 0;
+                                                                @endphp
+                                                                <tr>
+                                                                    <td>{{ $index + 1 }}</td>
+                                                                    <td>{{ $sale->invoice_no }}</td>
+                                                                    <td>{{ $sale->invoice_date }}</td>
+                                                                    <td>{{ $sale->subtotal }}</td>
+                                                                    <td>{{ $sale->discount }}</td>
+                                                                    <td>{{ $sale->total }}</td>
+                                                                    <td>{{ $sale->paid_amount }}</td>
+                                                                    <td>{{ ucfirst($sale->status) }}</td>
+                                                                    {{-- <td>
+                                                                        <button class="btn btn-success saleDetailsBtn"
+                                                                            type="button" data-toggle="modal"
+                                                                            data-target="#saleDetailsModal"
+                                                                            data-id="{{ $sale->id }}">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </button>
+                                                                    </td> --}}
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6">
+                                        <br />
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tr>
+                                                    <th style="width:50%">Total Sales:</th>
+                                                    <td>{{ bdt() }} {{ number_format($saleTotal, 2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Paid Amount:</th>
+                                                    <td>{{ bdt() }} {{ number_format($salePaidAmount, 2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Due Amount:</th>
+                                                    <td>{{ bdt() }}
+                                                        {{ number_format($saleTotal - $salePaidAmount, 2) }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Amount in Words -->
+                                    <div class="pl-3" style="margin-top: 20px;">
+                                        <strong>Amount in Words:</strong>
+                                        <strong
+                                            class="text-uppercase">{{ convertNumberToWords($salePaidAmount) }}</strong>
+                                    </div>
+                                </div>
+                                {{-- End Sales List --}}
+
                             {{-- project item --}}
                             {{-- <div class="mt-4">
                                 <div class="card-header">
