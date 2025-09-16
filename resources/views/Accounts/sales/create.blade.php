@@ -82,8 +82,8 @@
                                         <select name="projects" id="project" class="form-control select2 @error('project') is-invalid @enderror" style="width: 100%;">
                                             <option value="">Select Project</option>
                                             @foreach($projects as $project)
-                                                <option value="{{ $project->id }}" 
-                                                        data-items='@json($project->items)'>
+                                               <option value="{{ $project->id }}"
+                                                    data-items='@json($project->items)'>
                                                     {{ $project->project_name }}
                                                 </option>
                                             @endforeach
@@ -357,53 +357,50 @@
 <script>
     $(document).ready(function () {
         // On project change
-        $('#project').on('change', function () {
+        $('#project').on('change', function() {
             const selectedOption = $(this).find(':selected');
             const items = selectedOption.data('items');
 
-            //console.log(items);
-
             if (!items || items.length === 0) {
-                toastr.warning('No items found for this project.');
+                toastr.warning('এই প্রজেক্টে কোনো আইটেম নেই।');
                 return;
             }
 
             $('#product-table tbody').empty();
 
-            // console.log(items);
-
             items.forEach(item => {
                 const itemId = item.id;
                 const itemSpecifications = item.items_description || '';
-                // const itemDesc = item.items || 'N/A';
                 const itemDesc = item.product?.name || '';
-                const itemQuantity = parseFloat(item.quantity || 0);
+
+                const remainingQty = parseFloat(item.remaining_quantity ||
+                0); // মূল প্রজেক্ট থেকে বাদ দিয়ে অবশিষ্ট qty
                 const itemPrice = parseFloat(item.unit_price || 0);
-                const itemTotal = itemQuantity * itemPrice;
+                const itemTotal = remainingQty * itemPrice;
 
                 let unitOptions = '<option value="" disabled>Select Unit</option>';
                 units.forEach(unit => {
                     const selected = unit.id === item.unit_id ? 'selected' : '';
-                    unitOptions += `<option value="${unit.id}" ${selected}>${unit.name}</option>`;
+                    unitOptions +=
+                        `<option value="${unit.id}" ${selected}>${unit.name}</option>`;
                 });
 
                 function removeSpecialCharacters(str) {
-                    return str.replace(/["]/g, '')  
-                            .replace(/[^\w\s.,!?-]/g, '');  
+                    return str.replace(/["]/g, '')
+                        .replace(/[^\w\s.,!?-]/g, '');
                 }
 
                 const sanitizedItemSpecifications = removeSpecialCharacters(itemSpecifications);
-                
                 const sanitizedItemDescSpecifications = removeSpecialCharacters(itemDesc);
 
                 const row = `
                     <tr data-product-id="${itemId}">
                         <td style="width: 15%;">
-                            <input type="text" name="description[]" class="form-control" value="${sanitizedItemDescSpecifications}" placeholder="Enter Item Description" readonly required>
+                            <input type="text" class="form-control" value="${sanitizedItemDescSpecifications}" readonly>
                             <input type="hidden" name="item_id[]" value="${itemId}">
                         </td>
                         <td style="width: 15%;">
-                            <input type="text" name="specifications[]" class="form-control" value="${sanitizedItemSpecifications}" readonly>
+                            <input type="text" class="form-control" value="${sanitizedItemSpecifications}" readonly>
                         </td>
                         <td style="width: 15%;">
                             <select name="order_unit[]" class="form-control" required>
@@ -411,13 +408,16 @@
                             </select>
                         </td>
                         <td style="width: 15%;">
-                            <input type="number" name="quantity[]" class="form-control quantity" value="${itemQuantity}" min="1" step="1" required>
+                            <input type="number" name="quantity[]" class="form-control quantity" 
+                                value="${remainingQty}" max="${remainingQty}" min="1" step="1" required>
                         </td>
                         <td style="width: 15%;">
-                            <input type="number" name="unit_price[]" class="form-control unit-price" value="${itemPrice}" min="0" step="0.01" required style="text-align: right;">
+                            <input type="number" name="unit_price[]" class="form-control unit-price" 
+                                value="${itemPrice}" min="0" step="0.01" required style="text-align: right;">
                         </td>
                         <td style="width: 15%;">
-                            <input type="text" name="total[]" class="form-control total" readonly value="${itemTotal.toFixed(2)}" style="text-align: right;">
+                            <input type="text" name="total[]" class="form-control total" readonly 
+                                value="${itemTotal.toFixed(2)}" style="text-align: right;">
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger btn-sm remove-product"><i class="fas fa-trash"></i></button>

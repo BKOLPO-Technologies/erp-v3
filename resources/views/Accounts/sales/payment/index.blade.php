@@ -77,6 +77,10 @@
                                                     <a href="{{ route('accounts.sale.payment.show', ['invoice_no' => $payment->invoice_no]) }}" class="btn btn-success btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    <!-- Edit Button -->
+                                                    <a href="{{ route('accounts.sale.payment.edit', $payment->id) }}" class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                     <!-- Delete Button -->
                                                     <a href="{{ route('accounts.sale.payment.destroy', $payment->id) }}" id="delete" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>

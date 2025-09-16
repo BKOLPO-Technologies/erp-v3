@@ -119,8 +119,7 @@
                                     <!-- small box -->
                                     <div class="small-box bg-info">
                                         <div class="inner">
-                                        <h3>{{ $totalAmount }}</h3>
-                        
+                                        <h3>{{ number_format($totalAmount, 2, '.', ',') }}</h3>
                                         <p>Total Amount</p>
                                         </div>
                                         <div class="icon">
@@ -136,7 +135,7 @@
                                     <!-- small box -->
                                     <div class="small-box bg-success">
                                         <div class="inner">
-                                            <h3>{{ $paidAmount }}</h3>
+                                            <h3>{{ number_format($paidAmount, 2, '.', ',') }}</h3>
                         
                                         <p>Paid Amount</p>
                                         </div>
@@ -150,7 +149,7 @@
                                     <!-- small box -->
                                     <div class="small-box bg-success">
                                         <div class="inner">
-                                            <h3>{{ $dueAmount }}</h3>
+                                            <h3>{{ number_format($dueAmount, 2, '.', ',') }}</h3>
                         
                                         <p>Due Amount</p>
                                         </div>

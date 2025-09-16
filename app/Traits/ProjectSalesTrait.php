@@ -24,7 +24,8 @@ trait ProjectSalesTrait
             ->get();
 
         // Calculate totals from sales
-        $totalAmount = $sales->sum('grand_total');
+        $totalAmount = $project->grand_total;
+        // dd($totalAmount);
         $paidAmount  = $sales->sum('paid_amount');
         $dueAmount   = $totalAmount - $paidAmount;
 
